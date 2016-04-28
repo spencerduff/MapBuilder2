@@ -3,16 +3,16 @@
 class World{
 private:
 	string name;
-	Land **lands;
+	Land ***lands;
 	int xLandPos, yLandPos;
-	Land currLand;
+	Land * currLand;
 
 public:
 	World();
 
-	void placeChar(Character &c, char side = '<'){ currLand.placeChar(c, side); }
-	void printMap(){ currLand.printMap(); }
-	void movePlayerChar(char c) { currLand.movePlayerChar(c); }
-	void updateMovement(){ currLand.updateMovement(); }
+	void placeChar(Character* c, char side = '<'){ currLand->placeChar(c, side); }
+	void printMap(){ currLand->printMap(); }
+	void movePlayerChar(char c) { currLand->movePlayerChar(c); }
+	void updateMovement(){ currLand->updateMovement(); }
 
 };

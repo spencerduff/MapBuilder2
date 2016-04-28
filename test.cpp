@@ -7,7 +7,7 @@ int main(){
 
 	a.printRoom();
 
-	Character c;
+	Character* c = new Character();
 
 	World b;
 

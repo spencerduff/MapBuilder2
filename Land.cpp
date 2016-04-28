@@ -9,31 +9,31 @@ Land::Land(){
 }
 
 //If PChar is on an exit, move him to the next map
-void Land::moveMaps(){
+void OrkLands::moveMaps(){
 	if (currMap.getPCharGroundTile() == '<'){
 		xMapPos--;
-		Character& temp = currMap.getPlayerChar();
+		Character* temp = currMap.getPlayerChar();
 		currMap.deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '>');
 	}
 	else if (currMap.getPCharGroundTile() == 'v'){
 		yMapPos--;
-		Character& temp = currMap.getPlayerChar();
+		Character* temp = currMap.getPlayerChar();
 		currMap.deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '^');
 	}
 	else if (currMap.getPCharGroundTile() == '^'){
 		yMapPos++;
-		Character& temp = currMap.getPlayerChar();
+		Character* temp = currMap.getPlayerChar();
 		currMap.deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, 'v');
 	}
 	else if (currMap.getPCharGroundTile() == '>'){
 		xMapPos++;
-		Character& temp = currMap.getPlayerChar();
+		Character* temp = currMap.getPlayerChar();
 		currMap.deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '<');

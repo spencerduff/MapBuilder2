@@ -17,7 +17,7 @@ public:
 
 	Land();
 	Land(string l);
-	void moveMaps();
+	virtual void moveMaps(){ return; };
 	void updateMovement(){ currMap.updateMovement(); }
 	void movePlayerChar(char c);
 	void printMap(){ 
@@ -27,7 +27,7 @@ public:
 		cout << endl;
 		currMap.printMap(); 
 	}
-	void placeChar(Character &c, char side = '<'){ currMap.placeChar(c, side); }
+	void placeChar(Character* c, char side = '<'){ currMap.placeChar(c, side); }
 
 };
 
@@ -37,5 +37,7 @@ private:
 
 public:
 	OrkLands();
+
+	void moveMaps();
 
 };

@@ -2,11 +2,11 @@
 
 World::World(){
 	name = "Agon";
-	lands = new Land*[3];
+	lands = new Land**[3];
 	for (int i = 0; i < 3; i++){
-		lands[i] = new Land[5];
+		lands[i] = new Land*[5];
 	}
-	lands[2][3] = OrkLands();
+	lands[2][3] = new OrkLands();
 	xLandPos = 2;
 	yLandPos = 3;
 	currLand = lands[xLandPos][yLandPos];

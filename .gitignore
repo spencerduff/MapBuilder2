@@ -48,3 +48,4 @@ Temporary Items
 *.log
 *.vcxproj
 MapBuilder.vcxproj.filters
+Debug/

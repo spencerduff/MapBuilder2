@@ -17,7 +17,7 @@ protected:
 	MapTile** map;
 
 	void updateMap();
-	void moveChar(Character &c, char dir);
+	void moveChar(Character* c, char dir);
 	void placeStairs();
 	void connectRooms();
 	//Puts exits on the borders.
@@ -33,15 +33,15 @@ protected:
 
 public:
 
-	vector<Character> chars;
+	vector<Character*> chars;
 	//Constructs the map. Initializes map and sets the borders.
 	//Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
 	Map();
 
-	void placeChar(Character &c, char side = '<');
+	void placeChar(Character* c, char side = '<');
 	void updateMovement();
 	void movePlayerChar(char c);
-	Character getPlayerChar();
+	Character* getPlayerChar();
 	char getPCharGroundTile();
 	void deleteOldChar();
 

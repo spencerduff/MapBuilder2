@@ -174,34 +174,34 @@ void Map::connectRooms(){
 	return;
 }
 
-void Map::placeChar(Character &c, char side){
+void Map::placeChar(Character* c, char side){
 	int iter = 0;
 
 	if (side == '<'){
 		while (map[iter++][0].getGroundTile() != '<');
-		c.setPos(1, --iter);
-		map[iter][1].updateTile(c.getChar());
+		c->setPos(1, --iter);
+		map[iter][1].updateTile(c->getChar());
 	}else if (side == '>'){
 		while (map[iter++][xSize - 1].getGroundTile() != '>');
-		c.setPos(xSize - 2, --iter);
-		map[iter][xSize - 2].updateTile(c.getChar());
+		c->setPos(xSize - 2, --iter);
+		map[iter][xSize - 2].updateTile(c->getChar());
 
 	}else if (side == 'v'){
 		while (map[ySize - 1][iter++].getGroundTile() != 'v');
-		c.setPos(--iter, ySize - 2);
-		map[ySize - 2][iter].updateTile(c.getChar());
+		c->setPos(--iter, ySize - 2);
+		map[ySize - 2][iter].updateTile(c->getChar());
 
 	}else if (side == '^'){
 		while (map[0][iter++].getGroundTile() != '^');
-		c.setPos(--iter, 1);
-		map[1][iter].updateTile(c.getChar());
+		c->setPos(--iter, 1);
+		map[1][iter].updateTile(c->getChar());
 
 	}
 	chars.push_back(c);
 }
 
 void Map::movePlayerChar(char c){
-	chars[0].moveChar(c);
+	chars[0]->moveChar(c);
 	
 }
 
@@ -219,86 +219,86 @@ bool Map::checkNotCollidable(char c){
 	return true;
 }
 
-void Map::moveChar(Character &c, char dir){
+void Map::moveChar(Character* c, char dir){
 	if (dir == 'h'){
-		if (c.getXpos() - 1 < 0)
+		if (c->getXpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c.getYpos()][c.getXpos() - 1].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos() - 1, c.getYpos());
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos() - 1, c->getYpos());
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'j'){
-		if (c.getYpos() + 1 >= ySize)
+		if (c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c.getYpos() + 1][c.getXpos()].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos(), c.getYpos() + 1);
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos(), c->getYpos() + 1);
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'k'){
-		if (c.getYpos() - 1 < 0)
+		if (c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c.getYpos() - 1][c.getXpos()].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos(), c.getYpos() - 1);
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos(), c->getYpos() - 1);
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'l'){
-		if (c.getXpos() + 1 >= xSize)
+		if (c->getXpos() + 1 >= xSize)
 			return;
-		if (checkNotCollidable(map[c.getYpos()][c.getXpos() + 1].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos() + 1, c.getYpos());
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos() + 1, c->getYpos());
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'y'){
-		if (c.getXpos() - 1 < 0 || c.getYpos() - 1 < 0)
+		if (c->getXpos() - 1 < 0 || c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c.getYpos() - 1][c.getXpos() - 1].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos() - 1, c.getYpos() - 1);
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos() - 1, c->getYpos() - 1);
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'u'){
-		if (c.getXpos() + 1 >= xSize || c.getYpos() - 1 < 0)
+		if (c->getXpos() + 1 >= xSize || c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c.getYpos() - 1][c.getXpos() + 1].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos() + 1, c.getYpos() - 1);
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos() + 1, c->getYpos() - 1);
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'b'){
-		if (c.getXpos() - 1 < 0 || c.getYpos() + 1 >= ySize)
+		if (c->getXpos() - 1 < 0 || c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c.getYpos() + 1][c.getXpos() - 1].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos() - 1, c.getYpos() + 1);
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos() - 1, c->getYpos() + 1);
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'n'){
-		if (c.getXpos() + 1 >= xSize || c.getYpos() + 1 >= ySize)
+		if (c->getXpos() + 1 >= xSize || c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c.getYpos() + 1][c.getXpos() + 1].getGroundTile())){
-			map[c.getYpos()][c.getXpos()].updateTile();
-			c.setPos(c.getXpos() + 1, c.getYpos() + 1);
-			map[c.getYpos()][c.getXpos()].updateTile(c.getChar());
+		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1].getGroundTile())){
+			map[c->getYpos()][c->getXpos()].updateTile();
+			c->setPos(c->getXpos() + 1, c->getYpos() + 1);
+			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
 		}
 	}
-	c.moveChar();
+	c->moveChar();
 }
 
 void Map::updateMovement(){
 	for (int i = 0; i < chars.size(); i++){
-		if (chars[i].getMovement() != NULL){
-			moveChar(chars[i], chars[i].getMovement());
+		if (chars[i]->getMovement() != NULL){
+			moveChar(chars[i], chars[i]->getMovement());
 		}
 
 	}
@@ -317,18 +317,18 @@ void Map::printMap(){
 	cout << ss.str() << flush;
 }
 
-Character Map::getPlayerChar(){
+Character* Map::getPlayerChar(){
 	return chars[0];
 }
 
 char Map::getPCharGroundTile(){
-	int x = chars[0].getXpos();
-	int y = chars[0].getYpos();
+	int x = chars[0]->getXpos();
+	int y = chars[0]->getYpos();
 	return map[y][x].getGroundTile();
 }
 
 void Map::deleteOldChar(){
-	map[chars[0].getYpos()][chars[0].getXpos()].updateTile();
+	map[chars[0]->getYpos()][chars[0]->getXpos()].updateTile();
 }
 
 OrkMap::OrkMap() : Map(){
