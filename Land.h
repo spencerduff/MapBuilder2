@@ -7,37 +7,45 @@
 
 class Land{
 protected:
-	Map** maps;
 	int landSize;
-	Map currMap;
 	int xMapPos, yMapPos;
 	string land;
 
 public:
-
+	Map*** maps;
+	Map* currMap;
 	Land();
 	Land(string l);
-	virtual void moveMaps(){ return; };
-	void updateMovement(){ currMap.updateMovement(); }
+	virtual void moveMaps();
+	void updateMovement(){ currMap->updateMovement(); }
 	void movePlayerChar(char c);
 	void printMap(){ 
+		system("CLS");
 		cout << "You are in " << land << " You are at [" << xMapPos << "] [" << yMapPos << "].";
 		if (xMapPos == 2 && yMapPos == 2)
 			cout << " This is the starting area for this land.";
 		cout << endl;
-		currMap.printMap(); 
+		currMap->printMap();
 	}
-	void placeChar(Character* c, char side = '<'){ currMap.placeChar(c, side); }
-
+	void placeChar(Character* c, char side = '<'){ currMap->placeChar(c, side); }
+	
+	int getXMapPos(){ return xMapPos; }
+	int getYMapPos(){ return yMapPos; }
+	int getLandSize(){ return landSize; }
+	void setXMapPos(int x){ xMapPos = x; }
+	void setYMapPos(int y){ yMapPos = y; }
 };
 
 class OrkLands : public Land{
-private:
-	OrkMap** maps;
 
 public:
 	OrkLands();
 
-	void moveMaps();
+};
+
+class HumanLands : public Land{
+
+public:
+	HumanLands();
 
 };

@@ -6,20 +6,23 @@ Map::Map(){
 	numOfRooms = static_cast<int>((xSize*ySize) / ((avgSize*avgSize) + 500));
 
 	//Initialize map
-	map = new MapTile*[ySize];
+	map = new MapTile**[ySize];
 	for (int i = 0; i < ySize; i++){
-		map[i] = new MapTile[xSize];
+		map[i] = new MapTile*[xSize];
+		for (int j = 0; j < xSize; j++){
+			map[i][j] = new MapTile();
+		}
 	}
 	
 	//Set map borders
 	for (int i = 0; i < ySize; i++){
-		map[i][0].setGroundTile('|');
-		map[i][xSize - 1].setGroundTile('|');
+		map[i][0]->setGroundTile('|');
+		map[i][xSize - 1]->setGroundTile('|');
 	}
 	for (int i = 0; i < xSize; i++){
 
-		map[0][i].setGroundTile('_');
-		map[ySize - 1][i].setGroundTile('_');
+		map[0][i]->setGroundTile('_');
+		map[ySize - 1][i]->setGroundTile('_');
 	}
 
 	//rooms = new Room[numOfRooms];
@@ -41,25 +44,25 @@ void Map::makeExits(){
 	iter3 = (rand() % (xSize - 2)) + 1;
 	iter4 = (rand() % (xSize - 2)) + 1;
 	//While loops make sure exits aren't blocked by rooms
-	while (map[iter][1].getGroundTile() == '#' || map[iter][1].getGroundTile() == '+'){
+	while (map[iter][1]->getGroundTile() == '#' || map[iter][1]->getGroundTile() == '+'){
 		iter = (rand() % (ySize - 2)) + 1;
 	}
-	map[iter][0].setGroundTile('<');
+	map[iter][0]->setGroundTile('<');
 
-	while (map[iter2][xSize - 2].getGroundTile() == '#' || map[iter2][xSize - 2].getGroundTile() == '+'){
+	while (map[iter2][xSize - 2]->getGroundTile() == '#' || map[iter2][xSize - 2]->getGroundTile() == '+'){
 		iter2 = (rand() % (ySize - 2)) + 1;
 	}
-	map[iter2][xSize - 1].setGroundTile('>');
+	map[iter2][xSize - 1]->setGroundTile('>');
 
-	while (map[1][iter3].getGroundTile() == '#' || map[1][iter3].getGroundTile() == '+'){
+	while (map[1][iter3]->getGroundTile() == '#' || map[1][iter3]->getGroundTile() == '+'){
 		iter3 = (rand() % (xSize - 2)) + 1;
 	}
-	map[0][iter3].setGroundTile('^');
+	map[0][iter3]->setGroundTile('^');
 
-	while (map[ySize - 2][iter4].getGroundTile() == '#' || map[ySize - 2][iter4].getGroundTile() == '+'){
+	while (map[ySize - 2][iter4]->getGroundTile() == '#' || map[ySize - 2][iter4]->getGroundTile() == '+'){
 		iter4 = (rand() % (xSize - 2)) + 1;
 	}
-	map[ySize - 1][iter4].setGroundTile('v');
+	map[ySize - 1][iter4]->setGroundTile('v');
 
 
 }
@@ -96,34 +99,34 @@ void Map::placeRooms(int numOfRooms){
 			bool breakIter = false;
 			for (int j = x; j < x + roomToPlaceSize; j++){
 				if (i - 1 > 0){
-					if (map[i - 1][j].getGroundTile() != NULL){
+					if (map[i - 1][j]->getGroundTile() != NULL){
 						shouldPlace = false;
 						breakIter = true;
 						break;
 					}
 				}
 				if (i + 1 < ySize){
-					if (map[i + 1][j].getGroundTile() != NULL){
+					if (map[i + 1][j]->getGroundTile() != NULL){
 						shouldPlace = false;
 						breakIter = true;
 						break;
 					}
 				}
 				if (j - 1 > 0){
-					if (map[i][j - 1].getGroundTile() != NULL){
+					if (map[i][j - 1]->getGroundTile() != NULL){
 						shouldPlace = false;
 						breakIter = true;
 						break;
 					}
 				}
 				if (j + 1 < xSize){
-					if (map[i][j + 1].getGroundTile() != NULL){
+					if (map[i][j + 1]->getGroundTile() != NULL){
 						shouldPlace = false;
 						breakIter = true;
 						break;
 					}
 				}
-				if (map[i][j].getGroundTile() != NULL){
+				if (map[i][j]->getGroundTile() != NULL){
 					shouldPlace = false;
 					breakIter = true;
 					break;
@@ -137,7 +140,7 @@ void Map::placeRooms(int numOfRooms){
 			int k = 0, l = 0;
 			for (int i = y; i < y + roomToPlaceSize; i++){
 				for (int j = x; j < x + roomToPlaceSize; j++){
-					map[i][j].setGroundTile(rooms[iter].getBoard()[k][l].getGroundTile());
+					map[i][j]->setGroundTile(rooms[iter].getBoard()[k][l].getGroundTile());
 					k++;
 				}
 				k = 0;
@@ -154,12 +157,12 @@ void Map::placeDirt(){
 	//Fill in all NULL spaces with dirt and random plants.
 	for (int i = 0; i < ySize; i++){
 		for (int j = 0; j < xSize; j++){
-			if (map[i][j].getGroundTile() == NULL){
+			if (map[i][j]->getGroundTile() == NULL){
 				if (rand() % 100){
-					map[i][j].setGroundTile('`');
+					map[i][j]->setGroundTile('`');
 				}
 				else{
-					map[i][j].setGroundTile('~');
+					map[i][j]->setGroundTile('~');
 				}
 			}
 		}
@@ -178,23 +181,23 @@ void Map::placeChar(Character* c, char side){
 	int iter = 0;
 
 	if (side == '<'){
-		while (map[iter++][0].getGroundTile() != '<');
+		while (map[iter++][0]->getGroundTile() != '<');
 		c->setPos(1, --iter);
-		map[iter][1].updateTile(c->getChar());
+		map[iter][1]->updateTile(c->getChar());
 	}else if (side == '>'){
-		while (map[iter++][xSize - 1].getGroundTile() != '>');
+		while (map[iter++][xSize - 1]->getGroundTile() != '>');
 		c->setPos(xSize - 2, --iter);
-		map[iter][xSize - 2].updateTile(c->getChar());
+		map[iter][xSize - 2]->updateTile(c->getChar());
 
 	}else if (side == 'v'){
-		while (map[ySize - 1][iter++].getGroundTile() != 'v');
+		while (map[ySize - 1][iter++]->getGroundTile() != 'v');
 		c->setPos(--iter, ySize - 2);
-		map[ySize - 2][iter].updateTile(c->getChar());
+		map[ySize - 2][iter]->updateTile(c->getChar());
 
 	}else if (side == '^'){
-		while (map[0][iter++].getGroundTile() != '^');
+		while (map[0][iter++]->getGroundTile() != '^');
 		c->setPos(--iter, 1);
-		map[1][iter].updateTile(c->getChar());
+		map[1][iter]->updateTile(c->getChar());
 
 	}
 	chars.push_back(c);
@@ -223,73 +226,73 @@ void Map::moveChar(Character* c, char dir){
 	if (dir == 'h'){
 		if (c->getXpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos());
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'j'){
 		if (c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos(), c->getYpos() + 1);
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'k'){
 		if (c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos(), c->getYpos() - 1);
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'l'){
 		if (c->getXpos() + 1 >= xSize)
 			return;
-		if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos());
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'y'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos() - 1);
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'u'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos() - 1);
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'b'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos() + 1);
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	else if (dir == 'n'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1].getGroundTile())){
-			map[c->getYpos()][c->getXpos()].updateTile();
+		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile())){
+			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos() + 1);
-			map[c->getYpos()][c->getXpos()].updateTile(c->getChar());
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
 	c->moveChar();
@@ -308,7 +311,7 @@ void Map::printMap(){
 	stringstream ss;
 	for (int i = 0; i < ySize; i++){
 		for (int j = 0; j < xSize; j++){
-			ss << map[i][j].getShowingTile();
+			ss << map[i][j]->getShowingTile();
 		}
 		ss << endl;
 	}
@@ -324,11 +327,11 @@ Character* Map::getPlayerChar(){
 char Map::getPCharGroundTile(){
 	int x = chars[0]->getXpos();
 	int y = chars[0]->getYpos();
-	return map[y][x].getGroundTile();
+	return map[y][x]->getGroundTile();
 }
 
 void Map::deleteOldChar(){
-	map[chars[0]->getYpos()][chars[0]->getXpos()].updateTile();
+	map[chars[0]->getYpos()][chars[0]->getXpos()]->updateTile();
 }
 
 OrkMap::OrkMap() : Map(){

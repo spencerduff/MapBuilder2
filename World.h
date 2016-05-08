@@ -12,7 +12,8 @@ public:
 
 	void placeChar(Character* c, char side = '<'){ currLand->placeChar(c, side); }
 	void printMap(){ currLand->printMap(); }
-	void movePlayerChar(char c) { currLand->movePlayerChar(c); }
+	void movePlayerChar(char c);
 	void updateMovement(){ currLand->updateMovement(); }
+	void moveLands();
 
 };

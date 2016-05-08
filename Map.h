@@ -14,7 +14,7 @@ protected:
 	static const int ySize = 50;
 	static const int xSize = 175;
 	double avgSize;
-	MapTile** map;
+	MapTile*** map;
 
 	void updateMap();
 	void moveChar(Character* c, char dir);

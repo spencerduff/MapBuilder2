@@ -1,7 +1,7 @@
 #include "World.h"
 
 int main(){
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 
 	OrkRoom a;
 
