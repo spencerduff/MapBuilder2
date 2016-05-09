@@ -4,6 +4,7 @@ Map::Map(){
 	avgSize = rooms[0].getAvgSize();
 	//Size of map divided by avg room size plus a constant that makes a good amount of rooms
 	numOfRooms = static_cast<int>((xSize*ySize) / ((avgSize*avgSize) + 500));
+	numOfTrees = static_cast<int>((xSize*ySize) / ((30) + 500));
 
 	//Initialize map
 	map = new MapTile**[ySize];
@@ -334,7 +335,128 @@ void Map::deleteOldChar(){
 	map[chars[0]->getYpos()][chars[0]->getXpos()]->updateTile();
 }
 
+void Map::placeTrees(int numOfTrees){
+
+	
+
+	int iter = 0;
+	int numOfTries = 0;
+	//While there are rooms to go and I haven't tried too much, keep trying to 
+	//randomly place rooms, checking to see if they will overlap or be too close,
+	//or if they will go off the map.
+	while (iter < numOfRooms && numOfTries < 160){
+		int treeSizeX = trees[iter]->getTreeSizeX();
+		int treeSizeY = trees[iter]->getTreeSizeY();
+		
+		//Chooses coordinates. Makes sure they're in bounds. If not, subtract the room's
+		//size to lower it. Sometimes with big rooms it can cause a negative placement,
+		//so account for that and try again.
+		int x = rand() % xSize;
+		if (x >= xSize - treeSizeX)
+			x -= treeSizeX;
+		if (x < 0){
+			numOfTries++;
+			continue;
+		}
+		int y = rand() % ySize;
+		if (y >= ySize - treeSizeY)
+			y -= treeSizeY;
+		if (y < 0){
+			numOfTries++;
+			continue;
+		}
+
+		//Check if there is something there or close enough, if there is, try again.
+		bool shouldPlace = true;
+		for (int i = y; i < y + treeSizeY; i++){
+			bool breakIter = false;
+			for (int j = x; j < x + treeSizeX; j++){
+				if (i - 1 > 0){
+					if (map[i - 1][j]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (i + 1 < ySize){
+					if (map[i + 1][j]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (j - 1 > 0){
+					if (map[i][j - 1]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (j + 1 < xSize){
+					if (map[i][j + 1]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (map[i][j]->getGroundTile() != NULL){
+					shouldPlace = false;
+					breakIter = true;
+					break;
+				}
+			}
+			if (breakIter)
+				break;
+		}
+		//If there wasn't anything there or too close, place the room on the map and try again.
+		if (shouldPlace){
+			int k = 0, l = 0;
+			for (int i = y; i < y + treeSizeY; i++){
+				for (int j = x; j < x + treeSizeX; j++){
+					map[i][j]->setGroundTile(trees[iter]->getTree()[k][l]->getGroundTile());
+					k++;
+				}
+				k = 0;
+				l++;
+			}
+			iter++;
+		}
+		numOfTries++;
+	}
+
+}
+
+void Map::placeRocks(){
+
+}
+
 OrkMap::OrkMap() : Map(){
+//	rooms = new OrkRoom[numOfRooms];
+	//Place Rooms	
+//	placeRooms(numOfRooms);
+	//Place Trees
+	trees = new TreeNode*[numOfTrees];
+	for (int i = 0; i < numOfTrees; i++){
+		int treeToPlace = rand() % 10;
+		if (treeToPlace >= 0 && treeToPlace <= 5){
+			trees[i] = new SmallTree();
+		}
+		else if (treeToPlace >= 6 && treeToPlace <= 8){
+			trees[i] = new MedTree();
+		}
+		else {
+			trees[i] = new LargeTree();
+		}
+	}
+	placeTrees(numOfTrees);
+	//Place Dirt
+	placeDirt();
+	//Make Exits
+	makeExits();
+
+}
+
+OrkMap::OrkMap(bool starter) : Map(){
 	rooms = new OrkRoom[numOfRooms];
 	//Place Rooms
 	placeRooms(numOfRooms);
@@ -346,11 +468,37 @@ OrkMap::OrkMap() : Map(){
 }
 
 HumanMap::HumanMap() : Map(){
-	rooms = new HumanRoom[numOfRooms];
+	//Place Trees
+	trees = new TreeNode*[numOfTrees];
+	for (int i = 0; i < numOfTrees; i++){
+		int treeToPlace = rand() % 10;
+		if (treeToPlace >= 0 && treeToPlace <= 5){
+			trees[i] = new SmallTree();
+		}
+		else if (treeToPlace >= 6 && treeToPlace <= 8){
+			trees[i] = new MedTree();
+		}
+		else {
+			trees[i] = new LargeTree();
+		}
+	}
+	placeTrees(numOfTrees);
 
+	//Place Dirt
+	placeDirt();
+	//Make Exits
+	makeExits();
+}
+
+HumanMap::HumanMap(bool starter) : Map(){
+	//Place Rooms
+	rooms = new HumanRoom[numOfRooms];
 	placeRooms(numOfRooms);
 
+	//Place Dirt
 	placeDirt();
 
+	//Make Exits
 	makeExits();
+
 }

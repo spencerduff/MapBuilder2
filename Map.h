@@ -1,7 +1,7 @@
 #include "Character.h"
 #include <vector>
 #include <sstream>
-#include "Room.h"
+#include "Node.h"
 
 
 
@@ -9,12 +9,13 @@
 //edge of a Land. Then the exit will not let the player through.
 class Map{
 protected:
-	int numOfRooms;
+	int numOfRooms, numOfTrees;
 	Room* rooms;
 	static const int ySize = 50;
 	static const int xSize = 175;
 	double avgSize;
 	MapTile*** map;
+	TreeNode** trees;
 
 	void updateMap();
 	void moveChar(Character* c, char dir);
@@ -30,6 +31,11 @@ protected:
 	void placeDirt();
 	//If character is collidable, returns false, else returns true.
 	bool checkNotCollidable(char c);
+	//TODO:
+	void placeTrees(int numOfTrees);
+	//TODO:
+	void placeRocks();
+	
 
 public:
 
@@ -56,7 +62,7 @@ private:
 
 public:
 	OrkMap();
-
+	OrkMap(bool starter);
 
 };
 
@@ -65,5 +71,6 @@ private:
 
 public:
 	HumanMap();
+	HumanMap(bool starter);
 
 };

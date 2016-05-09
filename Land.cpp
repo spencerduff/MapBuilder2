@@ -50,6 +50,10 @@ OrkLands::OrkLands() : Land(){
 		maps[i] = new Map*[landSize];
 		for (int j = 0; j < landSize; j++)
 		{
+			if (i == 2 && j == 2){
+				maps[i][j] = new OrkMap(true);
+				continue;
+			}
 			maps[i][j] = new OrkMap();
 		}
 	}
@@ -64,6 +68,10 @@ HumanLands::HumanLands() : Land(){
 		maps[i] = new Map*[landSize];
 		for (int j = 0; j < landSize; j++)
 		{
+			if (i == 2 && j == 2){
+				maps[i][j] = new HumanMap(true);
+				continue;
+			}
 			maps[i][j] = new HumanMap();
 		}
 	}

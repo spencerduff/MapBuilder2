@@ -16,9 +16,10 @@ public:
 	Map* currMap;
 	Land();
 	Land(string l);
-	virtual void moveMaps();
+	void moveMaps();
 	void updateMovement(){ currMap->updateMovement(); }
 	void movePlayerChar(char c);
+	//Prints the map and some flavor text
 	void printMap(){ 
 		system("CLS");
 		cout << "You are in " << land << " You are at [" << xMapPos << "] [" << yMapPos << "].";
