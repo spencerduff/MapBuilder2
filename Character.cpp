@@ -6,6 +6,7 @@ Character::Character(){
 	movement = NULL;
 	xPos = NULL;
 	yPos = NULL;
+	inv.inventory.push_back(Leafblade());
 }
 
 Character::Character(int x, int y){

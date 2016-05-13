@@ -1,11 +1,14 @@
 #include <Windows.h>
 #include <conio.h>
+#include "Weapon.h"
+#include "Inventory.h"
 
 class Character{
 private:
 	int xPos, yPos;
 	char movement;
 	char character;
+	Inventory inv;
 
 	bool isMovement(char m);
 
