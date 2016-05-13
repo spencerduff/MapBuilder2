@@ -9,13 +9,14 @@
 //edge of a Land. Then the exit will not let the player through.
 class Map{
 protected:
-	int numOfRooms, numOfTrees;
+	int numOfRooms, numOfTrees, numOfRocks;
 	Room* rooms;
 	static const int ySize = 50;
 	static const int xSize = 175;
 	double avgSize;
 	MapTile*** map;
 	TreeNode** trees;
+	RockNode** rocks;
 
 	void updateMap();
 	void moveChar(Character* c, char dir);
@@ -34,7 +35,7 @@ protected:
 	//TODO:
 	void placeTrees(int numOfTrees);
 	//TODO:
-	void placeRocks();
+	void placeRocks(int numOfRocks);
 	
 
 public:

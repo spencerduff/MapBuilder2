@@ -34,3 +34,32 @@ public:
 	LargeTree();
 
 };
+
+class RockNode{
+protected:
+	MapTile*** rock;
+	int rockSize;
+
+public:
+	MapTile*** getRock(){ return rock; }
+	int getRockSize(){ return rockSize; }
+
+};
+
+class SmallRock : public RockNode{
+public:
+	SmallRock();
+
+};
+
+class MedRock : public RockNode{
+public:
+	MedRock();
+
+};
+
+class LargeRock : public RockNode{
+public:
+	LargeRock();
+
+};

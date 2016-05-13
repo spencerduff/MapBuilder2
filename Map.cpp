@@ -4,7 +4,6 @@ Map::Map(){
 	avgSize = rooms[0].getAvgSize();
 	//Size of map divided by avg room size plus a constant that makes a good amount of rooms
 	numOfRooms = static_cast<int>((xSize*ySize) / ((avgSize*avgSize) + 500));
-	numOfTrees = static_cast<int>((xSize*ySize) / ((30) + 500));
 
 	//Initialize map
 	map = new MapTile**[ySize];
@@ -218,7 +217,7 @@ void Map::updateMap(){
 }
 
 bool Map::checkNotCollidable(char c){
-	if (c == '#' || c == '|' || c == '_')
+	if (c == '#' || c == '|' || c == '_' || c == 'x')
 		return false;
 	return true;
 }
@@ -300,7 +299,7 @@ void Map::moveChar(Character* c, char dir){
 }
 
 void Map::updateMovement(){
-	for (int i = 0; i < chars.size(); i++){
+	for (unsigned int i = 0; i < chars.size(); i++){
 		if (chars[i]->getMovement() != NULL){
 			moveChar(chars[i], chars[i]->getMovement());
 		}
@@ -344,7 +343,7 @@ void Map::placeTrees(int numOfTrees){
 	//While there are rooms to go and I haven't tried too much, keep trying to 
 	//randomly place rooms, checking to see if they will overlap or be too close,
 	//or if they will go off the map.
-	while (iter < numOfRooms && numOfTries < 160){
+	while (iter < numOfTrees && numOfTries < 250){
 		int treeSizeX = trees[iter]->getTreeSizeX();
 		int treeSizeY = trees[iter]->getTreeSizeY();
 		
@@ -426,8 +425,89 @@ void Map::placeTrees(int numOfTrees){
 
 }
 
-void Map::placeRocks(){
+void Map::placeRocks(int numOfRocks){
+	int iter = 0;
+	int numOfTries = 0;
+	//While there are rooms to go and I haven't tried too much, keep trying to 
+	//randomly place rooms, checking to see if they will overlap or be too close,
+	//or if they will go off the map.
+	while (iter < numOfRocks && numOfTries < 300){
+		int rockToPlaceSize = rocks[iter]->getRockSize();
+		//Chooses coordinates. Makes sure they're in bounds. If not, subtract the room's
+		//size to lower it. Sometimes with big rooms it can cause a negative placement,
+		//so account for that and try again.
+		int x = rand() % xSize;
+		if (x >= xSize - rockToPlaceSize)
+			x -= rockToPlaceSize;
+		if (x < 0){
+			numOfTries++;
+			continue;
+		}
+		int y = rand() % ySize;
+		if (y >= ySize - rockToPlaceSize)
+			y -= rockToPlaceSize;
+		if (y < 0){
+			numOfTries++;
+			continue;
+		}
 
+		//Check if there is something there or close enough, if there is, try again.
+		bool shouldPlace = true;
+		for (int i = y; i < y + rockToPlaceSize; i++){
+			bool breakIter = false;
+			for (int j = x; j < x + rockToPlaceSize; j++){
+				if (i - 1 > 0){
+					if (map[i - 1][j]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (i + 1 < ySize){
+					if (map[i + 1][j]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (j - 1 > 0){
+					if (map[i][j - 1]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (j + 1 < xSize){
+					if (map[i][j + 1]->getGroundTile() != NULL){
+						shouldPlace = false;
+						breakIter = true;
+						break;
+					}
+				}
+				if (map[i][j]->getGroundTile() != NULL){
+					shouldPlace = false;
+					breakIter = true;
+					break;
+				}
+			}
+			if (breakIter)
+				break;
+		}
+		//If there wasn't anything there or too close, place the room on the map and try again.
+		if (shouldPlace){
+			int k = 0, l = 0;
+			for (int i = y; i < y + rockToPlaceSize; i++){
+				for (int j = x; j < x + rockToPlaceSize; j++){
+					map[i][j]->setGroundTile(rocks[iter]->getRock()[k][l]->getGroundTile());
+					k++;
+				}
+				k = 0;
+				l++;
+			}
+			iter++;
+		}
+		numOfTries++;
+	}
 }
 
 OrkMap::OrkMap() : Map(){
@@ -435,6 +515,7 @@ OrkMap::OrkMap() : Map(){
 	//Place Rooms	
 //	placeRooms(numOfRooms);
 	//Place Trees
+	numOfTrees = static_cast<int>((xSize*ySize) / ((30) + 500));
 	trees = new TreeNode*[numOfTrees];
 	for (int i = 0; i < numOfTrees; i++){
 		int treeToPlace = rand() % 10;
@@ -449,6 +530,22 @@ OrkMap::OrkMap() : Map(){
 		}
 	}
 	placeTrees(numOfTrees);
+	//Place Rocks
+	numOfRocks = static_cast<int>((xSize*ySize) / ((30) + 225));
+	rocks = new RockNode*[numOfRocks];
+	for (int i = 0; i < numOfRocks; i++){
+		int rockToPlace = rand() % 10;
+		if (rockToPlace >= 0 && rockToPlace <= 5){
+			rocks[i] = new SmallRock();
+		}
+		else if (rockToPlace >= 6 && rockToPlace <= 8){
+			rocks[i] = new MedRock();
+		}
+		else {
+			rocks[i] = new LargeRock();
+		}
+	}
+	placeRocks(numOfRocks);
 	//Place Dirt
 	placeDirt();
 	//Make Exits
