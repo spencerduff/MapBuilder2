@@ -15,10 +15,14 @@ int main(){
 
 	b.placeChar(c);
 	b.printMap();
+	char input;
 
 	while (true){
 
-		b.movePlayerChar(_getch());
+		input = _getch();
+		b.movePlayerChar(input);
+		if (input == 'p')
+			continue;
 		b.updateMovement();
 		b.printMap();
 

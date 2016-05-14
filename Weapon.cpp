@@ -1,6 +1,8 @@
 #include "Weapon.h"
 
-Leafblade::Leafblade(){
+Weapon::Weapon() : Item(){}
+
+Leafblade::Leafblade() : Weapon(){
 	setName("Leafblade");
 	setWeight(0.0);
 	setSymbol('/');
@@ -10,5 +12,5 @@ Leafblade::Leafblade(){
 	dura = maxDura;
 	maker = "The World";
 	weaponRank = 0;
-
+	itemID = nextID;
 }

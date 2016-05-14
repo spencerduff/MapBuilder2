@@ -4,14 +4,6 @@
 #include "Inventory.h"
 
 class Character{
-private:
-	int xPos, yPos;
-	char movement;
-	char character;
-	Inventory inv;
-
-	bool isMovement(char m);
-
 public:
 	Character();
 	Character(int x, int y);
@@ -21,5 +13,15 @@ public:
 	char getMovement();
 	int getXpos();
 	int getYpos();
+	void equipArmor(Armor *equippable);
+	void equipWeapon(Weapon *equippable);
+
+private:
+	int xPos, yPos;
+	char movement;
+	char character;
+	Inventory backpack;
+	Paperdoll paperdoll;
+	bool isMovement(char m);
 
 };
