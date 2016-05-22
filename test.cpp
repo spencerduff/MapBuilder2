@@ -3,10 +3,6 @@
 int main(){
 	srand((unsigned int)time(NULL));
 
-	OrkRoom a;
-
-	a.printRoom();
-
 	Character* c = new Character();
 
 	World b;
@@ -22,6 +18,8 @@ int main(){
 		input = _getch();
 		b.movePlayerChar(input);
 		if (input == 'p')
+			continue;
+		if (input == 'i')
 			continue;
 		b.updateMovement();
 		b.printMap();

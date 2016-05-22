@@ -1,6 +1,14 @@
 #include "Weapon.h"
+#include "Character.h"
 
 Weapon::Weapon() : Item(){}
+
+void Weapon::equip(Character *c){
+	if (this->type == primary)
+		c->getPaperdoll()->setPrimary(this);
+	else if (this->type == quiver)
+		c->getPaperdoll()->setQuiver(this);
+}
 
 Leafblade::Leafblade() : Weapon(){
 	setName("Leafblade");
@@ -13,4 +21,6 @@ Leafblade::Leafblade() : Weapon(){
 	maker = "The World";
 	weaponRank = 0;
 	itemID = nextID;
+	type = primary;
 }
+

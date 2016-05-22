@@ -1,5 +1,38 @@
 #include "Inventory.h"
 
+char invSpace[]= { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+Inventory::Inventory(){
+
+}
+
+void Inventory::printInv(){
+	for (int i = 0; i < inventory.size() && i < 36; i++){
+		cout << inventory[i]->symbol << " " << inventory[i]->name << " " << invSpace[i] << endl;
+	}
+}
+
+Paperdoll::Paperdoll(){
+	helm = NULL;
+	chest = NULL;
+	legs = NULL;
+	greaves = NULL;
+	gauntlets = NULL;
+	elbows = NULL;
+	boots = NULL;
+	vambraces = NULL;
+	girdle = NULL;
+	shoulders = NULL;
+	necklace = NULL;
+	rhRing = NULL;
+	lhRing = NULL;
+	earring = NULL;
+	robe = NULL;
+	shield = NULL;
+	primary = NULL;
+	quiver = NULL;
+}
+
 void Paperdoll::printPaperdoll(){
 	cout << "    ";
 	if (earring != NULL)

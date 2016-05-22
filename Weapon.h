@@ -3,6 +3,8 @@
 
 #include "Item.h"
 
+class Character;
+
 enum Type { primary, quiver };
 
 class Weapon : public Item{
@@ -12,6 +14,7 @@ public:
 	void setWeight(float newWeight){ weight = newWeight; }
 	Type type;
 	Weapon();
+	void equip(Character *c) override;
 
 protected:
 	float damage;

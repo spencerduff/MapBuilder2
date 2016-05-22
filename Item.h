@@ -5,6 +5,10 @@
 
 using namespace std;
 
+class Character;
+
+
+
 class Item{
 public:
 	static unsigned long nextID;
@@ -13,6 +17,9 @@ public:
 	float weight;
 	unsigned long itemID;
 	Item();
+
+	virtual void equip(Character *c);
+
 
 protected:
 

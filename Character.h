@@ -1,7 +1,12 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
+
 #include <Windows.h>
 #include <conio.h>
-#include "Weapon.h"
 #include "Inventory.h"
+
+class Item;
 
 class Character{
 public:
@@ -13,15 +18,20 @@ public:
 	char getMovement();
 	int getXpos();
 	int getYpos();
-	void equipArmor(Armor *equippable);
-	void equipWeapon(Weapon *equippable);
+	void equip(Item *equippable);
+	void putOnGear();
+	Paperdoll* getPaperdoll(){ return paperdoll; }
 
 private:
 	int xPos, yPos;
 	char movement;
 	char character;
-	Inventory backpack;
-	Paperdoll paperdoll;
+	Inventory *backpack;
+	Paperdoll *paperdoll;
 	bool isMovement(char m);
 
 };
+
+
+
+#endif // !CHARACTER_H

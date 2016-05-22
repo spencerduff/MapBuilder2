@@ -6,7 +6,9 @@ Character::Character(){
 	movement = NULL;
 	xPos = NULL;
 	yPos = NULL;
-	backpack.inventory.push_back(Leafblade());
+	backpack = new Inventory;
+	paperdoll = new Paperdoll;
+	backpack->inventory.push_back(new Leafblade());
 }
 
 Character::Character(int x, int y){
@@ -38,7 +40,11 @@ void Character::moveChar(char m){
 		movement = m;
 	}
 	else if (m == 'p')
-		paperdoll.printPaperdoll();
+		paperdoll->printPaperdoll(); // +		paperdoll	0x005bbd28 
+	else if (m == 'i')
+		backpack->printInv();
+	else if (m == 'e')
+		putOnGear();
 	else movement = NULL;
 }
 
@@ -54,64 +60,29 @@ int Character::getYpos(){
 	return yPos;
 }
 
-void Character::equipArmor(Armor *equippable){
+void Character::equip(Item *equippable){
 	// Check to see if it's in the characters backpack
-	for (int i = 0; i < backpack.inventory.size(); i++){
-		if (equippable->itemID = backpack.inventory[i].itemID){
-			switch (equippable->piece) {
-			case helm: paperdoll.helm = equippable;
-				break;
-			case chest: paperdoll.chest = equippable;
-				break;
-			case legs: paperdoll.legs = equippable;
-				break;
-			case greaves: paperdoll.greaves = equippable;
-				break;
-			case gauntlets: paperdoll.gauntlets = equippable;
-				break;
-			case elbows: paperdoll.elbows = equippable;
-				break;
-			case boots: paperdoll.boots = equippable;
-				break;
-			case vambraces: paperdoll.vambraces = equippable;
-				break;
-			case girdle: paperdoll.girdle = equippable;
-				break;
-			case shoulders: paperdoll.shoulders = equippable;
-				break;
-			case necklace: paperdoll.necklace = equippable;
-				break;
-			case ring: 
-				if (paperdoll.rhRing != NULL)
-					paperdoll.lhRing = equippable;
-				else
-					paperdoll.rhRing = equippable;
-				break;
-			case earring: paperdoll.earring = equippable;
-				break;
-			case robe: paperdoll.robe = equippable;
-				paperdoll.helm = NULL;
-				paperdoll.chest = NULL;
-				paperdoll.legs = NULL;
-				paperdoll.greaves = NULL;
-				paperdoll.gauntlets = NULL;
-				paperdoll.elbows = NULL;
-				paperdoll.boots = NULL;
-				paperdoll.vambraces = NULL;
-				paperdoll.girdle = NULL;
-				paperdoll.shoulders = NULL;
-				break;
-			case shield: paperdoll.shield = equippable;
-				break;
-			}
+	for (int i = 0; i < backpack->inventory.size(); i++){
+		if (equippable->itemID = backpack->inventory[i]->itemID){
+			equippable->equip(this);
 		}
 
 	}
 
 }
 
-void Character::equipWeapon(Weapon *equippable){
-
-
-
+void Character::putOnGear(){
+	backpack->printInv();
+	cout << "Press Q to not put on gear." << endl;
+	char input = _getch();
+	if (input == 'Q') return;
+	int pos = 0;
+	if (input >= 97 && input <= 122)
+		pos = (input - 87);
+	else if (input >= 48 && input <= 57)
+		pos = (input - 48);
+	if (pos < backpack->inventory.size()){
+		Item *temp = backpack->inventory[pos];
+		equip(temp);
+	}
 }
