@@ -98,17 +98,29 @@ void Armor::examine(){
 	cout << "Durability: ";
 	cout << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
 	cout << "Encumberance: " << setprecision(2) << fixed << encumberance << endl;
-	cout << "Protections... " << endl;
-	cout << "Acid: " << setprecision(2) << fixed << protAcid << endl;
-	cout << "Bludgeoning: " << setprecision(2) << fixed << protBludgeoning << endl;
-	cout << "Cold: " << setprecision(2) << fixed << protCold << endl;
-	cout << "Fire: " << setprecision(2) << fixed << protFire << endl;
-	cout << "Holy: " << setprecision(2) << fixed << protHoly << endl;
-	cout << "Impact: " << setprecision(2) << fixed << protImpact << endl;
-	cout << "Lightning: " << setprecision(2) << fixed << protLightning << endl;
-	cout << "Piercing: " << setprecision(2) << fixed << protPiercing << endl;
-	cout << "Slashing: " << setprecision(2) << fixed << protSlashing << endl;
-	cout << "Unholy: " << setprecision(2) << fixed << protUnholy << endl;
+	cout << "prots.protections... " << endl;
+	if (prots.protAcid > 0)
+		cout << "Acid: " << setprecision(2) << fixed << prots.protAcid << endl;
+	if (prots.protArcane > 0)
+		cout << "Arcane: " << setprecision(2) << fixed << prots.protArcane << endl;
+	if (prots.protBludgeoning > 0)
+		cout << "Bludgeoning: " << setprecision(2) << fixed << prots.protBludgeoning << endl;
+	if (prots.protCold > 0)
+		cout << "Cold: " << setprecision(2) << fixed << prots.protCold << endl;
+	if (prots.protFire > 0)
+		cout << "Fire: " << setprecision(2) << fixed << prots.protFire << endl;
+	if (prots.protHoly > 0)
+		cout << "Holy: " << setprecision(2) << fixed << prots.protHoly << endl;
+	if (prots.protImpact > 0)
+		cout << "Impact: " << setprecision(2) << fixed << prots.protImpact << endl;
+	if (prots.protLightning > 0)
+		cout << "Lightning: " << setprecision(2) << fixed << prots.protLightning << endl;
+	if (prots.protPiercing > 0)
+		cout << "Piercing: " << setprecision(2) << fixed << prots.protPiercing << endl;
+	if (prots.protSlashing > 0)
+		cout << "Slashing: " << setprecision(2) << fixed << prots.protSlashing << endl;
+	if (prots.protUnholy > 0)
+		cout << "Unholy: " << setprecision(2) << fixed << prots.protUnholy << endl;
 }
 
 
@@ -122,16 +134,11 @@ DragonChest::DragonChest() : Armor(){
 	maker = "The World";
 	itemID = nextID;
 	piece = chest;
-	protAcid = protCold = protFire = protHoly = protUnholy = 7.69;
-	protBludgeoning = protImpact = 3.59;
-	protLightning = 5.71;
-	protPiercing = 4.05;
-	protSlashing = 4.50;
+	prots.protAcid = prots.protCold = prots.protFire = prots.protHoly = prots.protUnholy = 7.69;
+	prots.protBludgeoning = prots.protImpact = 3.59;
+	prots.protLightning = 5.71;
+	prots.protPiercing = 4.05;
+	prots.protSlashing = 4.50;
+	prots.protArcane = 0;
 	equipped = false;
 }
-
-
-float encumberance;
-float dura;
-float duraMax;
-float protBludgeoning, protSlashing, protPiercing, protAcid, protCold, protFire, protHoly, protLightning, protUnholy, protImpact;

@@ -8,6 +8,7 @@ Character::Character(){
 	yPos = NULL;
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
+	stats = new CharacterStats;
 	backpack->inventory.push_back(new Leafblade());
 	backpack->inventory.push_back(new DragonChest());
 }
@@ -48,6 +49,10 @@ void Character::moveChar(char m){
 		putOnGear();
 	else if (m == 'I')
 		examineItem();
+	else if (m == 's')
+		stats->printStats();
+	else if (m == 'S')
+		stats->printFullStats();
 	else movement = NULL;
 }
 
@@ -104,5 +109,26 @@ void Character::putOnGear(){
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
 		equip(temp);
+		updateProts();
 	}
+}
+
+void Character::updateProts(){
+	stats->resetProts();
+	stats->addProts(paperdoll->boots);
+	stats->addProts(paperdoll->chest);
+	stats->addProts(paperdoll->elbows);
+	stats->addProts(paperdoll->gauntlets);
+	stats->addProts(paperdoll->girdle);
+	stats->addProts(paperdoll->greaves);
+	stats->addProts(paperdoll->helm);
+	stats->addProts(paperdoll->legs);
+	stats->addProts(paperdoll->lhRing);
+	stats->addProts(paperdoll->necklace);
+	stats->addProts(paperdoll->rhRing);
+	stats->addProts(paperdoll->robe);
+	stats->addProts(paperdoll->shield);
+	stats->addProts(paperdoll->shoulders);
+	stats->addProts(paperdoll->vambraces);
+
 }

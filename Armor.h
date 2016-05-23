@@ -7,6 +7,10 @@ class Character;
 
 enum Piece { helm, chest, legs, greaves, gauntlets, elbows, boots, vambraces, girdle, shoulders, necklace, ring, earring, robe, shield };
 
+struct Prots{
+	float protBludgeoning, protSlashing, protPiercing, protAcid, protCold, protFire, protHoly, protLightning, protUnholy, protImpact, protArcane;
+};
+
 class Armor : public Item{
 public:
 	void setName(string newName){ name = newName; }
@@ -16,14 +20,15 @@ public:
 	Armor();
 	void equip(Character *c) override;
 	void examine() override;
+	Prots getProts(){ return prots; }
+	float getEncumberance(){ return encumberance; }
 
 protected:
 	string maker;
 	float encumberance;
 	float dura;
 	float duraMax;
-	float protBludgeoning, protSlashing, protPiercing, protAcid, protCold, protFire, protHoly, protLightning, protUnholy, protImpact;
-
+	Prots prots;
 };
 
 class DragonChest : public Armor{

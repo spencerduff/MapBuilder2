@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <conio.h>
 #include "Inventory.h"
+#include "CharacterStats.h"
 
 class Item;
 
@@ -19,7 +20,6 @@ public:
 	int getXpos();
 	int getYpos();
 	void equip(Item *equippable);
-	void putOnGear();
 	Paperdoll* getPaperdoll(){ return paperdoll; }
 
 private:
@@ -30,6 +30,9 @@ private:
 	Paperdoll *paperdoll;
 	bool isMovement(char m);
 	void examineItem();
+	CharacterStats *stats;
+	void putOnGear();
+	void updateProts();
 
 };
 

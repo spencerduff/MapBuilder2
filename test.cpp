@@ -30,7 +30,7 @@ int main(){
 }
 
 bool isGUI(char a){
-	if (a == 'p' || a == 'i' || a == 'e' || a == 'I')
+	if (a == 'p' || a == 'i' || a == 'e' || a == 'I' || a == 's' || a == 'S')
 		return true;
 	else return false;
 }
