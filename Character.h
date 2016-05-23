@@ -29,6 +29,7 @@ private:
 	Inventory *backpack;
 	Paperdoll *paperdoll;
 	bool isMovement(char m);
+	void examineItem();
 
 };
 

@@ -8,7 +8,10 @@ Inventory::Inventory(){
 
 void Inventory::printInv(){
 	for (int i = 0; i < inventory.size() && i < 36; i++){
-		cout << inventory[i]->symbol << " " << inventory[i]->name << " " << invSpace[i] << endl;
+		cout << inventory[i]->symbol << " " << inventory[i]->name << " " << invSpace[i];
+		if (inventory[i]->equipped)
+			cout << " *EQUIPPED*";
+		cout << endl;
 	}
 }
 
@@ -31,6 +34,11 @@ Paperdoll::Paperdoll(){
 	shield = NULL;
 	primary = NULL;
 	quiver = NULL;
+}
+
+void Paperdoll::unequip(Item *a){
+	if (a != NULL)
+		a->equipped = false;
 }
 
 void Paperdoll::printPaperdoll(){

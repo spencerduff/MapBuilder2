@@ -1,5 +1,7 @@
 #include "World.h"
 
+bool isGUI(char a);
+
 int main(){
 	srand((unsigned int)time(NULL));
 
@@ -17,9 +19,7 @@ int main(){
 
 		input = _getch();
 		b.movePlayerChar(input);
-		if (input == 'p')
-			continue;
-		if (input == 'i')
+		if (isGUI(input))
 			continue;
 		b.updateMovement();
 		b.printMap();
@@ -27,4 +27,10 @@ int main(){
 	}
 
 	return 0;
+}
+
+bool isGUI(char a){
+	if (a == 'p' || a == 'i' || a == 'e' || a == 'I')
+		return true;
+	else return false;
 }

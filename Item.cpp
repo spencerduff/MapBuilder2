@@ -11,3 +11,10 @@ Item::Item(){
 void Item::equip(Character *c){
 	return;
 }
+
+void Item::examine(){
+	cout << name << endl;
+	cout << symbol << endl;
+	cout << "Weight: " << endl;
+
+}

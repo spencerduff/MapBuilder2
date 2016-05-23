@@ -15,12 +15,13 @@ public:
 	Type type;
 	Weapon();
 	void equip(Character *c) override;
+	void examine() override;
 
 protected:
 	float damage;
 	float speed;
 	float dura;
-	float maxDura;
+	float duraMax;
 	string maker;
 	int weaponRank;
 

@@ -9,6 +9,7 @@ Character::Character(){
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	backpack->inventory.push_back(new Leafblade());
+	backpack->inventory.push_back(new DragonChest());
 }
 
 Character::Character(int x, int y){
@@ -45,6 +46,8 @@ void Character::moveChar(char m){
 		backpack->printInv();
 	else if (m == 'e')
 		putOnGear();
+	else if (m == 'I')
+		examineItem();
 	else movement = NULL;
 }
 
@@ -65,10 +68,27 @@ void Character::equip(Item *equippable){
 	for (int i = 0; i < backpack->inventory.size(); i++){
 		if (equippable->itemID = backpack->inventory[i]->itemID){
 			equippable->equip(this);
+			break;
 		}
 
 	}
 
+}
+
+void Character::examineItem(){
+	backpack->printInv();
+	cout << "Which item would you like to examine? Q to not examine any. " << endl << endl;
+	char input = _getch();
+	if (input == 'Q') return;
+	int pos = 0;
+	if (input >= 97 && input <= 122)
+		pos = (input - 87);
+	else if (input >= 48 && input <= 57)
+		pos = (input - 48);
+	if (pos < backpack->inventory.size()){
+		Item *temp = backpack->inventory[pos];
+		temp->examine();
+	}
 }
 
 void Character::putOnGear(){

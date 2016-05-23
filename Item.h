@@ -15,10 +15,12 @@ public:
 	string name;
 	char symbol;
 	float weight;
+	bool equipped;
 	unsigned long itemID;
 	Item();
 
 	virtual void equip(Character *c);
+	virtual void examine();
 
 
 protected:
