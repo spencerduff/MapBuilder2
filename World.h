@@ -9,14 +9,14 @@ public:
 	void placeRandomChar(Character* c){ currLand->placeRandomChar(c); }
 	void printMap(){ currLand->printMap(); }
 	//Need this function to return a string to print out after the map refreshes but before next input
-	void movePlayerChar(char c);
-	void updateMovement(){ currLand->updateMovement(); }
-	void moveLands();
+	string movePlayerChar(char c);
+	string updateMovement(){ return currLand->updateMovement(); }
+	string moveLands();
 
 private:
 	string name;
 	Land ***lands;
 	int xLandPos, yLandPos;
-	Land * currLand;
+	Land *currLand;
 
 };

@@ -12,13 +12,14 @@ Item::~Item(){
 }
 
 //Add functionality for bags, runestones, food, pots, etc...
-void Item::equip(Character *c){
-	return;
+string Item::equip(Character *c){
+	return "";
 }
 
-void Item::examine(){
-	cout << name << endl;
-	cout << symbol << endl;
-	cout << "Weight: " << endl;
-
+string Item::examine(){
+	stringstream ss;
+	ss << name << endl;
+	ss << symbol << endl;
+	ss << "Weight: " << endl;
+	return ss.str();
 }

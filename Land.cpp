@@ -38,9 +38,11 @@ void Land::moveMaps(){
 	}
 }
 
-void Land::movePlayerChar(char c) { 
-	currMap->movePlayerChar(c); 
+string Land::movePlayerChar(char c) { 
+	stringstream ss;
+	ss << currMap->movePlayerChar(c); 
 	moveMaps();
+	return ss.str();
 }
 
 OrkLands::OrkLands() : Land(){

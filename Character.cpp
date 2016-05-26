@@ -52,23 +52,25 @@ bool Character::isMovement(char m){
 	else return false;
 }
 
-void Character::moveChar(char m){
+string Character::moveChar(char m){
+	stringstream ss;
 	if (isMovement(m)){
 		movement = m;
 	}
 	else if (m == 'p')
-		paperdoll->printPaperdoll(); // +		paperdoll	0x005bbd28 
+		ss << paperdoll->printPaperdoll();
 	else if (m == 'i')
-		backpack->printInv();
+		ss << backpack->printInv();
 	else if (m == 'e')
-		putOnGear();
+		ss << putOnGear();
 	else if (m == 'I')
-		examineItem();
+		ss << examineItem();
 	else if (m == 's')
-		stats->printStats();
+		ss << stats->printStats();
 	else if (m == 'S')
-		stats->printFullStats();
+		ss << stats->printFullStats();
 	else movement = NULL;
+	return ss.str();
 }
 
 char Character::getMovement(){
@@ -91,27 +93,34 @@ string Character::getName(){
 	return name;
 }
 
-bool Character::equip(Item *equippable){
+string Character::equip(Item *equippable, bool &result){
 	// Check to see if it's in the characters backpack
+	stringstream ss;
 	for (int i = 0; i < backpack->inventory.size(); i++){
 		if (equippable->getItemID() == backpack->inventory[i]->getItemID()){
 			if (equippable->equipped){
-				cout << equippable->getName() << " is already equipped." << endl;
-				return false;
+				ss << equippable->getName() << " is already equipped." << endl;
+				result = false;
+				return ss.str();
 			}
-			equippable->equip(this);
-			return true;
+			else{
+				ss << equippable->equip(this);
+				result = true;
+				return ss.str();
+			}
 		}
 
 	}
-	return false;
+	result = false;
+	return ss.str();
 }
 
-void Character::examineItem(){
-	backpack->printInv();
+string Character::examineItem(){
+	stringstream ss;
+	cout << backpack->printInv();
 	cout << "Which item would you like to examine? Q to not examine any. " << endl << endl;
 	char input = _getch();
-	if (input == 'Q') return;
+	if (input == 'Q') return "";
 	int pos = 0;
 	if (input >= 97 && input <= 122)
 		pos = (input - 87);
@@ -119,15 +128,17 @@ void Character::examineItem(){
 		pos = (input - 48);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
-		temp->examine();
+		ss << temp->examine();
 	}
+	return ss.str();
 }
 
-void Character::putOnGear(){
-	backpack->printInv();
+string Character::putOnGear(){
+	stringstream ss;
+	cout << backpack->printInv();
 	cout << "Press Q to not put on gear." << endl;
 	char input = _getch();
-	if (input == 'Q') return;
+	if (input == 'Q') return "";
 	int pos = 0;
 	if (input >= 97 && input <= 122)
 		pos = (input - 87);
@@ -135,9 +146,12 @@ void Character::putOnGear(){
 		pos = (input - 48);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
-		if(equip(temp))
+		bool result = false;
+		ss << equip(temp, result);
+		if(result)
 			updateProts();
 	}
+	return ss.str();
 }
 
 void Character::updateProts(){
@@ -162,21 +176,23 @@ void Character::updateProts(){
 }
 
 //This interacts with c
-void Character::interactCharacter(Character* c){
+string Character::interactCharacter(Character* c){
+	stringstream ss;
 	if (c == NULL)
-		return;
+		return "";
 	if (this->racialAlignment != c->racialAlignment || this->racialAlignment == evil || c->racialAlignment == evil){
-		this->calculateMeleeDamage(c);
+		ss << this->calculateMeleeDamage(c);
 	}
+	return ss.str();
 }
 
 //Takes weapon damage multiplies it by character strength, adds 1 damage per 10 weapon rank, then adds a flat 8 damage.
 //Will be more complex once weapon skills/masteries/passives and such.
-void Character::calculateMeleeDamage(Character* c){
+string Character::calculateMeleeDamage(Character* c){
+	stringstream ss;
 	if (this->paperdoll->primary == NULL){
-		cout << "There's no weapon to attack with! " << endl;
-		system("PAUSE");
-		return;
+		ss << "There's no weapon to attack with! " << endl;
+		return ss.str();
 	}
 	float damage = this->paperdoll->primary->getDamage();
 	damage *= this->stats->getStr();
@@ -186,10 +202,13 @@ void Character::calculateMeleeDamage(Character* c){
 	incDamage.damage = damage;
 	incDamage.damageType = this->paperdoll->primary->getDamageType();
 	
-	c->damage(incDamage);
+	ss << c->damage(incDamage);
+
+	return ss.str();
 }
 
-void Character::damage(Damage incDamage){
+string Character::damage(Damage incDamage){
+	stringstream ss;
 	switch (incDamage.damageType){
 	case slashing:
 		incDamage.damage -= this->stats->getProtSlashing();
@@ -202,9 +221,8 @@ void Character::damage(Damage incDamage){
 	}
 
 	this->stats->damage(incDamage);
-	cout << this->name << "'s HP is now: " << this->stats->getHP() << endl;
-	system("PAUSE");
-
+	ss << this->name << "'s HP is now: " << this->stats->getHP() << endl;
+	return ss.str();
 }
 
 Goblin::Goblin() : Character(){

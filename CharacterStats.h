@@ -14,8 +14,8 @@ public:
 	void resetProts();
 	void resetEncumbrance();
 	void addProts(Armor *a);
-	void printStats();
-	void printFullStats();
+	string printStats();
+	string printFullStats();
 	void damage(Damage amount);
 
 

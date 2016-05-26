@@ -2,6 +2,7 @@
 #define ITEM_H
 
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -16,8 +17,8 @@ public:
 
 	bool equipped;
 
-	virtual void equip(Character *c);
-	virtual void examine();
+	virtual string equip(Character *c);
+	virtual string examine();
 
 	unsigned long getNextID(){ return nextID; }
 	char getSymbol(){ return symbol; }

@@ -14,7 +14,9 @@ World::World(){
 
 }
 
-void World::moveLands(){
+string World::moveLands(){
+	stringstream ss;
+	ss << "You have moved to ";
 	if (currLand->currMap->getPCharGroundTile() == '<' && currLand->getXMapPos() == 0){
 		int newXMapPos = currLand->getLandSize() - 1;
 		Character* temp = currLand->currMap->getPlayerChar();
@@ -25,6 +27,8 @@ void World::moveLands(){
 		currLand->setYMapPos(currMapYPos);
 		currLand->currMap = currLand->maps[newXMapPos][currMapYPos];
 		placeChar(temp, '>');
+		ss << currLand->getLand() << "." << endl;
+		return ss.str();
 	}
 	else if (currLand->currMap->getPCharGroundTile() == 'v' && currLand->getYMapPos() == 0){
 		int newYMapPos = currLand->getLandSize() - 1;
@@ -36,6 +40,8 @@ void World::moveLands(){
 		currLand->setYMapPos(newYMapPos);
 		currLand->currMap = currLand->maps[currMapXPos][newYMapPos];
 		placeChar(temp, '^');
+		ss << currLand->getLand() << "." << endl;
+		return ss.str();
 	}
 	else if (currLand->currMap->getPCharGroundTile() == '^' && currLand->getYMapPos() == currLand->getLandSize() - 1){
 		int newYMapPos = 0;
@@ -47,6 +53,8 @@ void World::moveLands(){
 		currLand->setYMapPos(newYMapPos);
 		currLand->currMap = currLand->maps[currMapXPos][newYMapPos];
 		placeChar(temp, 'v');
+		ss << currLand->getLand() << "." << endl;
+		return ss.str();
 	}
 	else if (currLand->currMap->getPCharGroundTile() == '>' && currLand->getYMapPos() == currLand->getLandSize() - 1){
 		int newXMapPos = 0;
@@ -58,10 +66,15 @@ void World::moveLands(){
 		currLand->setYMapPos(currMapYPos);
 		currLand->currMap = currLand->maps[newXMapPos][currMapYPos];
 		placeChar(temp, '<');
+		ss << currLand->getLand() << "." << endl;
+		return ss.str();
 	}
+	else return "";
 }
 
-void World::movePlayerChar(char c) { 
-	moveLands();
-	currLand->movePlayerChar(c); 
+string World::movePlayerChar(char c) { 
+	stringstream ss;
+	ss << moveLands();
+	ss << currLand->movePlayerChar(c); 
+	return ss.str();
 }

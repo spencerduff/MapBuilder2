@@ -17,8 +17,8 @@ public:
 
 	void placeChar(Character* c, char side = '<');
 	void placeRandomChar(Character *c);
-	void updateMovement();
-	void movePlayerChar(char c);
+	string updateMovement();
+	string movePlayerChar(char c);
 	Character* getPlayerChar();
 	char getPCharGroundTile();
 	void deleteOldChar();
@@ -39,7 +39,7 @@ protected:
 	Character* findChar(int x, int y);
 	bool checkCharacter(char c);
 	void updateMap();
-	void moveChar(Character* c, char dir);
+	string moveChar(Character* c, char dir);
 	void placeStairs();
 	void connectRooms();
 	//Puts exits on the borders.
@@ -57,7 +57,7 @@ protected:
 	//TODO:
 	void placeRocks(int numOfRocks);
 	bool tryPlaceChar(Character* c, int x, int y);
-	void kill(Character* c);
+	string kill(Character* c);
 	
 
 };

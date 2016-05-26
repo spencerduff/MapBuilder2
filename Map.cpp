@@ -232,8 +232,8 @@ bool Map::tryPlaceChar(Character* c, int x, int y){
 	else return false;
 }
 
-void Map::movePlayerChar(char c){
-	chars[0]->moveChar(c);
+string Map::movePlayerChar(char c){
+	return chars[0]->moveChar(c);
 	
 }
 
@@ -265,15 +265,16 @@ Character* Map::findChar(int x, int y){
 	return NULL;
 }
 
-void Map::moveChar(Character* c, char dir){
+string Map::moveChar(Character* c, char dir){
+	stringstream ss;
 	if (dir == 'h'){
 		if (c->getXpos() - 1 < 0)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos()][c->getXpos() - 1]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos());
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -283,12 +284,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'j'){
 		if (c->getYpos() + 1 >= ySize)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos() + 1][c->getXpos()]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos(), c->getYpos() + 1);
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -298,12 +299,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'k'){
 		if (c->getYpos() - 1 < 0)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos() - 1][c->getXpos()]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos(), c->getYpos() - 1);
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -313,12 +314,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'l'){
 		if (c->getXpos() + 1 >= xSize)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos()][c->getXpos() + 1]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos());
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -328,12 +329,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'y'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() - 1 < 0)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() - 1]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() - 1);
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -343,12 +344,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'u'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() - 1 < 0)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() + 1]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() - 1);
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -358,12 +359,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'b'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() + 1 >= ySize)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() - 1]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() + 1);
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -373,12 +374,12 @@ void Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'n'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() + 1 >= ySize)
-			return;
+			return "";
 		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() + 1]->getShowingTile())){
 			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() + 1);
-			c->interactCharacter(toInteract);
+			ss << c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				kill(toInteract);
+				ss << kill(toInteract);
 		}
 		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
@@ -386,25 +387,30 @@ void Map::moveChar(Character* c, char dir){
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
-	c->moveChar();
+	ss << c->moveChar();
+
+	return ss.str();
 }
 
 //Need to drop a gravestone for loot
-void Map::kill(Character* c){
-	cout << c->getName() << " has been slain." << endl;
+string Map::kill(Character* c){
+	stringstream ss;
+	ss << c->getName() << " has been slain." << endl;
 	map[c->getYpos()][c->getXpos()]->updateTile();
 	delete c;
-	system("PAUSE");
+	return ss.str();
 }
 
 
-void Map::updateMovement(){
+string Map::updateMovement(){
+	stringstream ss;
 	for (unsigned int i = 0; i < chars.size(); i++){
 		if (chars[i]->getMovement() != NULL){
-			moveChar(chars[i], chars[i]->getMovement());
+			ss << moveChar(chars[i], chars[i]->getMovement());
 		}
 
 	}
+	return ss.str();
 }
 
 void Map::printMap(){

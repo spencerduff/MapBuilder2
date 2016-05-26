@@ -12,7 +12,7 @@ public:
 	~Inventory();
 
 	vector<Item*> inventory;
-	void printInv();
+	string printInv();
 
 protected:
 	
@@ -45,98 +45,145 @@ public:
 	Weapon *quiver;
 
 
-	void printPaperdoll();
+	string printPaperdoll();
 	void unequip(Item *a);
 
-	void setHelm(Armor *h){ 
-		helm = h; 
+	string setHelm(Armor *h){ 
+		stringstream ss;
+		helm = h;
+		if (h == NULL) return "";
 		h->equipped = true;
-		cout << "Helm set to: " << helm->getName() << endl;
+		ss << "Helm set to: " << helm->getName() << endl;
+		return ss.str();
 	}
-	void setChest(Armor *c){ 
-		chest = c; 
+	string setChest(Armor *c){
+		stringstream ss;
+		chest = c;
+		if (c == NULL) return "";
 		c->equipped = true;
-		cout << "Chest set to: " << chest->getName() << endl;
+		ss << "Chest set to: " << chest->getName() << endl;
+		return ss.str();
 	}
-	void setLegs(Armor *l){ 
-		legs = l; 
+	string setLegs(Armor *l){
+		stringstream ss;
+		legs = l;
+		if (l == NULL) return "";
 		l->equipped = true;
-		cout << "Legs set to: " << legs->getName() << endl;
+		ss << "Legs set to: " << legs->getName() << endl;
+		return ss.str();
 	}
-	void setGreaves(Armor *g){ 
-		greaves = g; 
+	string setGreaves(Armor *g){
+		stringstream ss;
+		greaves = g;
+		if (g == NULL) return "";
 		g->equipped = true;
-		cout << "Greaves set to: " << greaves->getName() << endl;
+		ss << "Greaves set to: " << greaves->getName() << endl;
+		return ss.str();
 	}
-	void setGauntlets(Armor *g){ 
-		gauntlets = g; 
+	string setGauntlets(Armor *g){
+		stringstream ss;
+		gauntlets = g;
+		if (g == NULL) return "";
 		g->equipped = true;
-		cout << "Gauntlets set to: " << gauntlets->getName() << endl;
+		ss << "Gauntlets set to: " << gauntlets->getName() << endl;
+		return ss.str();
 	}
-	void setElbows(Armor *e){ 
-		elbows = e; 
+	string setElbows(Armor *e){
+		stringstream ss;
+		elbows = e;
+		if (e == NULL) return "";
 		e->equipped = true;
-		cout << "Elbows set to: " << elbows->getName() << endl;
+		ss << "Elbows set to: " << elbows->getName() << endl;
+		return ss.str();
 	}
-	void setBoots(Armor *b){ 
-		boots = b; 
+	string setBoots(Armor *b){
+		stringstream ss;
+		boots = b;
+		if (b == NULL) return "";
 		b->equipped = true;
-		cout << "Boots set to: " << boots->getName() << endl;
+		ss << "Boots set to: " << boots->getName() << endl;
+		return ss.str();
 	}
-	void setVambraces(Armor *v){ 
-		vambraces = v; 
+	string setVambraces(Armor *v){
+		stringstream ss;
+		vambraces = v;
+		if (v == NULL) return "";
 		v->equipped = true;
-		cout << "Vambraces set to: " << vambraces->getName() << endl;
+		ss << "Vambraces set to: " << vambraces->getName() << endl;
+		return ss.str();
 	}
-	void setGirdle(Armor *g){ 
-		girdle = g; 
+	string setGirdle(Armor *g){
+		stringstream ss;
+		girdle = g;
+		if (g == NULL) return "";
 		g->equipped = true;
-		cout << "Girdle set to: " << girdle->getName() << endl;
+		ss << "Girdle set to: " << girdle->getName() << endl;
+		return ss.str();
 	}
-	void setShoulders(Armor *s){ 
-		shoulders = s; 
+	string setShoulders(Armor *s){
+		stringstream ss;
+		shoulders = s;
+		if (s == NULL) return "";
 		s->equipped = true;
-		cout << "Shoulders set to: " << shoulders->getName() << endl;
+		ss << "Shoulders set to: " << shoulders->getName() << endl;
+		return ss.str();
 	}
-	void setNecklace(Armor *n){ 
+	string setNecklace(Armor *n){
+		stringstream ss;
 		necklace = n; 
 		n->equipped = true;
-		cout << "Necklace set to: " << necklace->getName() << endl;
+		ss << "Necklace set to: " << necklace->getName() << endl;
+		return ss.str();
 	}
-	void setRhRing(Armor *r){ 
+	string setRhRing(Armor *r){
+		stringstream ss;
 		rhRing = r; 
 		r->equipped = true;
-		cout << "Right-Hand Ring set to: " << rhRing->getName() << endl;
+		ss << "Right-Hand Ring set to: " << rhRing->getName() << endl;
+		return ss.str();
 	}
-	void setLhRing(Armor *l){ 
+	string setLhRing(Armor *l){
+		stringstream ss;
 		lhRing = l; 
 		l->equipped = true;
-		cout << "Left-Hand Ring set to: " << lhRing->getName() << endl;
+		ss << "Left-Hand Ring set to: " << lhRing->getName() << endl;
+		return ss.str();
 	}
-	void setEarring(Armor *e){ 
+	string setEarring(Armor *e){
+		stringstream ss;
 		earring = e; 
 		e->equipped = true;
-		cout << "Earring set to: " << earring->getName() << endl;
+		ss << "Earring set to: " << earring->getName() << endl;
+		return ss.str();
 	}
-	void setRobe(Armor *r){ 
+	string setRobe(Armor *r){
+		stringstream ss;
 		robe = r; 
 		r->equipped = true;
-		cout << "Robe set to: " << robe->getName() << endl;
+		ss << "Robe set to: " << robe->getName() << endl;
+		ss << "All other armor is taken off " << endl;
+		return ss.str();
 	}
-	void setShield(Armor *s){ 
+	string setShield(Armor *s){
+		stringstream ss;
 		shield = s; 
 		s->equipped = true;
-		cout << "Shield set to: " << shield->getName() << endl;
+		ss << "Shield set to: " << shield->getName() << endl;
+		return ss.str();
 	}
-	void setPrimary(Weapon *p){ 
+	string setPrimary(Weapon *p){
+		stringstream ss;
 		primary = p; 
 		p->equipped = true;
-		cout << "Primary set to: " << primary->getName() << endl;
+		ss << "Primary set to: " << primary->getName() << endl;
+		return ss.str();
 	}
-	void setQuiver(Weapon *q){ 
+	string setQuiver(Weapon *q){
+		stringstream ss;
 		quiver = q; 
 		q->equipped = true;
-		cout << "Quiver set to: " << quiver->getName() << endl;
+		ss << "Quiver set to: " << quiver->getName() << endl;
+		return ss.str();
 	}
 
 

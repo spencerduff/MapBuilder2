@@ -8,30 +8,34 @@ Weapon::~Weapon(){
 
 }
 
-void Weapon::equip(Character *c){
+string Weapon::equip(Character *c){
+	stringstream ss;
 	if (this->type == primary)
-		c->getPaperdoll()->setPrimary(this);
+		ss << c->getPaperdoll()->setPrimary(this);
 	else if (this->type == quiver)
-		c->getPaperdoll()->setQuiver(this);
+		ss << c->getPaperdoll()->setQuiver(this);
+	return ss.str();
 }
 
-void Weapon::examine(){
-	cout << getName() << endl;
-	cout << getSymbol() << endl;
-	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
-	cout << "Damage: ";
-	cout << setprecision(2) << fixed << damage << endl;
-	cout << "Speed: ";
-	cout << setprecision(2) << fixed << speed << endl;
-	cout << "Durability: ";
-	cout << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
-	cout << "Maker: " << maker << endl;
-	cout << "Weapon Rank: " << weaponRank << endl;
-	cout << "Type: ";
+string Weapon::examine(){
+	stringstream ss;
+	ss << getName() << endl;
+	ss << getSymbol() << endl;
+	ss << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
+	ss << "Damage: ";
+	ss << setprecision(2) << fixed << damage << endl;
+	ss << "Speed: ";
+	ss << setprecision(2) << fixed << speed << endl;
+	ss << "Durability: ";
+	ss << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
+	ss << "Maker: " << maker << endl;
+	ss << "Weapon Rank: " << weaponRank << endl;
+	ss << "Type: ";
 	if (type == primary)
-		cout << "Primary" << endl;
+		ss << "Primary" << endl;
 	else
-		cout << "Quiver" << endl;
+		ss << "Quiver" << endl;
+	return ss.str();
 }
 
 Leafblade::Leafblade() : Weapon(){

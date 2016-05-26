@@ -17,7 +17,7 @@ public:
 	virtual ~Character();
 	Character(int x, int y);
 	void setPos(int x, int y);
-	void moveChar(char m = NULL);
+	string moveChar(char m = NULL);
 
 	char getChar();
 	char getMovement();
@@ -26,9 +26,9 @@ public:
 	float getHP();
 	string getName();
 
-	bool equip(Item *equippable);
+	string equip(Item *equippable, bool &result);
 	Paperdoll* getPaperdoll(){ return paperdoll; }
-	void interactCharacter(Character* c);
+	string interactCharacter(Character* c);
 
 protected:
 	string name;
@@ -40,11 +40,11 @@ protected:
 	Paperdoll *paperdoll;
 	CharacterStats *stats;
 	bool isMovement(char m);
-	void examineItem();
-	void putOnGear();
+	string examineItem();
+	string putOnGear();
 	void updateProts();
-	void calculateMeleeDamage(Character* c);
-	void damage(Damage incDamage);
+	string calculateMeleeDamage(Character* c);
+	string damage(Damage incDamage);
 
 };
 

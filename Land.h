@@ -12,8 +12,8 @@ public:
 	Land();
 	Land(string l);
 	void moveMaps();
-	void updateMovement(){ currMap->updateMovement(); }
-	void movePlayerChar(char c);
+	string updateMovement(){ return currMap->updateMovement(); }
+	string movePlayerChar(char c);
 	//Prints the map and some flavor text
 	void printMap(){ 
 		system("CLS");
@@ -29,6 +29,7 @@ public:
 	int getXMapPos(){ return xMapPos; }
 	int getYMapPos(){ return yMapPos; }
 	int getLandSize(){ return landSize; }
+	string getLand(){ return land; }
 	void setXMapPos(int x){ xMapPos = x; }
 	void setYMapPos(int y){ yMapPos = y; }
 

@@ -8,63 +8,64 @@ Armor::~Armor(){
 
 }
 
-void Armor::equip(Character *c){
+string Armor::equip(Character *c){
+	stringstream ss;
 	switch (this->piece) {
 	case helm:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->helm));
-		c->getPaperdoll()->setHelm(this);
+		ss << c->getPaperdoll()->setHelm(this);
 		break;
 	case chest:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->chest));
-		c->getPaperdoll()->setChest(this);
+		ss << c->getPaperdoll()->setChest(this);
 		break;
 	case legs:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->legs));
-		c->getPaperdoll()->setLegs(this);
+		ss << c->getPaperdoll()->setLegs(this);
 		break;
 	case greaves:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->greaves));
-		c->getPaperdoll()->setGreaves(this);
+		ss << c->getPaperdoll()->setGreaves(this);
 		break;
 	case gauntlets:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->gauntlets)); 
-		c->getPaperdoll()->setGauntlets(this);
+		ss << c->getPaperdoll()->setGauntlets(this);
 		break;
 	case elbows:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->elbows)); 
-		c->getPaperdoll()->setElbows(this);
+		ss << c->getPaperdoll()->setElbows(this);
 		break;
 	case boots:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->boots)); 
-		c->getPaperdoll()->setBoots(this);
+		ss << c->getPaperdoll()->setBoots(this);
 		break;
 	case vambraces:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->vambraces)); 
-		c->getPaperdoll()->setVambraces(this);
+		ss << c->getPaperdoll()->setVambraces(this);
 		break;
 	case girdle:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->girdle)); 
-		c->getPaperdoll()->setGirdle(this);
+		ss << c->getPaperdoll()->setGirdle(this);
 		break;
 	case shoulders:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->shoulders)); 
-		c->getPaperdoll()->setShoulders(this);
+		ss << c->getPaperdoll()->setShoulders(this);
 		break;
 	case necklace:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->necklace)); 
-		c->getPaperdoll()->setNecklace(this);
+		ss << c->getPaperdoll()->setNecklace(this);
 		break;
 	case ring:
 		if (c->getPaperdoll()->rhRing != NULL){
 			(c->getPaperdoll()->unequip(c->getPaperdoll()->lhRing));
-			c->getPaperdoll()->setLhRing(this);
+			ss << c->getPaperdoll()->setLhRing(this);
 		}
 		else
-			c->getPaperdoll()->setRhRing(this);
+			ss << c->getPaperdoll()->setRhRing(this);
 		break;
 	case earring:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->earring)); 
-		c->getPaperdoll()->setEarring(this);
+		ss << c->getPaperdoll()->setEarring(this);
 		break;
 	case robe: c->getPaperdoll()->setRobe(this);
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->helm));
@@ -90,41 +91,44 @@ void Armor::equip(Character *c){
 		break;
 	case shield:
 		(c->getPaperdoll()->unequip(c->getPaperdoll()->shield)); 
-		c->getPaperdoll()->setShield(this);
+		ss << c->getPaperdoll()->setShield(this);
 		break;
 	}
+	return ss.str();
 }
 
-void Armor::examine(){
-	cout << getName() << endl;
-	cout << getSymbol() << endl;
-	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
-	cout << "Durability: ";
-	cout << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
-	cout << "Encumbrance: " << setprecision(2) << fixed << encumbrance << endl << endl;
-	cout << "Protections... " << endl;
+string Armor::examine(){
+	stringstream ss;
+	ss << getName() << endl;
+	ss << getSymbol() << endl;
+	ss << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
+	ss << "Durability: ";
+	ss << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
+	ss << "Encumbrance: " << setprecision(2) << fixed << encumbrance << endl << endl;
+	ss << "Protections... " << endl;
 	if (prots.protAcid > 0)
-		cout << "Acid: " << setprecision(2) << fixed << prots.protAcid << endl;
+		ss << "Acid: " << setprecision(2) << fixed << prots.protAcid << endl;
 	if (prots.protArcane > 0)
-		cout << "Arcane: " << setprecision(2) << fixed << prots.protArcane << endl;
+		ss << "Arcane: " << setprecision(2) << fixed << prots.protArcane << endl;
 	if (prots.protBludgeoning > 0)
-		cout << "Bludgeoning: " << setprecision(2) << fixed << prots.protBludgeoning << endl;
+		ss << "Bludgeoning: " << setprecision(2) << fixed << prots.protBludgeoning << endl;
 	if (prots.protCold > 0)
-		cout << "Cold: " << setprecision(2) << fixed << prots.protCold << endl;
+		ss << "Cold: " << setprecision(2) << fixed << prots.protCold << endl;
 	if (prots.protFire > 0)
-		cout << "Fire: " << setprecision(2) << fixed << prots.protFire << endl;
+		ss << "Fire: " << setprecision(2) << fixed << prots.protFire << endl;
 	if (prots.protHoly > 0)
-		cout << "Holy: " << setprecision(2) << fixed << prots.protHoly << endl;
+		ss << "Holy: " << setprecision(2) << fixed << prots.protHoly << endl;
 	if (prots.protImpact > 0)
-		cout << "Impact: " << setprecision(2) << fixed << prots.protImpact << endl;
+		ss << "Impact: " << setprecision(2) << fixed << prots.protImpact << endl;
 	if (prots.protLightning > 0)
-		cout << "Lightning: " << setprecision(2) << fixed << prots.protLightning << endl;
+		ss << "Lightning: " << setprecision(2) << fixed << prots.protLightning << endl;
 	if (prots.protPiercing > 0)
-		cout << "Piercing: " << setprecision(2) << fixed << prots.protPiercing << endl;
+		ss << "Piercing: " << setprecision(2) << fixed << prots.protPiercing << endl;
 	if (prots.protSlashing > 0)
-		cout << "Slashing: " << setprecision(2) << fixed << prots.protSlashing << endl;
+		ss << "Slashing: " << setprecision(2) << fixed << prots.protSlashing << endl;
 	if (prots.protUnholy > 0)
-		cout << "Unholy: " << setprecision(2) << fixed << prots.protUnholy << endl;
+		ss << "Unholy: " << setprecision(2) << fixed << prots.protUnholy << endl;
+	return ss.str();
 }
 
 

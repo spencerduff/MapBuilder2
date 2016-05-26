@@ -18,8 +18,8 @@ public:
 	void setName(string newName){ Item::setName(newName); }
 	void setSymbol(char newSymbol){ Item::setSymbol(newSymbol); }
 	void setWeight(float newWeight){ Item::setWeight(newWeight); }
-	void equip(Character *c) override;
-	void examine() override;
+	string equip(Character *c) override;
+	string examine() override;
 	Prots getProts(){ return prots; }
 	float getEncumbrance(){ return encumbrance; }
 
