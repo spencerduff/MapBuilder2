@@ -1,17 +1,46 @@
 #include "Armor.h"
 #include "Weapon.h"
 
+struct Damage{
+	float damage;
+	DamageType damageType;
+};
+
 class CharacterStats{
 public:
 	CharacterStats();
+	CharacterStats(float iHP, float iStam, float iMana, float iStr, float iVit, float iDex, float iQuick, float iIntel, float iWis);
+	~CharacterStats();
 	void resetProts();
+	void resetEncumbrance();
 	void addProts(Armor *a);
 	void printStats();
 	void printFullStats();
+	void damage(Damage amount);
+
+
+	float getStr(){ return str; }
+	float getHP(){ return currhp; }
+
+	float getProtSlashing(){ return slashingProt; }
+	float getProtBludgeoning(){ return bludgeoningProt; }
+	float getProtArrow(){ return arrowProt; }
+	float getProtPiercing(){ return piercingProt; }
+
+	void setHP(float newHP);
+	void setStam(float newStam);
+	void setMana(float newMana);
+	void setStr(float newStr);
+	void setVit(float newVit);
+	void setDex(float newDex);
+	void setQuick(float newQuick);
+	void setIntel(float newIntel);
+	void setWis(float newWis);
+
 
 private:
 	///Status///
-	const int maxStat = 450;
+	const int maxPlayerStat = 450;
 	float hp, stam, mana;
 	float currhp, currstam, currmana;
 	int alignment;
@@ -21,13 +50,13 @@ private:
 	float str, vit, dex, quick, intel, wis;
 	
 	///Armor Penalties///
-	float encumberance;
+	float encumbrance;
 	
 	///Protections///
 	//Physical
-	float arrow, bludgeoning, piercing, slashing;
+	float arrowProt, bludgeoningProt, piercingProt, slashingProt;
 	//Elemental
-	float acid, arcane, cold, fire, holy, impact, lightning, unholy;
+	float acidProt, arcaneProt, coldProt, fireProt, holyProt, impactProt, lightningProt, unholyProt;
 	//Body
-	float malediction, mental, infliction;
+	float maledictionProt, mentalProt, inflictionProt;
 };

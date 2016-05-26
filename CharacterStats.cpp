@@ -13,42 +13,74 @@ CharacterStats::CharacterStats(){
 
 	str = vit = dex = quick = intel = wis = 20;
 
-	encumberance = 0;
+	encumbrance = 0;
 
-	arrow = bludgeoning = piercing = slashing = 0;
+	arrowProt = bludgeoningProt = piercingProt = slashingProt = 0;
 
-	acid = arcane = cold = fire = holy = impact = lightning = unholy = 0;
+	acidProt = arcaneProt = coldProt = fireProt = holyProt = impactProt = lightningProt = unholyProt = 0;
 
-	malediction = mental = infliction = 0;
+	maledictionProt = mentalProt = inflictionProt = 0;
+
+}
+
+CharacterStats::CharacterStats(float iHP, float iStam, float iMana, float iStr, float iVit, float iDex, float iQuick, float iIntel, float iWis){
+	currhp = hp = iHP;
+	currmana = mana = iMana;
+	currstam = stam = iStam;
+
+	alignment = 10;
+
+	str = iStr;
+	vit = iVit;
+	dex = iDex;
+	quick = iQuick;
+	intel = iIntel;
+	wis = iWis;
+
+	encumbrance = 0;
+
+	arrowProt = bludgeoningProt = piercingProt = slashingProt = 0;
+
+	acidProt = arcaneProt = coldProt = fireProt = holyProt = impactProt = lightningProt = unholyProt = 0;
+
+	maledictionProt = mentalProt = inflictionProt = 0;
+}
+
+CharacterStats::~CharacterStats(){
 
 }
 
 void CharacterStats::resetProts(){
-	arrow = bludgeoning = piercing = slashing = 0;
+	arrowProt = bludgeoningProt = piercingProt = slashingProt = 0;
 
-	acid = arcane = cold = fire = holy = impact = lightning = unholy = 0;
+	acidProt = arcaneProt = coldProt = fireProt = holyProt = impactProt = lightningProt = unholyProt = 0;
 
-	malediction = mental = infliction = 0;
+	maledictionProt = mentalProt = inflictionProt = 0;
+}
+
+void CharacterStats::resetEncumbrance(){
+	encumbrance = 0;
 }
 
 void CharacterStats::addProts(Armor *a){
 	if (a == NULL)
 		return;
-	encumberance += a->getEncumberance();
+	if (a->equipped)
+	encumbrance += a->getEncumbrance();
 
-	arrow += a->getProts().protPiercing;
-	bludgeoning += a->getProts().protBludgeoning;
-	piercing += a->getProts().protPiercing;
-	slashing += a->getProts().protSlashing;
+	arrowProt += a->getProts().protPiercing;
+	bludgeoningProt += a->getProts().protBludgeoning;
+	piercingProt += a->getProts().protPiercing;
+	slashingProt += a->getProts().protSlashing;
 
-	acid += a->getProts().protAcid;
-	arcane += a->getProts().protArcane;
-	cold += a->getProts().protCold;
-	fire += a->getProts().protFire;
-	holy += a->getProts().protHoly;
-	impact += a->getProts().protImpact;
-	lightning += a->getProts().protLightning;
-	unholy += a->getProts().protUnholy;
+	acidProt += a->getProts().protAcid;
+	arcaneProt += a->getProts().protArcane;
+	coldProt += a->getProts().protCold;
+	fireProt += a->getProts().protFire;
+	holyProt += a->getProts().protHoly;
+	impactProt += a->getProts().protImpact;
+	lightningProt += a->getProts().protLightning;
+	unholyProt += a->getProts().protUnholy;
 }
 
 void CharacterStats::printStats(){
@@ -68,26 +100,118 @@ void CharacterStats::printFullStats(){
 	cout << setw(15) << "Dexterity: " << setprecision(2) << fixed << dex << setw(15) << "Quickness: " << setprecision(2) << fixed << quick << endl;
 	cout << setw(15) << "Intelligence: " << setprecision(2) << fixed << intel << setw(15) << "Wisdom: " << setprecision(2) << fixed << wis << endl << endl;
 
-	cout << "Encumberance: " << encumberance << endl << endl;
+	cout << "Encumbrance: " << encumbrance << endl << endl;
 
 	cout << "Protections..." << endl;
 
-	cout << "Arrow: " << setprecision(2) << fixed << arrow << endl;
-	cout << "Bludgeoning: " << setprecision(2) << fixed << bludgeoning << endl;
-	cout << "Piercing: " << setprecision(2) << fixed << piercing << endl;
-	cout << "Slashing: " << setprecision(2) << fixed << slashing << endl << endl;
+	cout << "Arrow: " << setprecision(2) << fixed << arrowProt << endl;
+	cout << "Bludgeoning: " << setprecision(2) << fixed << bludgeoningProt << endl;
+	cout << "Piercing: " << setprecision(2) << fixed << piercingProt << endl;
+	cout << "Slashing: " << setprecision(2) << fixed << slashingProt << endl << endl;
 
-	cout << "Acid: " << setprecision(2) << fixed << acid << endl;
-	cout << "Arcane: " << setprecision(2) << fixed << arcane << endl;
-	cout << "Cold: " << setprecision(2) << fixed << cold << endl;
-	cout << "Fire: " << setprecision(2) << fixed << fire << endl;
-	cout << "Holy: " << setprecision(2) << fixed << holy << endl;
-	cout << "Impact: " << setprecision(2) << fixed << impact << endl;
-	cout << "Lightning: " << setprecision(2) << fixed << lightning << endl;
-	cout << "Unholy: " << setprecision(2) << fixed << unholy << endl << endl;
+	cout << "Acid: " << setprecision(2) << fixed << acidProt << endl;
+	cout << "Arcane: " << setprecision(2) << fixed << arcaneProt << endl;
+	cout << "Cold: " << setprecision(2) << fixed << coldProt << endl;
+	cout << "Fire: " << setprecision(2) << fixed << fireProt << endl;
+	cout << "Holy: " << setprecision(2) << fixed << holyProt << endl;
+	cout << "Impact: " << setprecision(2) << fixed << impactProt << endl;
+	cout << "Lightning: " << setprecision(2) << fixed << lightningProt << endl;
+	cout << "Unholy: " << setprecision(2) << fixed << unholyProt << endl << endl;
 
-	cout << "Malediction: " << setprecision(2) << fixed << malediction << endl;
-	cout << "Mental: " << setprecision(2) << fixed << mental << endl;
-	cout << "Infliction: " << setprecision(2) << fixed << infliction << endl << endl;
+	cout << "Malediction: " << setprecision(2) << fixed << maledictionProt << endl;
+	cout << "Mental: " << setprecision(2) << fixed << mentalProt << endl;
+	cout << "Infliction: " << setprecision(2) << fixed << inflictionProt << endl << endl;
 
+}
+
+void CharacterStats::damage(Damage amount){
+	currhp -= amount.damage;
+
+	switch (amount.damageType){
+	case bludgeoning:
+		currstam -= (amount.damage * 0.4);
+		break;
+	case slashing:
+	case piercing:
+	case arrow:
+		currstam -= (amount.damage * 0.2);
+		break;
+	}
+
+}
+
+void CharacterStats::setHP(float newHP){
+	if (newHP < 5)
+		return;
+	hp = newHP;
+	if (currhp > hp)
+		currhp = hp;
+}
+void CharacterStats::setStam(float newStam){
+	if (newStam < 5)
+		return;
+	stam = newStam;
+	if (currstam > stam)
+		currstam = stam;
+}
+void CharacterStats::setMana(float newMana){
+	if (newMana < 5)
+		return;
+	mana = newMana;
+	if (currmana > mana)
+		currmana = mana;
+}
+void CharacterStats::setStr(float newStr){
+	if (newStr > 100){
+		cout << "Too high to set Attribute. " << endl;
+		return;
+	}
+	if (newStr < 4)
+		return;
+	str = newStr;
+}
+void CharacterStats::setVit(float newVit){
+	if (newVit > 100){
+		cout << "Too high to set Attribute. " << endl;
+		return;
+	}
+	if (newVit < 4)
+		return;
+	vit = newVit;
+}
+void CharacterStats::setDex(float newDex){
+	if (newDex > 100){
+		cout << "Too high to set Attribute. " << endl;
+		return;
+	}
+	if (newDex < 4)
+		return;
+	dex = newDex;
+}
+void CharacterStats::setQuick(float newQuick){
+	if (newQuick > 100){
+		cout << "Too high to set Attribute. " << endl;
+		return;
+	}
+	if (newQuick < 4)
+		return;
+	quick = newQuick;
+}
+void CharacterStats::setIntel(float newIntel){
+	if (newIntel > 100){
+		cout << "Too high to set Attribute. " << endl;
+		return;
+	}
+	if (newIntel < 4)
+		return;
+	intel = newIntel;
+}
+void CharacterStats::setWis(float newWis){
+	if (newWis > 100){
+		cout << "Too high to set Attribute. " << endl;
+		return;
+	}
+	if (newWis < 4)
+		return;
+	wis = newWis;
 }

@@ -11,19 +11,32 @@ class Character;
 
 class Item{
 public:
-	static unsigned long nextID;
-	string name;
-	char symbol;
-	float weight;
-	bool equipped;
-	unsigned long itemID;
 	Item();
+	virtual ~Item();
+
+	bool equipped;
 
 	virtual void equip(Character *c);
 	virtual void examine();
 
+	unsigned long getNextID(){ return nextID; }
+	char getSymbol(){ return symbol; }
+	string getName(){ return name; }
+	float getWeight(){ return weight; }
+	unsigned long getItemID(){ return itemID; }
 
 protected:
+	void setName(string newName){ name = newName; }
+	void setSymbol(char newSymbol){ symbol = newSymbol; }
+	void setWeight(float newWeight){ weight = newWeight; }
+	void setItemID(unsigned long newID){ itemID = newID; }
+
+private:
+	static unsigned long nextID;
+	string name;
+	char symbol;
+	float weight;
+	unsigned long itemID;
 
 };
 

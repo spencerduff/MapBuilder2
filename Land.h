@@ -6,11 +6,6 @@
 //Go far enough in any direction to move to a new Land that will be held in a World
 
 class Land{
-protected:
-	int landSize;
-	int xMapPos, yMapPos;
-	string land;
-
 public:
 	Map*** maps;
 	Map* currMap;
@@ -29,12 +24,19 @@ public:
 		currMap->printMap();
 	}
 	void placeChar(Character* c, char side = '<'){ currMap->placeChar(c, side); }
+	void placeRandomChar(Character* c){ currMap->placeRandomChar(c); }
 	
 	int getXMapPos(){ return xMapPos; }
 	int getYMapPos(){ return yMapPos; }
 	int getLandSize(){ return landSize; }
 	void setXMapPos(int x){ xMapPos = x; }
 	void setYMapPos(int y){ yMapPos = y; }
+
+protected:
+	int landSize;
+	int xMapPos, yMapPos;
+	string land;
+
 };
 
 class OrkLands : public Land{

@@ -13,27 +13,30 @@ struct Prots{
 
 class Armor : public Item{
 public:
-	void setName(string newName){ name = newName; }
-	void setSymbol(char newSymbol){ symbol = newSymbol; }
-	void setWeight(float newWeight){ weight = newWeight; }
-	Piece piece;
 	Armor();
+	virtual ~Armor();
+	void setName(string newName){ Item::setName(newName); }
+	void setSymbol(char newSymbol){ Item::setSymbol(newSymbol); }
+	void setWeight(float newWeight){ Item::setWeight(newWeight); }
 	void equip(Character *c) override;
 	void examine() override;
 	Prots getProts(){ return prots; }
-	float getEncumberance(){ return encumberance; }
+	float getEncumbrance(){ return encumbrance; }
+
 
 protected:
 	string maker;
-	float encumberance;
+	float encumbrance;
 	float dura;
 	float duraMax;
 	Prots prots;
+	Piece piece;
 };
 
 class DragonChest : public Armor{
 public:
 	DragonChest();
+	~DragonChest();
 
 private:
 	void setNameOfWep(string name){ setName(name); }

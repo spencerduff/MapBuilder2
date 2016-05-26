@@ -3,9 +3,11 @@
 
 Character::Character(){
 	character = '@';
+	name = "Zorak Warslayer";
 	movement = NULL;
 	xPos = NULL;
 	yPos = NULL;
+	racialAlignment = evil;
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
@@ -13,11 +15,24 @@ Character::Character(){
 	backpack->inventory.push_back(new DragonChest());
 }
 
+Character::~Character(){
+	delete backpack;
+	delete paperdoll;
+	delete stats;
+}
+
 Character::Character(int x, int y){
 	character = '@';
+	name = "Zorak Warslayer";
 	movement = NULL;
 	xPos = x;
 	yPos = y;
+	racialAlignment = evil;
+	backpack = new Inventory;
+	paperdoll = new Paperdoll;
+	stats = new CharacterStats;
+	backpack->inventory.push_back(new Leafblade());
+	backpack->inventory.push_back(new DragonChest());
 
 }
 
@@ -68,16 +83,28 @@ int Character::getYpos(){
 	return yPos;
 }
 
-void Character::equip(Item *equippable){
+float Character::getHP(){
+	return stats->getHP();
+}
+
+string Character::getName(){
+	return name;
+}
+
+bool Character::equip(Item *equippable){
 	// Check to see if it's in the characters backpack
 	for (int i = 0; i < backpack->inventory.size(); i++){
-		if (equippable->itemID = backpack->inventory[i]->itemID){
+		if (equippable->getItemID() == backpack->inventory[i]->getItemID()){
+			if (equippable->equipped){
+				cout << equippable->getName() << " is already equipped." << endl;
+				return false;
+			}
 			equippable->equip(this);
-			break;
+			return true;
 		}
 
 	}
-
+	return false;
 }
 
 void Character::examineItem(){
@@ -108,13 +135,14 @@ void Character::putOnGear(){
 		pos = (input - 48);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
-		equip(temp);
-		updateProts();
+		if(equip(temp))
+			updateProts();
 	}
 }
 
 void Character::updateProts(){
 	stats->resetProts();
+	stats->resetEncumbrance();
 	stats->addProts(paperdoll->boots);
 	stats->addProts(paperdoll->chest);
 	stats->addProts(paperdoll->elbows);
@@ -130,5 +158,72 @@ void Character::updateProts(){
 	stats->addProts(paperdoll->shield);
 	stats->addProts(paperdoll->shoulders);
 	stats->addProts(paperdoll->vambraces);
+
+}
+
+//This interacts with c
+void Character::interactCharacter(Character* c){
+	if (c == NULL)
+		return;
+	if (this->racialAlignment != c->racialAlignment || this->racialAlignment == evil || c->racialAlignment == evil){
+		this->calculateMeleeDamage(c);
+	}
+}
+
+//Takes weapon damage multiplies it by character strength, adds 1 damage per 10 weapon rank, then adds a flat 8 damage.
+//Will be more complex once weapon skills/masteries/passives and such.
+void Character::calculateMeleeDamage(Character* c){
+	if (this->paperdoll->primary == NULL){
+		cout << "There's no weapon to attack with! " << endl;
+		system("PAUSE");
+		return;
+	}
+	float damage = this->paperdoll->primary->getDamage();
+	damage *= this->stats->getStr();
+	damage += (this->paperdoll->primary->getWeaponRank() / 10);
+	damage += 8;
+	Damage incDamage;
+	incDamage.damage = damage;
+	incDamage.damageType = this->paperdoll->primary->getDamageType();
+	
+	c->damage(incDamage);
+}
+
+void Character::damage(Damage incDamage){
+	switch (incDamage.damageType){
+	case slashing:
+		incDamage.damage -= this->stats->getProtSlashing();
+	case piercing:
+		incDamage.damage -= this->stats->getProtPiercing();
+	case bludgeoning:
+		incDamage.damage -= this->stats->getProtBludgeoning();
+	case arrow:
+		incDamage.damage -= this->stats->getProtArrow();
+	}
+
+	this->stats->damage(incDamage);
+	cout << this->name << "'s HP is now: " << this->stats->getHP() << endl;
+	system("PAUSE");
+
+}
+
+Goblin::Goblin() : Character(){
+	name = "Goblin";
+	character = 'g';
+	racialAlignment = monster;
+	backpack->inventory.clear();
+	stats->setHP(50);
+	stats->setStam(50);
+	stats->setMana(50);
+	stats->setStr(15);
+	stats->setVit(15);
+	stats->setDex(15);
+	stats->setQuick(15);
+	stats->setIntel(10);
+	stats->setWis(10);
+
+}
+
+Goblin::~Goblin(){
 
 }

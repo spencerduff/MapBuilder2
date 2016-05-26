@@ -4,6 +4,10 @@
 
 Weapon::Weapon() : Item(){}
 
+Weapon::~Weapon(){
+
+}
+
 void Weapon::equip(Character *c){
 	if (this->type == primary)
 		c->getPaperdoll()->setPrimary(this);
@@ -12,9 +16,9 @@ void Weapon::equip(Character *c){
 }
 
 void Weapon::examine(){
-	cout << name << endl;
-	cout << symbol << endl;
-	cout << "Weight: " << setprecision(2) << fixed << weight << endl;
+	cout << getName() << endl;
+	cout << getSymbol() << endl;
+	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
 	cout << "Damage: ";
 	cout << setprecision(2) << fixed << damage << endl;
 	cout << "Speed: ";
@@ -40,8 +44,13 @@ Leafblade::Leafblade() : Weapon(){
 	dura = duraMax;
 	maker = "The World";
 	weaponRank = 0;
-	itemID = nextID;
+	setItemID(getNextID());
 	type = primary;
+	damageType = slashing;
 	equipped = false;
+}
+
+Leafblade::~Leafblade(){
+
 }
 

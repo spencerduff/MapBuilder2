@@ -7,6 +7,10 @@ Item::Item(){
 	nextID++;
 }
 
+Item::~Item(){
+
+}
+
 //Add functionality for bags, runestones, food, pots, etc...
 void Item::equip(Character *c){
 	return;

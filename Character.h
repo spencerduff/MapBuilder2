@@ -9,30 +9,61 @@
 
 class Item;
 
+enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, Alfar, evil, monster};
+
 class Character{
 public:
 	Character();
+	virtual ~Character();
 	Character(int x, int y);
 	void setPos(int x, int y);
-	char getChar();
 	void moveChar(char m = NULL);
+
+	char getChar();
 	char getMovement();
 	int getXpos();
 	int getYpos();
-	void equip(Item *equippable);
-	Paperdoll* getPaperdoll(){ return paperdoll; }
+	float getHP();
+	string getName();
 
-private:
+	bool equip(Item *equippable);
+	Paperdoll* getPaperdoll(){ return paperdoll; }
+	void interactCharacter(Character* c);
+
+protected:
+	string name;
+	RacialAlignment racialAlignment;
 	int xPos, yPos;
 	char movement;
 	char character;
 	Inventory *backpack;
 	Paperdoll *paperdoll;
+	CharacterStats *stats;
 	bool isMovement(char m);
 	void examineItem();
-	CharacterStats *stats;
 	void putOnGear();
 	void updateProts();
+	void calculateMeleeDamage(Character* c);
+	void damage(Damage incDamage);
+
+};
+
+//class NPC : Character{
+//public:
+//	NPC() : Character() {}
+//
+//protected:
+//	void changeRacialAlignment(RacialAlignment a){ racialAlignment = a; }
+//	Inventory* getBackpack(){ return backpack; }
+//
+//};
+
+class Goblin : public Character{
+public:
+	Goblin();
+	~Goblin();
+
+private:
 
 };
 

@@ -203,6 +203,35 @@ void Map::placeChar(Character* c, char side){
 	chars.push_back(c);
 }
 
+void Map::placeRandomChar(Character* c){
+	bool notPlaced = true;
+	int triesToGo = 200;
+
+	while (notPlaced && triesToGo){
+		int x = rand() % (xSize - 1);
+		if (x == 0)
+			x++;
+		int y = rand() % (ySize - 1);
+		if (y == 0)
+			y++;
+
+		if (tryPlaceChar(c, x, y))
+			notPlaced = false;
+		triesToGo--;
+	}
+	if (notPlaced == false)
+		chars.push_back(c);
+}
+
+bool Map::tryPlaceChar(Character* c, int x, int y){
+	if (checkNotCollidable(map[y][x]->getShowingTile())){
+		c->setPos(x, y);
+		map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
+		return true;
+	}
+	else return false;
+}
+
 void Map::movePlayerChar(char c){
 	chars[0]->moveChar(c);
 	
@@ -222,11 +251,31 @@ bool Map::checkNotCollidable(char c){
 	return true;
 }
 
+bool Map::checkCharacter(char c){
+	if (c == '@' || c == 'g')
+		return true;
+	else return false;
+}
+
+Character* Map::findChar(int x, int y){
+	for (int i = 0; i < chars.size(); i++){
+		if (chars[i]->getXpos() == x && chars[i]->getYpos() == y)
+			return chars[i];
+	}
+	return NULL;
+}
+
 void Map::moveChar(Character* c, char dir){
 	if (dir == 'h'){
 		if (c->getXpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos()][c->getXpos() - 1]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos());
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos());
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -235,7 +284,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'j'){
 		if (c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos() + 1][c->getXpos()]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos(), c->getYpos() + 1);
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos(), c->getYpos() + 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -244,7 +299,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'k'){
 		if (c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos() - 1][c->getXpos()]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos(), c->getYpos() - 1);
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos(), c->getYpos() - 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -253,7 +314,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'l'){
 		if (c->getXpos() + 1 >= xSize)
 			return;
-		if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos()][c->getXpos() + 1]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos());
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos());
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -262,7 +329,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'y'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() - 1]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() - 1);
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos() - 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -271,7 +344,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'u'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() - 1 < 0)
 			return;
-		if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() + 1]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() - 1);
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos() - 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -280,7 +359,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'b'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() - 1]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() + 1);
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos() + 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -289,7 +374,13 @@ void Map::moveChar(Character* c, char dir){
 	else if (dir == 'n'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() + 1 >= ySize)
 			return;
-		if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile())){
+		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() + 1]->getShowingTile())){
+			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() + 1);
+			c->interactCharacter(toInteract);
+			if (toInteract->getHP() < 0)
+				kill(toInteract);
+		}
+		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos() + 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -297,6 +388,15 @@ void Map::moveChar(Character* c, char dir){
 	}
 	c->moveChar();
 }
+
+//Need to drop a gravestone for loot
+void Map::kill(Character* c){
+	cout << c->getName() << " has been slain." << endl;
+	map[c->getYpos()][c->getXpos()]->updateTile();
+	delete c;
+	system("PAUSE");
+}
+
 
 void Map::updateMovement(){
 	for (unsigned int i = 0; i < chars.size(); i++){

@@ -8,6 +8,24 @@
 //Each map should have 4 exits to new maps: up, down, left, and right, Unless it is on the
 //edge of a Land. Then the exit will not let the player through.
 class Map{
+public:
+
+	vector<Character*> chars;
+	//Constructs the map. Initializes map and sets the borders.
+	//Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
+	Map();
+
+	void placeChar(Character* c, char side = '<');
+	void placeRandomChar(Character *c);
+	void updateMovement();
+	void movePlayerChar(char c);
+	Character* getPlayerChar();
+	char getPCharGroundTile();
+	void deleteOldChar();
+
+	//Prints the Map
+	void printMap();
+
 protected:
 	int numOfRooms, numOfTrees, numOfRocks;
 	Room* rooms;
@@ -18,6 +36,8 @@ protected:
 	TreeNode** trees;
 	RockNode** rocks;
 
+	Character* findChar(int x, int y);
+	bool checkCharacter(char c);
 	void updateMap();
 	void moveChar(Character* c, char dir);
 	void placeStairs();
@@ -36,24 +56,9 @@ protected:
 	void placeTrees(int numOfTrees);
 	//TODO:
 	void placeRocks(int numOfRocks);
+	bool tryPlaceChar(Character* c, int x, int y);
+	void kill(Character* c);
 	
-
-public:
-
-	vector<Character*> chars;
-	//Constructs the map. Initializes map and sets the borders.
-	//Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
-	Map();
-
-	void placeChar(Character* c, char side = '<');
-	void updateMovement();
-	void movePlayerChar(char c);
-	Character* getPlayerChar();
-	char getPCharGroundTile();
-	void deleteOldChar();
-
-	//Prints the Map
-	void printMap();
 
 };
 

@@ -4,6 +4,10 @@
 
 Armor::Armor() : Item(){}
 
+Armor::~Armor(){
+
+}
+
 void Armor::equip(Character *c){
 	switch (this->piece) {
 	case helm:
@@ -92,13 +96,13 @@ void Armor::equip(Character *c){
 }
 
 void Armor::examine(){
-	cout << name << endl;
-	cout << symbol << endl;
-	cout << "Weight: " << setprecision(2) << fixed << weight << endl;
+	cout << getName() << endl;
+	cout << getSymbol() << endl;
+	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
 	cout << "Durability: ";
 	cout << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
-	cout << "Encumberance: " << setprecision(2) << fixed << encumberance << endl;
-	cout << "prots.protections... " << endl;
+	cout << "Encumbrance: " << setprecision(2) << fixed << encumbrance << endl << endl;
+	cout << "Protections... " << endl;
 	if (prots.protAcid > 0)
 		cout << "Acid: " << setprecision(2) << fixed << prots.protAcid << endl;
 	if (prots.protArcane > 0)
@@ -130,9 +134,9 @@ DragonChest::DragonChest() : Armor(){
 	setSymbol(']');
 	duraMax = 60.50;
 	dura = duraMax;
-	encumberance = 42.00;
+	encumbrance = 42.00;
 	maker = "The World";
-	itemID = nextID;
+	setItemID(getNextID());
 	piece = chest;
 	prots.protAcid = prots.protCold = prots.protFire = prots.protHoly = prots.protUnholy = 7.69;
 	prots.protBludgeoning = prots.protImpact = 3.59;
@@ -141,4 +145,8 @@ DragonChest::DragonChest() : Armor(){
 	prots.protSlashing = 4.50;
 	prots.protArcane = 0;
 	equipped = false;
+}
+
+DragonChest::~DragonChest(){
+
 }
