@@ -62,4 +62,18 @@ private:
 
 };
 
+class Shortsword : public Weapon{
+public:
+	Shortsword();
+	~Shortsword();
+
+private:
+	void setNameOfWep(string name){ setName(name); }
+	void setSymbolOfWep(char symbol){ setSymbol(symbol); }
+	void setWeightOfWep(float weight){ setWeight(weight); }
+
+
+};
+
+
 #endif

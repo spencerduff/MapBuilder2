@@ -4,6 +4,7 @@
 struct Damage{
 	float damage;
 	DamageType damageType;
+	int numOfHits;
 };
 
 class CharacterStats{
@@ -21,6 +22,7 @@ public:
 
 	float getStr(){ return str; }
 	float getHP(){ return currhp; }
+	float getQuick(){ return quick; }
 
 	float getProtSlashing(){ return slashingProt; }
 	float getProtBludgeoning(){ return bludgeoningProt; }

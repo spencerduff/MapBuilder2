@@ -127,17 +127,20 @@ string CharacterStats::printFullStats(){
 }
 
 void CharacterStats::damage(Damage amount){
-	currhp -= amount.damage;
+	int i = 0;
+	while (++i <= amount.numOfHits){
+		currhp -= amount.damage;
 
-	switch (amount.damageType){
-	case bludgeoning:
-		currstam -= (amount.damage * 0.4);
-		break;
-	case slashing:
-	case piercing:
-	case arrow:
-		currstam -= (amount.damage * 0.2);
-		break;
+		switch (amount.damageType){
+		case bludgeoning:
+			currstam -= (amount.damage * 0.4);
+			break;
+		case slashing:
+		case piercing:
+		case arrow:
+			currstam -= (amount.damage * 0.2);
+			break;
+		}
 	}
 
 }

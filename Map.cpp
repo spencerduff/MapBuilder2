@@ -245,6 +245,10 @@ void Map::updateMap(){
 	}
 }
 
+bool Map::checkNotCollidable(int x, int y){
+	return checkNotCollidable(map[y][x]->getGroundTile());
+}
+
 bool Map::checkNotCollidable(char c){
 	if (c == '#' || c == '|' || c == '_' || c == 'x')
 		return false;
@@ -397,7 +401,11 @@ string Map::kill(Character* c){
 	stringstream ss;
 	ss << c->getName() << " has been slain." << endl;
 	map[c->getYpos()][c->getXpos()]->updateTile();
+	for (int i = 1; i < chars.size(); i++)
+		if (chars[i] == c)
+			chars.erase(chars.begin() + i);
 	delete c;
+	c = NULL;
 	return ss.str();
 }
 
@@ -614,6 +622,11 @@ void Map::placeRocks(int numOfRocks){
 		}
 		numOfTries++;
 	}
+}
+
+void Map::moveNPCs(){
+	for (int i = 1; i < chars.size(); i++)
+		chars[i]->getAI()->move();
 }
 
 OrkMap::OrkMap() : Map(){

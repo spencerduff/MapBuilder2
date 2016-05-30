@@ -5,12 +5,14 @@ bool isGUI(char a);
 int main(){
 	srand((unsigned int)time(NULL));
 
-	Character* c = new Character();
-	Character* g = new Goblin();
-
+	cout << "Creating World... " << endl;
 	World b;
 
-	//b.printMap();
+
+	Character* c = new Character();
+	Character* g = new Goblin(b.getCurrMap());
+
+
 
 	b.placeChar(c);
 	b.placeRandomChar(g);

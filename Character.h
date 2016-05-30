@@ -6,8 +6,10 @@
 #include <conio.h>
 #include "Inventory.h"
 #include "CharacterStats.h"
+#include "AI.h"
 
 class Item;
+class AI;
 
 enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, Alfar, evil, monster};
 
@@ -25,6 +27,9 @@ public:
 	int getYpos();
 	float getHP();
 	string getName();
+	AI* getAI();
+
+	void setMovement(char m);
 
 	string equip(Item *equippable, bool &result);
 	Paperdoll* getPaperdoll(){ return paperdoll; }
@@ -45,22 +50,23 @@ protected:
 	void updateProts();
 	string calculateMeleeDamage(Character* c);
 	string damage(Damage incDamage);
+	AI* ai;
 
 };
 
-//class NPC : Character{
-//public:
-//	NPC() : Character() {}
-//
-//protected:
-//	void changeRacialAlignment(RacialAlignment a){ racialAlignment = a; }
-//	Inventory* getBackpack(){ return backpack; }
-//
-//};
-
-class Goblin : public Character{
+class NPC : public Character{
 public:
-	Goblin();
+	NPC() : Character() {}
+	virtual ~NPC() {}
+	void equipAll();
+
+protected:
+
+};
+
+class Goblin : public NPC{
+public:
+	Goblin(Map* m);
 	~Goblin();
 
 private:

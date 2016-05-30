@@ -58,3 +58,22 @@ Leafblade::~Leafblade(){
 
 }
 
+Shortsword::Shortsword() : Weapon(){
+	setName("Short Sword");
+	setWeight(0.0);
+	setSymbol('/');
+	damage = 0.31;
+	speed = 0.6;
+	duraMax = 51.00;
+	dura = rand() % (int)duraMax;
+	maker = "The World";
+	weaponRank = 0;
+	setItemID(getNextID());
+	type = primary;
+	damageType = slashing;
+	equipped = false;
+}
+
+Shortsword::~Shortsword(){
+
+}

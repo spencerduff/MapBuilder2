@@ -11,14 +11,15 @@ Character::Character(){
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
+	ai = NULL;
 	backpack->inventory.push_back(new Leafblade());
 	backpack->inventory.push_back(new DragonChest());
 }
 
 Character::~Character(){
 	delete backpack;
-	delete paperdoll;
 	delete stats;
+	delete ai;
 }
 
 Character::Character(int x, int y){
@@ -31,6 +32,7 @@ Character::Character(int x, int y){
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
+	ai = NULL;
 	backpack->inventory.push_back(new Leafblade());
 	backpack->inventory.push_back(new DragonChest());
 
@@ -91,6 +93,15 @@ float Character::getHP(){
 
 string Character::getName(){
 	return name;
+}
+
+AI* Character::getAI(){
+	return ai;
+}
+
+void Character::setMovement(char m){
+	if (isMovement(m))
+		this->movement = m;
 }
 
 string Character::equip(Item *equippable, bool &result){
@@ -198,9 +209,17 @@ string Character::calculateMeleeDamage(Character* c){
 	damage *= this->stats->getStr();
 	damage += (this->paperdoll->primary->getWeaponRank() / 10);
 	damage += 8;
+
+	float calcHits = this->paperdoll->primary->getSpeed();
+	calcHits *= (this->stats->getQuick() / 10);
+	int hits = calcHits;
+	if (calcHits < 1)
+		hits = 1;
+
 	Damage incDamage;
 	incDamage.damage = damage;
 	incDamage.damageType = this->paperdoll->primary->getDamageType();
+	incDamage.numOfHits = hits;
 	
 	ss << c->damage(incDamage);
 
@@ -212,24 +231,42 @@ string Character::damage(Damage incDamage){
 	switch (incDamage.damageType){
 	case slashing:
 		incDamage.damage -= this->stats->getProtSlashing();
+		break;
 	case piercing:
 		incDamage.damage -= this->stats->getProtPiercing();
+		break;
 	case bludgeoning:
 		incDamage.damage -= this->stats->getProtBludgeoning();
+		break;
 	case arrow:
 		incDamage.damage -= this->stats->getProtArrow();
+		break;
 	}
-
+	if (incDamage.damage < 0)
+		incDamage.damage = 0;
 	this->stats->damage(incDamage);
-	ss << this->name << "'s HP is now: " << this->stats->getHP() << endl;
+	ss << this->name << "'s HP is now: " << this->stats->getHP() << " after " << incDamage.numOfHits;
+	if (incDamage.numOfHits == 1)
+		ss << " hit." << endl;
+	else
+		ss << " hits." << endl;
 	return ss.str();
 }
 
-Goblin::Goblin() : Character(){
+void NPC::equipAll(){
+	for (int i = 0; i < backpack->inventory.size(); i++){
+		backpack->inventory[i]->equip(this);
+	}
+	updateProts();
+}
+
+Goblin::Goblin(Map* m) : NPC(){
 	name = "Goblin";
 	character = 'g';
 	racialAlignment = monster;
 	backpack->inventory.clear();
+	backpack->inventory.push_back(new Shortsword);
+	equipAll();
 	stats->setHP(50);
 	stats->setStam(50);
 	stats->setMana(50);
@@ -239,6 +276,7 @@ Goblin::Goblin() : Character(){
 	stats->setQuick(15);
 	stats->setIntel(10);
 	stats->setWis(10);
+	ai = new MeleeAI(m, this);
 
 }
 

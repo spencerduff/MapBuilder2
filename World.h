@@ -12,6 +12,7 @@ public:
 	string movePlayerChar(char c);
 	string updateMovement(){ return currLand->updateMovement(); }
 	string moveLands();
+	Map* getCurrMap(){ return currLand->currMap; }
 
 private:
 	string name;

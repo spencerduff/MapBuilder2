@@ -41,6 +41,7 @@ void Land::moveMaps(){
 string Land::movePlayerChar(char c) { 
 	stringstream ss;
 	ss << currMap->movePlayerChar(c); 
+	currMap->moveNPCs();
 	moveMaps();
 	return ss.str();
 }

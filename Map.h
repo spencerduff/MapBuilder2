@@ -1,3 +1,6 @@
+#ifndef MAP_H
+#define MAP_H
+
 #include "Character.h"
 #include <vector>
 #include <sstream>
@@ -22,6 +25,9 @@ public:
 	Character* getPlayerChar();
 	char getPCharGroundTile();
 	void deleteOldChar();
+	void moveNPCs();
+
+	bool checkNotCollidable(int x, int y);
 
 	//Prints the Map
 	void printMap();
@@ -80,3 +86,5 @@ public:
 	HumanMap(bool starter);
 
 };
+
+#endif

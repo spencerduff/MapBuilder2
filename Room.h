@@ -1,3 +1,6 @@
+#ifndef ROOM_H
+#define ROOM_H
+
 #include "MapTile.h"
 
 class Room{
@@ -49,3 +52,6 @@ public:
 
 
 };
+
+
+#endif
