@@ -25,6 +25,16 @@ string Inventory::printInv(){
 	return ss.str();
 }
 
+int Inventory::parsePosInBackpack(char input){
+	if (input == 'Q') return -1;
+	int pos = 0;
+	if (input >= 97 && input <= 122)
+		pos = (input - 87);
+	else if (input >= 48 && input <= 57)
+		pos = (input - 48);
+	else return -1;
+}
+
 Paperdoll::Paperdoll(){
 	helm = NULL;
 	chest = NULL;
@@ -164,4 +174,3 @@ string Paperdoll::printPaperdoll(){
 
 	return ss.str();
 }
-

@@ -26,11 +26,35 @@ void MapTile::setGroundTile(char gTile){
 }
 
 void MapTile::updateTile(char sTile){
-	if (sTile != NULL)
+	if (sTile != NULL){
 		showingTile = sTile;
+		underTiles.push_back(sTile);
+	}
+	else if (!underTiles.empty()){
+		underTiles.pop_back();
+		if (!underTiles.empty())
+			showingTile = underTiles.back();
+		else showingTile = groundTile;
+	}
 	else showingTile = groundTile;
 }
 
 void MapTile::printTile(){
 	cout << showingTile;
+}
+
+void MapTile::clearGraves(){
+	for (int i = 0; i < underTiles.size(); i++){
+		if (underTiles[i] == '&'){
+			underTiles.erase(underTiles.begin() + i);
+		}
+	}
+}
+
+void MapTile::removeChar(char c){
+	for (int i = 0; i < underTiles.size(); i++){
+		if (underTiles[i] == c){
+			underTiles.erase(underTiles.begin() + i);
+		}
+	}
 }

@@ -6,11 +6,6 @@
 using namespace std;
 
 class MapTile{
-private:
-	char groundTile;
-	char showingTile;
-	bool isGroundTile();
-
 public:
 	MapTile();
 	MapTile(char gTile);
@@ -19,5 +14,12 @@ public:
 	void setGroundTile(char gTile);
 	void updateTile(char sTile = NULL);
 	void printTile();
+	void clearGraves();
+	void removeChar(char c);
 
+private:
+	char groundTile;
+	char showingTile;
+	vector<char> underTiles;
+	bool isGroundTile();
 };

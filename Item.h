@@ -14,6 +14,9 @@ class Item{
 public:
 	Item();
 	virtual ~Item();
+	Item(const Item &obj);
+
+	virtual Item* clone(){ return new Item(*this); }
 
 	bool equipped;
 

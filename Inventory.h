@@ -14,6 +14,8 @@ public:
 	vector<Item*> inventory;
 	string printInv();
 
+	int parsePosInBackpack(char input);
+
 protected:
 	
 
@@ -50,6 +52,8 @@ public:
 
 	string setHelm(Armor *h){ 
 		stringstream ss;
+		if (helm != NULL)
+			helm->equipped = false;
 		helm = h;
 		if (h == NULL) return "";
 		h->equipped = true;
@@ -58,6 +62,8 @@ public:
 	}
 	string setChest(Armor *c){
 		stringstream ss;
+		if (chest != NULL)
+			chest->equipped = false;
 		chest = c;
 		if (c == NULL) return "";
 		c->equipped = true;
@@ -66,6 +72,8 @@ public:
 	}
 	string setLegs(Armor *l){
 		stringstream ss;
+		if (legs != NULL)
+			legs->equipped = false;
 		legs = l;
 		if (l == NULL) return "";
 		l->equipped = true;
@@ -74,6 +82,8 @@ public:
 	}
 	string setGreaves(Armor *g){
 		stringstream ss;
+		if (greaves != NULL)
+			greaves->equipped = false;
 		greaves = g;
 		if (g == NULL) return "";
 		g->equipped = true;
@@ -82,6 +92,8 @@ public:
 	}
 	string setGauntlets(Armor *g){
 		stringstream ss;
+		if (gauntlets != NULL)
+			gauntlets->equipped = false;
 		gauntlets = g;
 		if (g == NULL) return "";
 		g->equipped = true;
@@ -90,6 +102,8 @@ public:
 	}
 	string setElbows(Armor *e){
 		stringstream ss;
+		if (elbows != NULL)
+			elbows->equipped = false;
 		elbows = e;
 		if (e == NULL) return "";
 		e->equipped = true;
@@ -98,6 +112,8 @@ public:
 	}
 	string setBoots(Armor *b){
 		stringstream ss;
+		if (boots != NULL)
+			boots->equipped = false;
 		boots = b;
 		if (b == NULL) return "";
 		b->equipped = true;
@@ -106,6 +122,8 @@ public:
 	}
 	string setVambraces(Armor *v){
 		stringstream ss;
+		if (vambraces != NULL)
+			vambraces->equipped = false;
 		vambraces = v;
 		if (v == NULL) return "";
 		v->equipped = true;
@@ -114,6 +132,8 @@ public:
 	}
 	string setGirdle(Armor *g){
 		stringstream ss;
+		if (girdle != NULL)
+			girdle->equipped = false;
 		girdle = g;
 		if (g == NULL) return "";
 		g->equipped = true;
@@ -122,6 +142,8 @@ public:
 	}
 	string setShoulders(Armor *s){
 		stringstream ss;
+		if (shoulders != NULL)
+			shoulders->equipped = false;
 		shoulders = s;
 		if (s == NULL) return "";
 		s->equipped = true;
@@ -130,6 +152,8 @@ public:
 	}
 	string setNecklace(Armor *n){
 		stringstream ss;
+		if (necklace != NULL)
+			necklace->equipped = false;
 		necklace = n; 
 		n->equipped = true;
 		ss << "Necklace set to: " << necklace->getName() << endl;
@@ -137,6 +161,8 @@ public:
 	}
 	string setRhRing(Armor *r){
 		stringstream ss;
+		if (rhRing != NULL)
+			rhRing->equipped = false;
 		rhRing = r; 
 		r->equipped = true;
 		ss << "Right-Hand Ring set to: " << rhRing->getName() << endl;
@@ -144,6 +170,8 @@ public:
 	}
 	string setLhRing(Armor *l){
 		stringstream ss;
+		if (lhRing != NULL)
+			lhRing->equipped = false;
 		lhRing = l; 
 		l->equipped = true;
 		ss << "Left-Hand Ring set to: " << lhRing->getName() << endl;
@@ -151,6 +179,8 @@ public:
 	}
 	string setEarring(Armor *e){
 		stringstream ss;
+		if (earring != NULL)
+			earring->equipped = false;
 		earring = e; 
 		e->equipped = true;
 		ss << "Earring set to: " << earring->getName() << endl;
@@ -158,6 +188,8 @@ public:
 	}
 	string setRobe(Armor *r){
 		stringstream ss;
+		if (robe != NULL)
+			robe->equipped = false;
 		robe = r; 
 		r->equipped = true;
 		ss << "Robe set to: " << robe->getName() << endl;
@@ -166,6 +198,8 @@ public:
 	}
 	string setShield(Armor *s){
 		stringstream ss;
+		if (shield != NULL)
+			shield->equipped = false;
 		shield = s; 
 		s->equipped = true;
 		ss << "Shield set to: " << shield->getName() << endl;
@@ -173,6 +207,8 @@ public:
 	}
 	string setPrimary(Weapon *p){
 		stringstream ss;
+		if (primary != NULL)
+			primary->equipped = false;
 		primary = p; 
 		p->equipped = true;
 		ss << "Primary set to: " << primary->getName() << endl;
@@ -180,6 +216,8 @@ public:
 	}
 	string setQuiver(Weapon *q){
 		stringstream ss;
+		if (quiver != NULL)
+			quiver->equipped = false;
 		quiver = q; 
 		q->equipped = true;
 		ss << "Quiver set to: " << quiver->getName() << endl;

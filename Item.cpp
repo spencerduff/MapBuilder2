@@ -11,6 +11,14 @@ Item::~Item(){
 
 }
 
+Item::Item(const Item &obj){
+	this->equipped = obj.equipped;
+	this->name = obj.name;
+	this->symbol = obj.symbol;
+	this->weight = obj.weight;
+	this->itemID = obj.itemID;
+}
+
 //Add functionality for bags, runestones, food, pots, etc...
 string Item::equip(Character *c){
 	return "";

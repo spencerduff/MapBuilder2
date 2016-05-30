@@ -17,7 +17,6 @@ Character::Character(){
 }
 
 Character::~Character(){
-	delete backpack;
 	delete stats;
 	delete ai;
 }
@@ -71,6 +70,8 @@ string Character::moveChar(char m){
 		ss << stats->printStats();
 	else if (m == 'S')
 		ss << stats->printFullStats();
+	else if (m == 'f')
+		movement = m;
 	else movement = NULL;
 	return ss.str();
 }
@@ -149,12 +150,7 @@ string Character::putOnGear(){
 	cout << backpack->printInv();
 	cout << "Press Q to not put on gear." << endl;
 	char input = _getch();
-	if (input == 'Q') return "";
-	int pos = 0;
-	if (input >= 97 && input <= 122)
-		pos = (input - 87);
-	else if (input >= 48 && input <= 57)
-		pos = (input - 48);
+	int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
 		bool result = false;
@@ -251,6 +247,27 @@ string Character::damage(Damage incDamage){
 	else
 		ss << " hits." << endl;
 	return ss.str();
+}
+
+void Character::unequipAll(){
+	paperdoll->unequip(paperdoll->boots);
+	paperdoll->unequip(paperdoll->chest);
+	paperdoll->unequip(paperdoll->earring);
+	paperdoll->unequip(paperdoll->elbows);
+	paperdoll->unequip(paperdoll->gauntlets);
+	paperdoll->unequip(paperdoll->girdle);
+	paperdoll->unequip(paperdoll->greaves);
+	paperdoll->unequip(paperdoll->helm);
+	paperdoll->unequip(paperdoll->legs);
+	paperdoll->unequip(paperdoll->lhRing);
+	paperdoll->unequip(paperdoll->necklace);
+	paperdoll->unequip(paperdoll->primary);
+	paperdoll->unequip(paperdoll->quiver);
+	paperdoll->unequip(paperdoll->rhRing);
+	paperdoll->unequip(paperdoll->robe);
+	paperdoll->unequip(paperdoll->shield);
+	paperdoll->unequip(paperdoll->shoulders);
+	paperdoll->unequip(paperdoll->vambraces);
 }
 
 void NPC::equipAll(){

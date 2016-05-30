@@ -396,14 +396,19 @@ string Map::moveChar(Character* c, char dir){
 	return ss.str();
 }
 
-//Need to drop a gravestone for loot
 string Map::kill(Character* c){
 	stringstream ss;
 	ss << c->getName() << " has been slain." << endl;
-	map[c->getYpos()][c->getXpos()]->updateTile();
+	map[c->getYpos()][c->getXpos()]->removeChar(c->getChar());
+	c->unequipAll();
+	Gravestone* g = new Gravestone(c);
+	graves.push_back(g);
+	map[c->getYpos()][c->getXpos()]->updateTile(g->marker);
 	for (int i = 1; i < chars.size(); i++)
-		if (chars[i] == c)
-			chars.erase(chars.begin() + i);
+		if (chars[i] == c){
+			swap(chars[i], chars.back());
+			chars.pop_back();
+		}
 	delete c;
 	c = NULL;
 	return ss.str();
@@ -414,11 +419,30 @@ string Map::updateMovement(){
 	stringstream ss;
 	for (unsigned int i = 0; i < chars.size(); i++){
 		if (chars[i]->getMovement() != NULL){
+			if (chars[i]->getMovement() == 'f')
+				ss << interact(chars[i]);
 			ss << moveChar(chars[i], chars[i]->getMovement());
 		}
 
 	}
 	return ss.str();
+}
+
+string Map::interact(Character* c){
+	bool clearGrave = false;
+	lootGrave(c, clearGrave);
+	if (clearGrave)
+		map[c->getYpos()][c->getXpos()]->clearGraves();
+	return "";
+}
+
+string Map::lootGrave(Character* c, bool &emptied){
+	for (int i = 0; i < graves.size(); i++){
+		if (c->getXpos() == graves[i]->getXpos() && c->getYpos() == graves[i]->getYpos())
+			if (graves[i]->lootGrave(c))
+				emptied = true;
+	}
+	return "";
 }
 
 void Map::printMap(){

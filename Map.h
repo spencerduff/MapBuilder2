@@ -5,8 +5,9 @@
 #include <vector>
 #include <sstream>
 #include "Node.h"
+#include "Gravestone.h"
 
-
+class Gravestone;
 
 //Each map should have 4 exits to new maps: up, down, left, and right, Unless it is on the
 //edge of a Land. Then the exit will not let the player through.
@@ -14,6 +15,7 @@ class Map{
 public:
 
 	vector<Character*> chars;
+	vector<Gravestone*> graves;
 	//Constructs the map. Initializes map and sets the borders.
 	//Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
 	Map();
@@ -64,6 +66,8 @@ protected:
 	void placeRocks(int numOfRocks);
 	bool tryPlaceChar(Character* c, int x, int y);
 	string kill(Character* c);
+	string interact(Character* c);
+	string lootGrave(Character* c, bool &emptied);
 	
 
 };

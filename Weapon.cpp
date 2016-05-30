@@ -8,6 +8,21 @@ Weapon::~Weapon(){
 
 }
 
+Weapon::Weapon(const Weapon& rhs) : Item(rhs){
+	this->type = rhs.type;
+	this->damage = rhs.damage;
+	this->speed = rhs.speed;
+	this->dura = rhs.dura;
+	this->duraMax = rhs.duraMax;
+	this->maker = rhs.maker;
+	this->weaponRank = rhs.weaponRank;
+	this->damageType = rhs.damageType;
+}
+
+Item* Weapon::clone(){
+	return new Weapon(*this);
+}
+
 string Weapon::equip(Character *c){
 	stringstream ss;
 	if (this->type == primary)
@@ -60,7 +75,7 @@ Leafblade::~Leafblade(){
 
 Shortsword::Shortsword() : Weapon(){
 	setName("Short Sword");
-	setWeight(0.0);
+	setWeight(1.0);
 	setSymbol('/');
 	damage = 0.31;
 	speed = 0.6;

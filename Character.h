@@ -28,12 +28,14 @@ public:
 	float getHP();
 	string getName();
 	AI* getAI();
+	Inventory* getBackpack(){ return backpack; }
+	Paperdoll* getPaperdoll(){ return paperdoll; }
 
 	void setMovement(char m);
 
 	string equip(Item *equippable, bool &result);
-	Paperdoll* getPaperdoll(){ return paperdoll; }
 	string interactCharacter(Character* c);
+	void unequipAll();
 
 protected:
 	string name;
@@ -44,13 +46,14 @@ protected:
 	Inventory *backpack;
 	Paperdoll *paperdoll;
 	CharacterStats *stats;
+	AI* ai;
+
 	bool isMovement(char m);
 	string examineItem();
 	string putOnGear();
 	void updateProts();
 	string calculateMeleeDamage(Character* c);
 	string damage(Damage incDamage);
-	AI* ai;
 
 };
 

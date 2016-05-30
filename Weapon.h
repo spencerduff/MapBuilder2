@@ -12,6 +12,9 @@ class Weapon : public Item{
 public:
 	Weapon();
 	virtual ~Weapon();
+	Weapon(const Weapon& rhs);
+
+	Item* clone() override;
 
 	void setName(string newName){ Item::setName(newName); }
 	void setSymbol(char newSymbol){ Item::setSymbol(newSymbol); }

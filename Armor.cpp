@@ -8,6 +8,19 @@ Armor::~Armor(){
 
 }
 
+Armor::Armor(const Armor& rhs) : Item(rhs){
+	this->maker = rhs.maker;
+	this->encumbrance = rhs.encumbrance;
+	this->dura = rhs.dura;
+	this->duraMax = rhs.duraMax;
+	this->prots = rhs.prots;
+	this->piece = rhs.piece;
+}
+
+Item* Armor::clone(){
+	return new Armor(*this);
+}
+
 string Armor::equip(Character *c){
 	stringstream ss;
 	switch (this->piece) {
