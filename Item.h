@@ -7,12 +7,12 @@
 using namespace std;
 
 class Character;
-
-
+class Enchant;
+class Thaumaturgy;
+class Inventory;
 
 class Item{
 public:
-	Item();
 	virtual ~Item();
 	Item(const Item &obj);
 
@@ -23,13 +23,24 @@ public:
 	virtual string equip(Character *c);
 	virtual string examine();
 
+
+	virtual void enchant(Enchant* e);
+
+	virtual void addToEnchantingTable(Thaumaturgy *t);
+
 	unsigned long getNextID(){ return nextID; }
 	char getSymbol(){ return symbol; }
 	string getName(){ return name; }
 	float getWeight(){ return weight; }
 	unsigned long getItemID(){ return itemID; }
 
+	void setParentContainer(Inventory* p){ parent = p; }
+
 protected:
+	Item(Inventory* p);
+	bool stackable;
+	Inventory* parent;
+
 	void setName(string newName){ name = newName; }
 	void setSymbol(char newSymbol){ symbol = newSymbol; }
 	void setWeight(float newWeight){ weight = newWeight; }

@@ -15,6 +15,7 @@ int main(){
 	b.placeChar(c);
 	b.placeRandomChar(new Goblin(b.getCurrMap()));
 	b.placeRandomChar(new Goblin(b.getCurrMap()));
+	b.placeRandomCrafting(new Thaumaturgy());
 	b.printMap();
 	char input;
 

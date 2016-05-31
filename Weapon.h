@@ -4,13 +4,14 @@
 #include "Item.h"
 
 class Character;
+class Keen;
 
 enum Type { primary, quiver };
 enum DamageType { slashing, piercing, bludgeoning, arrow };
 
 class Weapon : public Item{
 public:
-	Weapon();
+	Weapon(Inventory* p);
 	virtual ~Weapon();
 	Weapon(const Weapon& rhs);
 
@@ -22,6 +23,10 @@ public:
 
 	string equip(Character *c) override;
 	string examine() override;
+
+	void enchant(Enchant* e) override;
+	void keen(Keen* k);
+	void addToEnchantingTable(Thaumaturgy *t) override;
 
 	void decrementDura(){ if (this->getName() != "Leafblade") this->dura -= .10; }
 
@@ -40,10 +45,10 @@ public:
 			return 0;
 		return weaponRank; 
 	}
-	DamageType getDamageType(){ 
+	DamageType getDamageType(){
 		if (this == NULL)
 			return slashing;
-		return damageType; 
+		return damageType;
 	}
 
 protected:
@@ -55,11 +60,13 @@ protected:
 	string maker;
 	int weaponRank;
 	DamageType damageType;
+	Enchant* enchantPrefix;
+	Enchant* enchantSuffix;
 };
 
 class Leafblade : public Weapon{
 public:
-	Leafblade();
+	Leafblade(Inventory* p);
 	~Leafblade();
 
 private:
@@ -71,7 +78,7 @@ private:
 
 class Shortsword : public Weapon{
 public:
-	Shortsword();
+	Shortsword(Inventory* p);
 	~Shortsword();
 
 private:

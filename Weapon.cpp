@@ -1,8 +1,9 @@
 #include "Weapon.h"
 #include "Character.h"
 #include <iomanip>
+#include "Enchants.h"
 
-Weapon::Weapon() : Item(){}
+Weapon::Weapon(Inventory* p) : Item(p){}
 
 Weapon::~Weapon(){
 
@@ -53,7 +54,31 @@ string Weapon::examine(){
 	return ss.str();
 }
 
-Leafblade::Leafblade() : Weapon(){
+void Weapon::enchant(Enchant* e){
+	e->enchant(this);
+}
+
+void Weapon::keen(Keen* k){
+	if (enchantPrefix == NULL){
+		enchantPrefix = k;
+		damage += k->getDmgMod();
+		string a = "Keen ";
+		a += getName();
+		setName(a);
+	}
+	else if (enchantSuffix == NULL && enchantPrefix->getName() != "Keen"){
+		enchantSuffix = k;
+		damage += k->getDmgMod();
+		string a = "of Keeness";
+		setName(getName() += a);
+	}
+}
+
+void Weapon::addToEnchantingTable(Thaumaturgy *t){
+	t->setToEnchant(this);
+}
+
+Leafblade::Leafblade(Inventory* p) : Weapon(p){
 	setName("Leafblade");
 	setWeight(0.0);
 	setSymbol('/');
@@ -73,7 +98,7 @@ Leafblade::~Leafblade(){
 
 }
 
-Shortsword::Shortsword() : Weapon(){
+Shortsword::Shortsword(Inventory* p) : Weapon(p){
 	setName("Short Sword");
 	setWeight(1.0);
 	setSymbol('/');

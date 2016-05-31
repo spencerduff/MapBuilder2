@@ -13,7 +13,7 @@ struct Prots{
 
 class Armor : public Item{
 public:
-	Armor();
+	Armor(Inventory* p);
 	virtual ~Armor();
 	Armor(const Armor& rhs);
 
@@ -26,6 +26,8 @@ public:
 	string equip(Character *c) override;
 	string examine() override;
 	void decrementDura(){ this->dura -= .10; }
+
+	void addToEnchantingTable(Thaumaturgy *t) override;
 
 	Prots getProts(){ return prots; }
 	float getEncumbrance(){ return encumbrance; }
@@ -42,7 +44,7 @@ protected:
 
 class DragonChest : public Armor{
 public:
-	DragonChest();
+	DragonChest(Inventory* p);
 	~DragonChest();
 
 private:

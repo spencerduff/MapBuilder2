@@ -223,7 +223,35 @@ void Map::placeRandomChar(Character* c){
 		chars.push_back(c);
 }
 
+void Map::placeRandomCrafting(CraftingStation* c){
+	bool notPlaced = true;
+	int triesToGo = 200;
+
+	while (notPlaced && triesToGo){
+		int x = rand() % (xSize - 1);
+		if (x == 0)
+			x++;
+		int y = rand() % (ySize - 1);
+		if (y == 0)
+			y++;
+		if (tryPlaceCrafting(c, x, y))
+			notPlaced = false;
+		triesToGo--;
+	}
+	if (notPlaced == false)
+		crafting.push_back(c);
+}
+
 bool Map::tryPlaceChar(Character* c, int x, int y){
+	if (checkNotCollidable(map[y][x]->getShowingTile())){
+		c->setPos(x, y);
+		map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
+		return true;
+	}
+	else return false;
+}
+
+bool Map::tryPlaceCrafting(CraftingStation* c, int x, int y){
 	if (checkNotCollidable(map[y][x]->getShowingTile())){
 		c->setPos(x, y);
 		map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -433,6 +461,8 @@ string Map::interact(Character* c){
 	lootGrave(c, clearGrave);
 	if (clearGrave)
 		map[c->getYpos()][c->getXpos()]->clearGraves();
+	craft(c);
+
 	return "";
 }
 
@@ -443,6 +473,13 @@ string Map::lootGrave(Character* c, bool &emptied){
 				emptied = true;
 	}
 	return "";
+}
+
+void Map::craft(Character* c){
+	for (unsigned int i = 0; i < crafting.size(); i++){
+		if (c->getXpos() == crafting[i]->getXpos() && c->getYpos() == crafting[i]->getYpos())
+			(crafting[i]->craft(c));
+	}
 }
 
 void Map::printMap(){

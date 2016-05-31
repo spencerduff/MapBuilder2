@@ -2,7 +2,7 @@
 #include "Character.h"
 #include <iomanip>
 
-Armor::Armor() : Item(){}
+Armor::Armor(Inventory* p) : Item(p){}
 
 Armor::~Armor(){
 
@@ -144,8 +144,11 @@ string Armor::examine(){
 	return ss.str();
 }
 
+void Armor::addToEnchantingTable(Thaumaturgy *t){
+	t->setToEnchant(this);
+}
 
-DragonChest::DragonChest() : Armor(){
+DragonChest::DragonChest(Inventory* p) : Armor(p){
 	setName("Dragon Armor Cuirass");
 	setWeight(5.0);
 	setSymbol(']');

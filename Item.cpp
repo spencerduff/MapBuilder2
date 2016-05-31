@@ -1,14 +1,18 @@
 #include "Item.h"
 #include "Character.h"
+#include <iomanip>
 
 unsigned long Item::nextID = 0;
 
-Item::Item(){
+Item::Item(Inventory* p){
+	stackable = false;
+	equipped = false;
 	nextID++;
+	parent = p;
 }
 
 Item::~Item(){
-
+	parent->removeItem(this);
 }
 
 Item::Item(const Item &obj){
@@ -28,6 +32,14 @@ string Item::examine(){
 	stringstream ss;
 	ss << name << endl;
 	ss << symbol << endl;
-	ss << "Weight: " << endl;
+	ss << "Weight: " << setprecision(2) << fixed << weight << endl;
 	return ss.str();
+}
+
+void Item::enchant(Enchant* e){
+	return;
+}
+
+void Item::addToEnchantingTable(Thaumaturgy *t){
+	cout << "Not an item to use here. " << endl;
 }

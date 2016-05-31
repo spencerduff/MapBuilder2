@@ -6,6 +6,7 @@
 #include <sstream>
 #include "Node.h"
 #include "Gravestone.h"
+#include "Crafting.h"
 
 class Gravestone;
 
@@ -16,12 +17,14 @@ public:
 
 	vector<Character*> chars;
 	vector<Gravestone*> graves;
+	vector<CraftingStation*> crafting;
 	//Constructs the map. Initializes map and sets the borders.
 	//Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
 	Map();
 
 	void placeChar(Character* c, char side = '<');
 	void placeRandomChar(Character *c);
+	void placeRandomCrafting(CraftingStation* c);
 	string updateMovement();
 	string movePlayerChar(char c);
 	Character* getPlayerChar();
@@ -65,9 +68,11 @@ protected:
 	//TODO:
 	void placeRocks(int numOfRocks);
 	bool tryPlaceChar(Character* c, int x, int y);
+	bool tryPlaceCrafting(CraftingStation* c, int x, int y);
 	string kill(Character* c);
 	string interact(Character* c);
 	string lootGrave(Character* c, bool &emptied);
+	void craft(Character* c);
 	
 
 };

@@ -12,8 +12,13 @@ Character::Character(){
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
 	ai = NULL;
-	backpack->inventory.push_back(new Leafblade());
-	backpack->inventory.push_back(new DragonChest());
+	backpack->inventory.push_back(new Leafblade(backpack));
+	backpack->inventory.push_back(new DragonChest(backpack));
+	backpack->inventory.push_back(new Bile(backpack));
+	backpack->inventory.push_back(new Cinder(backpack));
+	backpack->inventory.push_back(new Darktaint(backpack));
+	backpack->inventory.push_back(new Numen(backpack));
+
 }
 
 Character::~Character(){
@@ -32,8 +37,8 @@ Character::Character(int x, int y){
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
 	ai = NULL;
-	backpack->inventory.push_back(new Leafblade());
-	backpack->inventory.push_back(new DragonChest());
+	backpack->inventory.push_back(new Leafblade(backpack));
+	backpack->inventory.push_back(new DragonChest(backpack));
 
 }
 
@@ -393,7 +398,7 @@ Goblin::Goblin(Map* m) : NPC(){
 	character = 'g';
 	racialAlignment = monster;
 	backpack->inventory.clear();
-	backpack->inventory.push_back(new Shortsword);
+	backpack->inventory.push_back(new Shortsword(backpack));
 	equipAll();
 	stats->setHP(50);
 	stats->setStam(50);

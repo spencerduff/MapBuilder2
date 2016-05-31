@@ -21,8 +21,8 @@ bool Gravestone::lootGrave(Character* c){
 	char input = _getch();
 	int pos = grave->parsePosInBackpack(input);
 	if (pos < grave->inventory.size()){
-		Item *temp = grave->inventory[pos];
 		c->getBackpack()->inventory.push_back(grave->inventory[pos]->clone());
+		c->getBackpack()->inventory.back()->setParentContainer(c->getBackpack());
 		swap(grave->inventory[pos], grave->inventory.back());
 		grave->inventory.pop_back();
 		if (grave->inventory.empty()){

@@ -25,6 +25,7 @@ public:
 	}
 	void placeChar(Character* c, char side = '<'){ currMap->placeChar(c, side); }
 	void placeRandomChar(Character* c){ currMap->placeRandomChar(c); }
+	void placeRandomCrafting(CraftingStation* c){ currMap->placeRandomCrafting(c); }
 	
 	int getXMapPos(){ return xMapPos; }
 	int getYMapPos(){ return yMapPos; }

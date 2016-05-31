@@ -36,6 +36,13 @@ int Inventory::parsePosInBackpack(char input){
 	return pos;
 }
 
+void Inventory::removeItem(Item* item){
+	for (unsigned int i = 0; i < inventory.size(); i++){
+		if (inventory[i]->getItemID() == item->getItemID())
+			inventory.erase(inventory.begin() + i);
+	}
+}
+
 Paperdoll::Paperdoll(){
 	helm = NULL;
 	chest = NULL;

@@ -4,6 +4,16 @@
 #include "MapTile.h"
 
 class Room{
+public:
+	//Constructs a room, Randomizes size, randomizes number of doors, then adds walls
+	//then adds doors.
+	Room();
+	//Prints the room.
+	void printRoom();
+	int getRoomSize(){ return size; }
+	static double getAvgSize(){ return static_cast<double> (maxSize + minSize) / 2; }
+	MapTile** getBoard(){ return board; }
+
 protected:
 	static const int maxSize = 15;
 	static const int minSize = 5;
@@ -14,42 +24,25 @@ protected:
 	void addPorts();
 	//Adds walls to borders and floorspace to non-borders
 	void makeWalls();
-
-public:
-	//Constructs a room, Randomizes size, randomizes number of doors, then adds walls
-	//then adds doors.
-	Room();
-	//Prints the room.
-	void printRoom();
-	int getRoomSize(){ return size; }
-	static double getAvgSize(){ return static_cast<double> (maxSize + minSize) / 2; }
-	MapTile** getBoard(){ return board; }
 };
 
 class OrkRoom : public Room{
-private:
-	static const int minSize = 5;
-	static const int maxSize = 10;
-
 public:
-
 	OrkRoom();
 
 	void makeWalls(); 
-
 	void addPorts();
 
-
-
+private:
+	static const int minSize = 5;
+	static const int maxSize = 10;
 };
 
 class HumanRoom : public Room{
-private:
-
 public:
-
 	HumanRoom();
 
+private:
 
 };
 
