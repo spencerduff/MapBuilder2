@@ -10,12 +10,11 @@ int main(){
 
 
 	Character* c = new Character();
-	Character* g = new Goblin(b.getCurrMap());
-
 
 
 	b.placeChar(c);
-	b.placeRandomChar(g);
+	b.placeRandomChar(new Goblin(b.getCurrMap()));
+	b.placeRandomChar(new Goblin(b.getCurrMap()));
 	b.printMap();
 	char input;
 

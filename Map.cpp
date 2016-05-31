@@ -262,7 +262,7 @@ bool Map::checkCharacter(char c){
 }
 
 Character* Map::findChar(int x, int y){
-	for (int i = 0; i < chars.size(); i++){
+	for (unsigned int i = 0; i < chars.size(); i++){
 		if (chars[i]->getXpos() == x && chars[i]->getYpos() == y)
 			return chars[i];
 	}
@@ -404,7 +404,7 @@ string Map::kill(Character* c){
 	Gravestone* g = new Gravestone(c);
 	graves.push_back(g);
 	map[c->getYpos()][c->getXpos()]->updateTile(g->marker);
-	for (int i = 1; i < chars.size(); i++)
+	for (unsigned int i = 1; i < chars.size(); i++)
 		if (chars[i] == c){
 			swap(chars[i], chars.back());
 			chars.pop_back();
@@ -437,7 +437,7 @@ string Map::interact(Character* c){
 }
 
 string Map::lootGrave(Character* c, bool &emptied){
-	for (int i = 0; i < graves.size(); i++){
+	for (unsigned int i = 0; i < graves.size(); i++){
 		if (c->getXpos() == graves[i]->getXpos() && c->getYpos() == graves[i]->getYpos())
 			if (graves[i]->lootGrave(c))
 				emptied = true;
@@ -473,9 +473,6 @@ void Map::deleteOldChar(){
 }
 
 void Map::placeTrees(int numOfTrees){
-
-	
-
 	int iter = 0;
 	int numOfTries = 0;
 	//While there are rooms to go and I haven't tried too much, keep trying to 
@@ -649,7 +646,7 @@ void Map::placeRocks(int numOfRocks){
 }
 
 void Map::moveNPCs(){
-	for (int i = 1; i < chars.size(); i++)
+	for (unsigned int i = 1; i < chars.size(); i++)
 		chars[i]->getAI()->move();
 }
 

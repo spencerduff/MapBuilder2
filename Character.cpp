@@ -108,7 +108,7 @@ void Character::setMovement(char m){
 string Character::equip(Item *equippable, bool &result){
 	// Check to see if it's in the characters backpack
 	stringstream ss;
-	for (int i = 0; i < backpack->inventory.size(); i++){
+	for (unsigned int i = 0; i < backpack->inventory.size(); i++){
 		if (equippable->getItemID() == backpack->inventory[i]->getItemID()){
 			if (equippable->equipped){
 				ss << equippable->getName() << " is already equipped." << endl;
@@ -133,11 +133,7 @@ string Character::examineItem(){
 	cout << "Which item would you like to examine? Q to not examine any. " << endl << endl;
 	char input = _getch();
 	if (input == 'Q') return "";
-	int pos = 0;
-	if (input >= 97 && input <= 122)
-		pos = (input - 87);
-	else if (input >= 48 && input <= 57)
-		pos = (input - 48);
+	int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
 		ss << temp->examine();
@@ -219,6 +215,8 @@ string Character::calculateMeleeDamage(Character* c){
 	
 	ss << c->damage(incDamage);
 
+	this->paperdoll->primary->decrementDura();
+
 	return ss.str();
 }
 
@@ -238,6 +236,8 @@ string Character::damage(Damage incDamage){
 		incDamage.damage -= this->stats->getProtArrow();
 		break;
 	}
+	this->damageArmor();
+
 	if (incDamage.damage < 0)
 		incDamage.damage = 0;
 	this->stats->damage(incDamage);
@@ -247,6 +247,117 @@ string Character::damage(Damage incDamage){
 	else
 		ss << " hits." << endl;
 	return ss.str();
+}
+
+void Character::damageArmor(){
+	bool notDamaged = true;
+	int tries = 30;
+	while (notDamaged && tries--){
+		int toDamage = rand() % 15; //15 is number of paperdoll slots
+		switch ((Piece)toDamage){
+		case helm:
+			if (this->paperdoll->helm != NULL){
+				this->paperdoll->helm->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case chest:
+			if (this->paperdoll->chest != NULL){
+				this->paperdoll->chest->decrementDura();
+				notDamaged = false;	
+			}
+			break;
+		case legs:
+			if (this->paperdoll->legs != NULL){
+				this->paperdoll->legs->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case greaves:
+			if (this->paperdoll->greaves != NULL){
+				this->paperdoll->greaves->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case gauntlets:
+			if (this->paperdoll->gauntlets != NULL){
+				this->paperdoll->gauntlets->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case elbows:
+			if (this->paperdoll->elbows != NULL){
+				this->paperdoll->elbows->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case boots:
+			if (this->paperdoll->boots != NULL){
+				this->paperdoll->boots->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case vambraces:
+			if (this->paperdoll->vambraces != NULL){
+				this->paperdoll->vambraces->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case girdle:
+			if (this->paperdoll->girdle != NULL){
+				this->paperdoll->girdle->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case shoulders:
+			if (this->paperdoll->shoulders != NULL){
+				this->paperdoll->shoulders->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case necklace:
+			if (this->paperdoll->necklace != NULL){
+				this->paperdoll->necklace->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case ring:
+			if (this->paperdoll->rhRing != NULL && this->paperdoll->lhRing != NULL){
+				if (rand()%2)
+					this->paperdoll->rhRing->decrementDura();
+				else this->paperdoll->lhRing->decrementDura();
+				notDamaged = false;
+			}
+			else if (this->paperdoll->rhRing != NULL){
+				this->paperdoll->rhRing->decrementDura();
+				notDamaged = false;
+			}
+			else if (this->paperdoll->lhRing != NULL){
+				this->paperdoll->lhRing->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case earring:
+			if (this->paperdoll->earring != NULL){
+				this->paperdoll->earring->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case robe:
+			if (this->paperdoll->robe != NULL){
+				this->paperdoll->robe->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		case shield:
+			if (this->paperdoll->shield != NULL){
+				this->paperdoll->shield->decrementDura();
+				notDamaged = false;
+			}
+			break;
+		}
+	}
+
 }
 
 void Character::unequipAll(){
@@ -271,7 +382,7 @@ void Character::unequipAll(){
 }
 
 void NPC::equipAll(){
-	for (int i = 0; i < backpack->inventory.size(); i++){
+	for (unsigned int i = 0; i < backpack->inventory.size(); i++){
 		backpack->inventory[i]->equip(this);
 	}
 	updateProts();

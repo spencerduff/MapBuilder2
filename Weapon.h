@@ -19,8 +19,12 @@ public:
 	void setName(string newName){ Item::setName(newName); }
 	void setSymbol(char newSymbol){ Item::setSymbol(newSymbol); }
 	void setWeight(float newWeight){ Item::setWeight(newWeight); }
+
 	string equip(Character *c) override;
 	string examine() override;
+
+	void decrementDura(){ if (this->getName() != "Leafblade") this->dura -= .10; }
+
 	float getDamage(){ 
 		if (this == NULL)
 			return 0;

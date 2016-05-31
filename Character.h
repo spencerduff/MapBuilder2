@@ -54,6 +54,7 @@ protected:
 	void updateProts();
 	string calculateMeleeDamage(Character* c);
 	string damage(Damage incDamage);
+	void damageArmor();
 
 };
 

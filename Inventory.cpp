@@ -16,7 +16,7 @@ Inventory::~Inventory(){
 
 string Inventory::printInv(){
 	stringstream ss;
-	for (int i = 0; i < inventory.size() && i < 36; i++){
+	for (unsigned int i = 0; i < inventory.size() && i < 36; i++){
 		ss << inventory[i]->getSymbol() << " " << inventory[i]->getName() << " " << invSpace[i];
 		if (inventory[i]->equipped)
 			ss << " *EQUIPPED*";
@@ -33,6 +33,7 @@ int Inventory::parsePosInBackpack(char input){
 	else if (input >= 48 && input <= 57)
 		pos = (input - 48);
 	else return -1;
+	return pos;
 }
 
 Paperdoll::Paperdoll(){
