@@ -426,8 +426,15 @@ void Map::kill(Character* c){
 	map[c->getYpos()][c->getXpos()]->removeChar(c->getChar());
 	c->unequipAll();
 	Gravestone* g = new Gravestone(c);
-	graves.push_back(g);
-	map[c->getYpos()][c->getXpos()]->updateTile(g->getMarker());
+	if (g->getGrave()->inventory.empty()){
+		delete g;
+		g = NULL;
+	}
+	if (g != NULL){
+		graves.push_back(g);
+		map[c->getYpos()][c->getXpos()]->updateTile(g->getMarker());
+	}
+	else map[c->getYpos()][c->getXpos()]->updateTile();
 	for (unsigned int i = 1; i < chars.size(); i++)
 		if (chars[i] == c){
 			swap(chars[i], chars.back());
