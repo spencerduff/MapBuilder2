@@ -10,13 +10,13 @@ public:
 
 	int getXpos(){ return posX; }
 	int getYpos(){ return posY; }
-	char getChar(){ return symbol; }
+	Symbol* getChar(){ return symbol; }
 
 	virtual void craft(Character* c) = 0;
 
 protected:
 	string name;
-	char symbol;
+	Symbol* symbol;
 	int posX, posY;
 
 };

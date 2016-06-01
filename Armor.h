@@ -20,11 +20,11 @@ public:
 	Item* clone() override;
 
 	void setName(string newName){ Item::setName(newName); }
-	void setSymbol(char newSymbol){ Item::setSymbol(newSymbol); }
+	void setSymbol(Symbol* newSymbol){ Item::setSymbol(newSymbol); }
 	void setWeight(float newWeight){ Item::setWeight(newWeight); }
 
-	string equip(Character *c) override;
-	string examine() override;
+	void equip(Character *c) override;
+	void examine() override;
 	void decrementDura(){ this->dura -= .10; }
 
 	void addToEnchantingTable(Thaumaturgy *t) override;
@@ -49,7 +49,7 @@ public:
 
 private:
 	void setNameOfWep(string name){ setName(name); }
-	void setSymbolOfWep(char symbol){ setSymbol(symbol); }
+	void setSymbolOfWep(Symbol* symbol){ setSymbol(symbol); }
 	void setWeightOfWep(float weight){ setWeight(weight); }
 
 };

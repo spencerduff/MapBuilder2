@@ -4,6 +4,7 @@ Gravestone::Gravestone(Character *c){
 	posX = c->getXpos();
 	posY = c->getYpos();
 	grave = c->getBackpack();
+	marker = new Symbol('&', posX, posY, 8, 6);
 	stringstream ss;
 	ss << "Here lies " << c->getName() << ".";
 	name = ss.str();
@@ -16,7 +17,7 @@ Gravestone::~Gravestone(){
 
 bool Gravestone::lootGrave(Character* c){
 	cout << name << endl;
-	cout << grave->printInv();
+	grave->printInv();
 	cout << "Press Q to not loot gear." << endl;
 	char input = _getch();
 	int pos = grave->parsePosInBackpack(input);

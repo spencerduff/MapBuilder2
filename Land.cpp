@@ -8,28 +8,28 @@ Land::Land(){
 
 //If PChar is on an exit, move him to the next map
 void Land::moveMaps(){
-	if (currMap->getPCharGroundTile() == '<'){
+	if (currMap->getPCharGroundTile()->getSymbol() == '<'){
 		xMapPos--;
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '>');
 	}
-	else if (currMap->getPCharGroundTile() == 'v'){
+	else if (currMap->getPCharGroundTile()->getSymbol() == 'v'){
 		yMapPos--;
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '^');
 	}
-	else if (currMap->getPCharGroundTile() == '^'){
+	else if (currMap->getPCharGroundTile()->getSymbol() == '^'){
 		yMapPos++;
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, 'v');
 	}
-	else if (currMap->getPCharGroundTile() == '>'){
+	else if (currMap->getPCharGroundTile()->getSymbol() == '>'){
 		xMapPos++;
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
@@ -38,12 +38,10 @@ void Land::moveMaps(){
 	}
 }
 
-string Land::movePlayerChar(char c) { 
-	stringstream ss;
-	ss << currMap->movePlayerChar(c); 
+void Land::movePlayerChar(char c) { 
+	currMap->movePlayerChar(c); 
 	currMap->moveNPCs();
 	moveMaps();
-	return ss.str();
 }
 
 OrkLands::OrkLands() : Land(){

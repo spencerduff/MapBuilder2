@@ -16,19 +16,19 @@ int main(){
 	b.placeRandomChar(new Goblin(b.getCurrMap()));
 	b.placeRandomChar(new Goblin(b.getCurrMap()));
 	b.placeRandomCrafting(new Thaumaturgy());
+
+	system("CLS");
 	b.printMap();
 	char input;
 
 	while (true){
 		input = _getch();	
-		string output1 = b.movePlayerChar(input);
+		b.movePlayerChar(input);
 		if (isGUI(input)){
-			cout << output1;
 			continue;
 		}
-		string output2 = b.updateMovement();
-		b.printMap();
-		cout << output1 << output2;
+		b.updateMovement();
+		//b.printMap();
 	}
 
 	return 0;

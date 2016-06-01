@@ -9,13 +9,13 @@ SmallTree::SmallTree(){
 		tree[i] = new MapTile*[treeSizeY];
 		for (int j = 0; j < treeSizeY; j++){
 			if (j < 2){
-				tree[i][j] = new MapTile('*');
+				tree[i][j] = new MapTile(new Symbol('*', i, j, 10, 0));
 			}
 			else if (i == 1){
-				tree[i][j] = new MapTile('|');
+				tree[i][j] = new MapTile(new Symbol('|', i, j, 4, 0));
 			}
 			else{
-				tree[i][j] = new MapTile('`');
+				tree[i][j] = new MapTile(new Symbol('`', i, j, 2, 0));
 			}
 		}
 	}
@@ -31,13 +31,13 @@ MedTree::MedTree(){
 		tree[i] = new MapTile*[treeSizeY];
 		for (int j = 0; j < treeSizeY; j++){
 			if (j < 3){
-				tree[i][j] = new MapTile('*');
+				tree[i][j] = new MapTile(new Symbol('*', i, j, 10, 0));
 			}
 			else if (i == 1 || i == 2){
-				tree[i][j] = new MapTile('|');
+				tree[i][j] = new MapTile(new Symbol('|', i, j, 4, 0));
 			}
 			else{
-				tree[i][j] = new MapTile('`');
+				tree[i][j] = new MapTile(new Symbol('`', i, j, 2, 0));
 			}
 		}
 	}
@@ -53,13 +53,13 @@ LargeTree::LargeTree(){
 		tree[i] = new MapTile*[treeSizeY];
 		for (int j = 0; j < treeSizeY; j++){
 			if (j < 3){
-				tree[i][j] = new MapTile('*');
+				tree[i][j] = new MapTile(new Symbol('*', i, j, 10, 0));
 			}
 			else if (i >= 1 && i <= 4){
-				tree[i][j] = new MapTile('|');
+				tree[i][j] = new MapTile(new Symbol('|', i, j, 4, 0));
 			}
 			else{
-				tree[i][j] = new MapTile('`');
+				tree[i][j] = new MapTile(new Symbol('`', i, j, 2, 0));
 			}
 		}
 	}
@@ -70,7 +70,7 @@ SmallRock::SmallRock(){
 	rockSize = 1;
 	rock = new MapTile**[rockSize];
 	rock[0] = new MapTile*[rockSize];
-	rock[0][0] = new MapTile('x');
+	rock[0][0] = new MapTile(new Symbol('x', 0, 0, 8, 0));
 }
 
 MedRock::MedRock(){
@@ -80,7 +80,7 @@ MedRock::MedRock(){
 	for (int i = 0; i < rockSize; i++){
 		rock[i] = new MapTile*[rockSize];
 		for (int j = 0; j < rockSize; j++){
-			rock[i][j] = new MapTile('x');
+			rock[i][j] = new MapTile(new Symbol('x', i, j, 8, 0));
 		}
 	}
 }
@@ -92,7 +92,7 @@ LargeRock::LargeRock(){
 	for (int i = 0; i < rockSize; i++){
 		rock[i] = new MapTile*[rockSize];
 		for (int j = 0; j < rockSize; j++){
-			rock[i][j] = new MapTile('x');
+			rock[i][j] = new MapTile(new Symbol('x', i, j, 8, 0));
 		}
 	}
 }

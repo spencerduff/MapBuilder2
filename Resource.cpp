@@ -11,7 +11,7 @@ void Resource::setStack(int s){
 Iron::Iron(Inventory* p, int stack) : Resource(p){
 	setName("Iron");
 	setWeight(0.5);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 8, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(iron);
@@ -20,7 +20,7 @@ Iron::Iron(Inventory* p, int stack) : Resource(p){
 Wood::Wood(Inventory* p, int stack) : Resource(p){
 	setName("Wood");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 2, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(wood);
@@ -29,7 +29,7 @@ Wood::Wood(Inventory* p, int stack) : Resource(p){
 Cloth::Cloth(Inventory* p, int stack) : Resource(p){
 	setName("Cloth");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 7, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(cloth);
@@ -38,7 +38,7 @@ Cloth::Cloth(Inventory* p, int stack) : Resource(p){
 Leather::Leather(Inventory* p, int stack) : Resource(p){
 	setName("Leather");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 14, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(leather);
@@ -47,7 +47,7 @@ Leather::Leather(Inventory* p, int stack) : Resource(p){
 Selentine::Selentine(Inventory* p, int stack) : Resource(p){
 	setName("Selentine");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 7, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(selentine);
@@ -56,7 +56,7 @@ Selentine::Selentine(Inventory* p, int stack) : Resource(p){
 Veilron::Veilron(Inventory* p, int stack) : Resource(p){
 	setName("Veilron");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 0, 7));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(veilron);
@@ -65,7 +65,7 @@ Veilron::Veilron(Inventory* p, int stack) : Resource(p){
 Neithal::Neithal(Inventory* p, int stack) : Resource(p){
 	setName("Neithal");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 1, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(neithal);
@@ -74,7 +74,7 @@ Neithal::Neithal(Inventory* p, int stack) : Resource(p){
 Leenspar::Leenspar(Inventory* p, int stack) : Resource(p){
 	setName("Leenspar");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 4, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(leenspar);
@@ -83,7 +83,7 @@ Leenspar::Leenspar(Inventory* p, int stack) : Resource(p){
 Theyril::Theyril(Inventory* p, int stack) : Resource(p){
 	setName("Theyril");
 	setWeight(0.1);
-	setSymbol('*');
+	setSymbol(new Symbol('*', 0, 0, 15, 0));
 	setItemID(getNextID());
 	setStack(stack);
 	setResourceType(theyril);

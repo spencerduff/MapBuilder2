@@ -3,23 +3,29 @@
 #include <random>
 #include <time.h>
 
+#include "Symbol.h"
+
 using namespace std;
 
 class MapTile{
 public:
 	MapTile();
-	MapTile(char gTile);
-	char getGroundTile(){ return groundTile; }
-	char getShowingTile(){ return showingTile; }
-	void setGroundTile(char gTile);
-	void updateTile(char sTile = NULL);
+	MapTile(int x, int y);
+	MapTile(Symbol* gTile);
+	Symbol* getGroundTile(){ return groundTile; }
+	Symbol* getShowingTile(){ return showingTile; }
+
+	void setGroundTile(Symbol* gTile);
+	void updateTile(Symbol* sTile = NULL);
 	void printTile();
 	void clearGraves();
-	void removeChar(char c);
+	void removeChar(Symbol* c);
+	void refresh();
 
 private:
-	char groundTile;
-	char showingTile;
-	vector<char> underTiles;
+	int posX, posY;
+	Symbol *groundTile;
+	Symbol *showingTile;
+	vector<Symbol*> underTiles;
 	bool isGroundTile();
 };

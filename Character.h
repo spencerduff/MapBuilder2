@@ -19,9 +19,9 @@ public:
 	virtual ~Character();
 	Character(int x, int y);
 	void setPos(int x, int y);
-	string moveChar(char m = NULL);
+	void moveChar(char m = NULL);
 
-	char getChar();
+	Symbol* getChar();
 	char getMovement();
 	int getXpos();
 	int getYpos();
@@ -33,28 +33,33 @@ public:
 
 	void setMovement(char m);
 
-	string equip(Item *equippable, bool &result);
-	string interactCharacter(Character* c);
+	void equip(Item *equippable, bool &result);
+	void interactCharacter(Character* c);
 	void unequipAll();
+	void clearPastMap();
+	void putCursorPastMap();
 
 protected:
 	string name;
 	RacialAlignment racialAlignment;
 	int xPos, yPos;
 	char movement;
-	char character;
+	Symbol* character;
 	Inventory *backpack;
 	Paperdoll *paperdoll;
 	CharacterStats *stats;
 	AI* ai;
 
 	bool isMovement(char m);
-	string examineItem();
-	string putOnGear();
+	void examineItem();
+	void putOnGear();
 	void updateProts();
-	string calculateMeleeDamage(Character* c);
-	string damage(Damage incDamage);
+	void calculateMeleeDamage(Character* c);
+	void damage(Damage incDamage);
 	void damageArmor();
+
+private:
+
 
 };
 

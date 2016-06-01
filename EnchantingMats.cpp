@@ -36,28 +36,28 @@ void EnchantingCatalyst::decrementStack(){
 
 Bile::Bile(Inventory* p, float iquality, int istack) : EnchantingMat(bile, iquality, istack, p){
 	setName("Bile");
-	setSymbol('?');
+	setSymbol(new Symbol('?', NULL, NULL, 14));
 	setWeight(0.01*stack);
 	setItemID(getNextID());
 }
 
 Cinder::Cinder(Inventory* p, float iquality, int istack) : EnchantingMat(cinder, iquality, istack, p){
 	setName("Cinder");
-	setSymbol('?');
+	setSymbol(new Symbol('?', NULL, NULL, 8));
 	setWeight(0.01*stack);
 	setItemID(getNextID());
 }
 
 Darktaint::Darktaint(Inventory* p, float iquality, int istack) : EnchantingMat(darktaint, iquality, istack, p){
 	setName("Darktaint");
-	setSymbol('?');
+	setSymbol(new Symbol('?', NULL, NULL, 1));
 	setWeight(0.01*stack);
 	setItemID(getNextID());
 }
 
 Numen::Numen(Inventory* p, int istack) : EnchantingCatalyst(numen, istack, p){
 	setName("Numen");
-	setSymbol('?');
-	setWeight(0.01*stack);
+	setSymbol(new Symbol('?', NULL, NULL, 13));
+	setWeight(0.05*stack);
 	setItemID(getNextID());
 }

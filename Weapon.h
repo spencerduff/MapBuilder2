@@ -18,17 +18,24 @@ public:
 	Item* clone() override;
 
 	void setName(string newName){ Item::setName(newName); }
-	void setSymbol(char newSymbol){ Item::setSymbol(newSymbol); }
+	void setSymbol(Symbol* newSymbol){ Item::setSymbol(newSymbol); }
 	void setWeight(float newWeight){ Item::setWeight(newWeight); }
 
-	string equip(Character *c) override;
-	string examine() override;
+	void equip(Character *c) override;
+	void examine() override;
 
 	void enchant(Enchant* e) override;
 	void keen(Keen* k);
 	void addToEnchantingTable(Thaumaturgy *t) override;
 
-	void decrementDura(){ if (this->getName() != "Leafblade") this->dura -= .10; }
+	string decrementDura(){ 
+		if (getName() != "Leafblade") dura -= .10;
+		if (dura <= 0){
+			delete this;
+			return "An item has broken from use!\n";
+		}
+		return "";
+	}
 
 	float getDamage(){ 
 		if (this == NULL)
@@ -71,7 +78,7 @@ public:
 
 private:
 	void setNameOfWep(string name){ setName(name); }
-	void setSymbolOfWep(char symbol){ setSymbol(symbol); }
+	void setSymbolOfWep(Symbol* symbol){ setSymbol(symbol); }
 	void setWeightOfWep(float weight){ setWeight(weight); }
 
 };
@@ -83,7 +90,7 @@ public:
 
 private:
 	void setNameOfWep(string name){ setName(name); }
-	void setSymbolOfWep(char symbol){ setSymbol(symbol); }
+	void setSymbolOfWep(Symbol* symbol){ setSymbol(symbol); }
 	void setWeightOfWep(float weight){ setWeight(weight); }
 
 
