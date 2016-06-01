@@ -27,6 +27,8 @@ void World::moveLands(){
 		currLand->currMap = currLand->maps[newXMapPos][currMapYPos];
 		placeChar(temp, '>');
 		cout << currLand->getLand() << "." << endl;
+		system("CLS");
+		printMap();
 		return;
 	}
 	else if (currLand->currMap->getPCharGroundTile()->getSymbol() == 'v' && currLand->getYMapPos() == 0){
@@ -41,6 +43,8 @@ void World::moveLands(){
 		currLand->currMap = currLand->maps[currMapXPos][newYMapPos];
 		placeChar(temp, '^');
 		cout << currLand->getLand() << "." << endl;
+		system("CLS");
+		printMap();
 		return;
 	}
 	else if (currLand->currMap->getPCharGroundTile()->getSymbol() == '^' && currLand->getYMapPos() == currLand->getLandSize() - 1){
@@ -55,6 +59,8 @@ void World::moveLands(){
 		currLand->currMap = currLand->maps[currMapXPos][newYMapPos];
 		placeChar(temp, 'v');
 		cout << currLand->getLand() << "." << endl;
+		system("CLS");
+		printMap();
 		return;
 	}
 	else if (currLand->currMap->getPCharGroundTile()->getSymbol() == '>' && currLand->getYMapPos() == currLand->getLandSize() - 1){
@@ -69,6 +75,8 @@ void World::moveLands(){
 		currLand->currMap = currLand->maps[newXMapPos][currMapYPos];
 		placeChar(temp, '<');
 		cout << currLand->getLand() << "." << endl;
+		system("CLS");
+		printMap();
 		return;
 	}
 	else return;

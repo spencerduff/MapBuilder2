@@ -200,7 +200,17 @@ void Map::placeChar(Character* c, char side){
 		map[1][iter]->updateTile(c->getChar());
 
 	}
-	chars.push_back(c);
+	if (!chars.empty()){
+		if (chars[0] == c)
+			return;
+		else{
+			chars.push_back(c);
+			swap(chars.back(), chars[0]);
+		}
+	}
+	else {
+		chars.push_back(c);
+	}
 }
 
 void Map::placeRandomChar(Character* c){

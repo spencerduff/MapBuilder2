@@ -14,6 +14,8 @@ void Land::moveMaps(){
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '>');
+		system("CLS");
+		printMap();
 	}
 	else if (currMap->getPCharGroundTile()->getSymbol() == 'v'){
 		yMapPos--;
@@ -21,6 +23,8 @@ void Land::moveMaps(){
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '^');
+		system("CLS");
+		printMap();
 	}
 	else if (currMap->getPCharGroundTile()->getSymbol() == '^'){
 		yMapPos++;
@@ -28,6 +32,8 @@ void Land::moveMaps(){
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, 'v');
+		system("CLS");
+		printMap();
 	}
 	else if (currMap->getPCharGroundTile()->getSymbol() == '>'){
 		xMapPos++;
@@ -35,6 +41,8 @@ void Land::moveMaps(){
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
 		placeChar(temp, '<');
+		system("CLS");
+		printMap();
 	}
 }
 
