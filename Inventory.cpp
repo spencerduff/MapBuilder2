@@ -37,8 +37,9 @@ int Inventory::parsePosInBackpack(char input){
 
 void Inventory::removeItem(Item* item){
 	for (unsigned int i = 0; i < inventory.size(); i++){
-		if (inventory[i]->getItemID() == item->getItemID())
+		if (inventory[i]->getItemID() == item->getItemID()){
 			inventory.erase(inventory.begin() + i);
+		}
 	}
 }
 

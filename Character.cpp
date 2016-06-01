@@ -234,6 +234,13 @@ void Character::calculateMeleeDamage(Character* c){
 	c->damage(incDamage);
 
 	cout << this->paperdoll->primary->decrementDura();
+	bool delPrim = true;
+	for (unsigned int i = 0; i < backpack->inventory.size(); i++){
+		if (backpack->inventory[i] == paperdoll->primary)
+			delPrim = false;
+	}
+	if (delPrim)
+		paperdoll->primary = NULL;
 }
 
 void Character::damage(Damage incDamage){

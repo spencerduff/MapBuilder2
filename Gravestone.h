@@ -19,6 +19,7 @@ public:
 	int getYpos(){ return posY; }
 
 	Symbol* getMarker(){ return marker; }
+	Inventory* getGrave(){ return grave; }
 
 private:
 	string name;

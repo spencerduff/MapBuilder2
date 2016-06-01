@@ -102,7 +102,7 @@ Shortsword::Shortsword(Inventory* p) : Weapon(p){
 	damage = 0.31;
 	speed = 0.6;
 	duraMax = 51.00;
-	dura = rand() % (int)duraMax;
+	dura = (rand() % (int)duraMax) + 1.0;
 	maker = "The World";
 	weaponRank = 0;
 	setItemID(getNextID());
