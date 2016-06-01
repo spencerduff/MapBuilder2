@@ -42,6 +42,7 @@ public:
 protected:
 	int numOfRooms, numOfTrees, numOfRocks;
 	Room* rooms;
+	vector<MapTile*> toRefresh;
 	static const int ySize = 50;
 	static const int xSize = 175;
 	double avgSize;
@@ -76,6 +77,8 @@ protected:
 	void lootGrave(Character* c, bool &emptied);
 	void craft(Character* c);
 	
+
+private:
 
 };
 

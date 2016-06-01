@@ -94,87 +94,141 @@ void Paperdoll::unequip(Item *a){
 
 void Paperdoll::printPaperdoll(){
 	cout << "    ";
-	if (earring != NULL)
-		cout << "[" << earring->getSymbol() << "]";
+	if (earring != NULL){
+		cout << "["; 
+		earring->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (helm != NULL)
-		cout << "[" << helm->getSymbol() << "]";
+	if (helm != NULL){
+		cout << "[";
+		helm->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 	cout << "      ";
-	if (necklace != NULL)
-		cout << "[" << necklace->getSymbol() << "]";
+	if (necklace != NULL){
+		cout << "[";
+		necklace->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 	
 	cout << "  ";
-	if (robe != NULL)
-		cout << "[" << robe->getSymbol() << "]";
+	if (robe != NULL){
+		cout << "[";
+		robe->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (chest != NULL)
-		cout << "[" << chest->getSymbol() << "]";
+	if (chest != NULL){
+		cout << "[";
+		chest->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (shoulders != NULL)
-		cout << "[" << shoulders->getSymbol() << "]";
+	if (shoulders != NULL){
+		cout << "[";
+		shoulders->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 
 	cout << "  ";
-	if (vambraces != NULL)
-		cout << "[" << vambraces->getSymbol() << "]";
+	if (vambraces != NULL){
+		cout << "[";
+		vambraces->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (legs != NULL)
-		cout << "[" << legs->getSymbol() << "]";
+	if (legs != NULL){
+		cout << "[";
+		legs->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (elbows != NULL)
-		cout << "[" << elbows->getSymbol() << "]";
+	if (elbows != NULL){
+		cout << "[";
+		elbows->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 
 	cout << "  ";
 	cout << "  ";
-	if (girdle != NULL)
-		cout << "[" << girdle->getSymbol() << "]";
+	if (girdle != NULL){
+		cout << "[";
+		girdle->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (gauntlets != NULL)
-		cout << "[" << gauntlets->getSymbol() << "]";
+	if (gauntlets != NULL){
+		cout << "[";
+		gauntlets->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 
-	if (lhRing != NULL)
-		cout << "[" << lhRing->getSymbol() << "]";
+	if (lhRing != NULL){
+		cout << "[";
+		lhRing->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (greaves != NULL)
-		cout << "[" << greaves->getSymbol() << "]";
+	if (greaves != NULL){
+		cout << "[";
+		greaves->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (boots != NULL)
-		cout << "[" << boots->getSymbol() << "]";
+	if (boots != NULL){
+		cout << "[";
+		boots->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (rhRing != NULL)
-		cout << "[" << rhRing->getSymbol() << "]";
+	if (rhRing != NULL){
+		cout << "[";
+		rhRing->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 
 	cout << "  ";
-	if (primary != NULL)
-		cout << "[" << primary->getSymbol() << "]";
+	if (primary != NULL){
+		cout << "[";
+		primary->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (shield != NULL)
-		cout << "[" << shield->getSymbol() << "]";
+	if (shield != NULL){
+		cout << "[";
+		shield->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << " ";
-	if (quiver != NULL)
-		cout << "[" << quiver->getSymbol() << "]";
+	if (quiver != NULL){
+		cout << "[";
+		quiver->getSymbol()->printSymbol();
+		cout << "]";
+	}
 	else cout << "[ ]";
 	cout << endl;
 

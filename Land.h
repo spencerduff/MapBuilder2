@@ -16,7 +16,6 @@ public:
 	void movePlayerChar(char c);
 	//Prints the map and some flavor text
 	void printMap(){ 
-		system("CLS");
 		cout << "You are in " << land << " You are at [" << xMapPos << "] [" << yMapPos << "].";
 		if (xMapPos == 2 && yMapPos == 2)
 			cout << " This is the starting area for this land.";

@@ -10,7 +10,7 @@ Map::Map(){
 	for (int i = 0; i < ySize; i++){
 		map[i] = new MapTile*[xSize];
 		for (int j = 0; j < xSize; j++){
-			map[i][j] = new MapTile();
+			map[i][j] = new MapTile(j, i);
 		}
 	}
 	
@@ -261,7 +261,7 @@ bool Map::tryPlaceCrafting(CraftingStation* c, int x, int y){
 }
 
 void Map::movePlayerChar(char c){
-	chars[0]->moveChar(c);	
+	chars[0]->moveChar(c);
 }
 
 void Map::updateMap(){
@@ -446,8 +446,8 @@ void Map::updateMovement(){
 				interact(chars[i]);
 			moveChar(chars[i], chars[i]->getMovement());
 		}
-
 	}
+	chars[0]->putCursorPastMap();
 }
 
 void Map::interact(Character* c){

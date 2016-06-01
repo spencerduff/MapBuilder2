@@ -110,7 +110,8 @@ void Armor::equip(Character *c){
 
 void Armor::examine(){
 	cout << getName() << endl;
-	cout << getSymbol() << endl;
+	getSymbol()->printSymbol();
+	cout << endl;
 	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
 	cout << "Durability: ";
 	cout << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;

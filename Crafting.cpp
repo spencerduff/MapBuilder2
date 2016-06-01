@@ -65,9 +65,12 @@ void Thaumaturgy::printEnchantingScreen(){
 }
 
 void Thaumaturgy::craft(Character* c){
+	COORD posReturn = { 0, 52 };
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	bool failFlag = false;
 	while (true){
-		system("cls");		
+		SetConsoleCursorPosition(output, posReturn);
+		c->clearPastMap();
 		printEnchantingScreen();
 		c->getBackpack()->printInv();
 		if (failFlag){

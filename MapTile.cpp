@@ -13,6 +13,13 @@ MapTile::MapTile(){
 	showingTile = NULL;
 }
 
+MapTile::MapTile(int x, int y){
+	groundTile = NULL;
+	showingTile = NULL;
+	posX = x;
+	posY = y;
+}
+
 MapTile::MapTile(Symbol* gTile){
 	groundTile = gTile;
 	showingTile = groundTile;
@@ -37,6 +44,17 @@ void MapTile::updateTile(Symbol* sTile){
 		else showingTile = groundTile;
 	}
 	else showingTile = groundTile;
+	refresh();
+}
+
+void MapTile::refresh(){
+	COORD pos = { posX + 1, posY + 1 };
+	COORD posReturn = { 0, 52 };
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(output, pos);
+	cout << '\b';
+	cout << *showingTile;
+	SetConsoleCursorPosition(output, posReturn);
 }
 
 void MapTile::printTile(){

@@ -33,7 +33,8 @@ void Weapon::equip(Character *c){
 
 void Weapon::examine(){
 	cout << getName() << endl;
-	cout << getSymbol() << endl;
+	getSymbol()->printSymbol();
+	cout << endl;
 	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
 	cout << "Damage: ";
 	cout << setprecision(2) << fixed << damage << endl;

@@ -61,6 +61,7 @@ bool Character::isMovement(char m){
 void Character::moveChar(char m){
 	if (isMovement(m)){
 		movement = m;
+		clearPastMap();
 	}
 	else if (m == 'p')
 		paperdoll->printPaperdoll();
@@ -77,6 +78,29 @@ void Character::moveChar(char m){
 	else if (m == 'f')
 		movement = m;
 	else movement = NULL;
+}
+
+void Character::clearPastMap(){
+	HANDLE                     hStdOut;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD                      count;
+	DWORD                      cellCount;
+	COORD                      homeCoords = { 0, 52 };
+
+	hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hStdOut == INVALID_HANDLE_VALUE) return;
+
+	/* Get the number of cells in the current buffer */
+	if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
+	cellCount = csbi.dwSize.X *csbi.dwSize.Y;
+
+	if (!FillConsoleOutputCharacter(
+		hStdOut,
+		(TCHAR) ' ',
+		cellCount,
+		homeCoords,
+		&count
+		)) return;
 }
 
 char Character::getMovement(){
@@ -237,6 +261,12 @@ void Character::damage(Damage incDamage){
 		cout << " hit." << endl;
 	else
 		cout << " hits." << endl;
+}
+
+void Character::putCursorPastMap(){
+	COORD homeCoords = { 0, 52 };
+	HANDLE hStdOut= GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
 
 void Character::damageArmor(){

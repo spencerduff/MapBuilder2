@@ -30,7 +30,8 @@ void Item::equip(Character *c){
 
 void Item::examine(){
 	cout << name << endl;
-	cout << symbol << endl;
+	symbol->printSymbol();
+	cout << endl;
 	cout << "Weight: " << setprecision(2) << fixed << weight << endl;
 }
 

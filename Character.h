@@ -36,6 +36,8 @@ public:
 	void equip(Item *equippable, bool &result);
 	void interactCharacter(Character* c);
 	void unequipAll();
+	void clearPastMap();
+	void putCursorPastMap();
 
 protected:
 	string name;
@@ -55,6 +57,9 @@ protected:
 	void calculateMeleeDamage(Character* c);
 	void damage(Damage incDamage);
 	void damageArmor();
+
+private:
+
 
 };
 
