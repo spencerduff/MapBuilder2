@@ -14,7 +14,7 @@ void CraftingStation::setPos(int x, int y){
 
 Thaumaturgy::Thaumaturgy(){
 	name = "Thaumaturgist's Table";
-	symbol = '%';
+	symbol = new Symbol('%', NULL, NULL, 14, 6);
 	posX = NULL;
 	posY = NULL;
 
@@ -69,7 +69,7 @@ void Thaumaturgy::craft(Character* c){
 	while (true){
 		system("cls");		
 		printEnchantingScreen();
-		cout << c->getBackpack()->printInv();
+		c->getBackpack()->printInv();
 		if (failFlag){
 			cout << "Add more to the enchanting table to start an enchant." << endl;
 			failFlag = false;

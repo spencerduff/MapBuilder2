@@ -24,16 +24,14 @@ Item::Item(const Item &obj){
 }
 
 //Add functionality for bags, runestones, food, pots, etc...
-string Item::equip(Character *c){
-	return "";
+void Item::equip(Character *c){
+	return;
 }
 
-string Item::examine(){
-	stringstream ss;
-	ss << name << endl;
-	ss << symbol << endl;
-	ss << "Weight: " << setprecision(2) << fixed << weight << endl;
-	return ss.str();
+void Item::examine(){
+	cout << name << endl;
+	cout << symbol << endl;
+	cout << "Weight: " << setprecision(2) << fixed << weight << endl;
 }
 
 void Item::enchant(Enchant* e){

@@ -12,8 +12,8 @@ public:
 	Land();
 	Land(string l);
 	void moveMaps();
-	string updateMovement(){ return currMap->updateMovement(); }
-	string movePlayerChar(char c);
+	void updateMovement(){ currMap->updateMovement(); }
+	void movePlayerChar(char c);
 	//Prints the map and some flavor text
 	void printMap(){ 
 		system("CLS");

@@ -8,7 +8,7 @@
 
 class Gravestone{
 public:
-	static const char marker = '&';
+	
 
 	Gravestone(Character* c);
 	~Gravestone();
@@ -18,10 +18,13 @@ public:
 	int getXpos(){ return posX; }
 	int getYpos(){ return posY; }
 
+	Symbol* getMarker(){ return marker; }
+
 private:
 	string name;
 	Inventory *grave;
 	int posX, posY;
+	Symbol* marker;
 
 };
 

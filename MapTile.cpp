@@ -1,9 +1,9 @@
 #include "MapTile.h"
 
 bool MapTile::isGroundTile(){
-	if (showingTile == '#' || showingTile == '|' || showingTile == '_' ||
-		showingTile == '`' || showingTile == '~' || showingTile == '+' || showingTile == '^' || 
-		showingTile == '>' || showingTile == 'v' || showingTile == '<')
+	if (showingTile->getSymbol() == '#' || showingTile->getSymbol() == '|' || showingTile->getSymbol() == '_' ||
+		showingTile->getSymbol() == '`' || showingTile->getSymbol() == '~' || showingTile->getSymbol() == '+' || showingTile->getSymbol() == '^' ||
+		showingTile->getSymbol() == '>' || showingTile->getSymbol() == 'v' || showingTile->getSymbol() == '<')
 		return true;
 	else return false;
 }
@@ -13,19 +13,19 @@ MapTile::MapTile(){
 	showingTile = NULL;
 }
 
-MapTile::MapTile(char gTile){
+MapTile::MapTile(Symbol* gTile){
 	groundTile = gTile;
 	showingTile = groundTile;
 }
 
-void MapTile::setGroundTile(char gTile){
+void MapTile::setGroundTile(Symbol* gTile){
 	groundTile = gTile;
 	if (showingTile == NULL || isGroundTile()){
 		showingTile = groundTile;
 	}
 }
 
-void MapTile::updateTile(char sTile){
+void MapTile::updateTile(Symbol* sTile){
 	if (sTile != NULL){
 		showingTile = sTile;
 		underTiles.push_back(sTile);
@@ -45,13 +45,13 @@ void MapTile::printTile(){
 
 void MapTile::clearGraves(){
 	for (int i = 0; i < underTiles.size(); i++){
-		if (underTiles[i] == '&'){
+		if (underTiles[i]->getSymbol() == '&'){
 			underTiles.erase(underTiles.begin() + i);
 		}
 	}
 }
 
-void MapTile::removeChar(char c){
+void MapTile::removeChar(Symbol* c){
 	for (int i = 0; i < underTiles.size(); i++){
 		if (underTiles[i] == c){
 			underTiles.erase(underTiles.begin() + i);

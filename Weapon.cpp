@@ -24,34 +24,30 @@ Item* Weapon::clone(){
 	return new Weapon(*this);
 }
 
-string Weapon::equip(Character *c){
-	stringstream ss;
+void Weapon::equip(Character *c){
 	if (this->type == primary)
-		ss << c->getPaperdoll()->setPrimary(this);
+		c->getPaperdoll()->setPrimary(this);
 	else if (this->type == quiver)
-		ss << c->getPaperdoll()->setQuiver(this);
-	return ss.str();
+		c->getPaperdoll()->setQuiver(this);
 }
 
-string Weapon::examine(){
-	stringstream ss;
-	ss << getName() << endl;
-	ss << getSymbol() << endl;
-	ss << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
-	ss << "Damage: ";
-	ss << setprecision(2) << fixed << damage << endl;
-	ss << "Speed: ";
-	ss << setprecision(2) << fixed << speed << endl;
-	ss << "Durability: ";
-	ss << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
-	ss << "Maker: " << maker << endl;
-	ss << "Weapon Rank: " << weaponRank << endl;
-	ss << "Type: ";
+void Weapon::examine(){
+	cout << getName() << endl;
+	cout << getSymbol() << endl;
+	cout << "Weight: " << setprecision(2) << fixed << getWeight() << endl;
+	cout << "Damage: ";
+	cout << setprecision(2) << fixed << damage << endl;
+	cout << "Speed: ";
+	cout << setprecision(2) << fixed << speed << endl;
+	cout << "Durability: ";
+	cout << setprecision(2) << fixed << dura << "/" << setprecision(2) << fixed << duraMax << endl;
+	cout << "Maker: " << maker << endl;
+	cout << "Weapon Rank: " << weaponRank << endl;
+	cout << "Type: ";
 	if (type == primary)
-		ss << "Primary" << endl;
+		cout << "Primary" << endl;
 	else
-		ss << "Quiver" << endl;
-	return ss.str();
+		cout << "Quiver" << endl;
 }
 
 void Weapon::enchant(Enchant* e){
@@ -69,7 +65,7 @@ void Weapon::keen(Keen* k){
 	else if (enchantSuffix == NULL && enchantPrefix->getName() != "Keen"){
 		enchantSuffix = k;
 		damage += k->getDmgMod();
-		string a = "of Keeness";
+		string a = "of Keenecout";
 		setName(getName() += a);
 	}
 }
@@ -81,7 +77,7 @@ void Weapon::addToEnchantingTable(Thaumaturgy *t){
 Leafblade::Leafblade(Inventory* p) : Weapon(p){
 	setName("Leafblade");
 	setWeight(0.0);
-	setSymbol('/');
+	setSymbol(new Symbol('/', NULL, NULL, 2));
 	damage = 0.26;
 	speed = 0.6;
 	duraMax = 999.00;
@@ -101,7 +97,7 @@ Leafblade::~Leafblade(){
 Shortsword::Shortsword(Inventory* p) : Weapon(p){
 	setName("Short Sword");
 	setWeight(1.0);
-	setSymbol('/');
+	setSymbol(new Symbol('/', NULL, NULL, 8));
 	damage = 0.31;
 	speed = 0.6;
 	duraMax = 51.00;

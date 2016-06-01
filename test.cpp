@@ -21,14 +21,12 @@ int main(){
 
 	while (true){
 		input = _getch();	
-		string output1 = b.movePlayerChar(input);
+		b.movePlayerChar(input);
 		if (isGUI(input)){
-			cout << output1;
 			continue;
 		}
-		string output2 = b.updateMovement();
+		b.updateMovement();
 		b.printMap();
-		cout << output1 << output2;
 	}
 
 	return 0;

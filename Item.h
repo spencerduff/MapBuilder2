@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 
+#include "Symbol.h"
+
 using namespace std;
 
 class Character;
@@ -20,8 +22,8 @@ public:
 
 	bool equipped;
 
-	virtual string equip(Character *c);
-	virtual string examine();
+	virtual void equip(Character *c);
+	virtual void examine();
 
 
 	virtual void enchant(Enchant* e);
@@ -29,7 +31,7 @@ public:
 	virtual void addToEnchantingTable(Thaumaturgy *t);
 
 	unsigned long getNextID(){ return nextID; }
-	char getSymbol(){ return symbol; }
+	Symbol* getSymbol(){ return symbol; }
 	string getName(){ return name; }
 	float getWeight(){ return weight; }
 	unsigned long getItemID(){ return itemID; }
@@ -42,14 +44,14 @@ protected:
 	Inventory* parent;
 
 	void setName(string newName){ name = newName; }
-	void setSymbol(char newSymbol){ symbol = newSymbol; }
+	void setSymbol(Symbol* newSymbol){ symbol = newSymbol; }
 	void setWeight(float newWeight){ weight = newWeight; }
 	void setItemID(unsigned long newID){ itemID = newID; }
 
 private:
 	static unsigned long nextID;
 	string name;
-	char symbol;
+	Symbol* symbol;
 	float weight;
 	unsigned long itemID;
 

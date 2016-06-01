@@ -16,13 +16,13 @@ Map::Map(){
 	
 	//Set map borders
 	for (int i = 0; i < ySize; i++){
-		map[i][0]->setGroundTile('|');
-		map[i][xSize - 1]->setGroundTile('|');
+		map[i][0]->setGroundTile(new Symbol('|', 0, i, 8));
+		map[i][xSize - 1]->setGroundTile(new Symbol('|', xSize - 1, i, 8));
 	}
 	for (int i = 0; i < xSize; i++){
 
-		map[0][i]->setGroundTile('_');
-		map[ySize - 1][i]->setGroundTile('_');
+		map[0][i]->setGroundTile(new Symbol('_', i, 0, 8));
+		map[ySize - 1][i]->setGroundTile(new Symbol('_', i, ySize - 1, 8));
 	}
 
 	//rooms = new Room[numOfRooms];
@@ -44,25 +44,25 @@ void Map::makeExits(){
 	iter3 = (rand() % (xSize - 2)) + 1;
 	iter4 = (rand() % (xSize - 2)) + 1;
 	//While loops make sure exits aren't blocked by rooms
-	while (map[iter][1]->getGroundTile() == '#' || map[iter][1]->getGroundTile() == '+'){
+	while (map[iter][1]->getGroundTile()->getSymbol() == '#' || map[iter][1]->getGroundTile()->getSymbol() == '+'){
 		iter = (rand() % (ySize - 2)) + 1;
 	}
-	map[iter][0]->setGroundTile('<');
+	map[iter][0]->setGroundTile(new Symbol('<', 0, iter, 15));
 
-	while (map[iter2][xSize - 2]->getGroundTile() == '#' || map[iter2][xSize - 2]->getGroundTile() == '+'){
+	while (map[iter2][xSize - 2]->getGroundTile()->getSymbol() == '#' || map[iter2][xSize - 2]->getGroundTile()->getSymbol() == '+'){
 		iter2 = (rand() % (ySize - 2)) + 1;
 	}
-	map[iter2][xSize - 1]->setGroundTile('>');
+	map[iter2][xSize - 1]->setGroundTile(new Symbol('>', xSize - 1, iter2, 15));
 
-	while (map[1][iter3]->getGroundTile() == '#' || map[1][iter3]->getGroundTile() == '+'){
+	while (map[1][iter3]->getGroundTile()->getSymbol() == '#' || map[1][iter3]->getGroundTile()->getSymbol() == '+'){
 		iter3 = (rand() % (xSize - 2)) + 1;
 	}
-	map[0][iter3]->setGroundTile('^');
+	map[0][iter3]->setGroundTile(new Symbol('^', iter3, 0, 15));
 
-	while (map[ySize - 2][iter4]->getGroundTile() == '#' || map[ySize - 2][iter4]->getGroundTile() == '+'){
+	while (map[ySize - 2][iter4]->getGroundTile()->getSymbol() == '#' || map[ySize - 2][iter4]->getGroundTile()->getSymbol() == '+'){
 		iter4 = (rand() % (xSize - 2)) + 1;
 	}
-	map[ySize - 1][iter4]->setGroundTile('v');
+	map[ySize - 1][iter4]->setGroundTile(new Symbol('v', iter4, ySize - 1, 15));
 
 
 }
@@ -159,10 +159,10 @@ void Map::placeDirt(){
 		for (int j = 0; j < xSize; j++){
 			if (map[i][j]->getGroundTile() == NULL){
 				if (rand() % 100){
-					map[i][j]->setGroundTile('`');
+					map[i][j]->setGroundTile(new Symbol('`', j, i, 2));
 				}
 				else{
-					map[i][j]->setGroundTile('~');
+					map[i][j]->setGroundTile(new Symbol('~', j, i, 10));
 				}
 			}
 		}
@@ -181,21 +181,21 @@ void Map::placeChar(Character* c, char side){
 	int iter = 0;
 
 	if (side == '<'){
-		while (map[iter++][0]->getGroundTile() != '<');
+		while (map[iter++][0]->getGroundTile()->getSymbol() != '<');
 		c->setPos(1, --iter);
 		map[iter][1]->updateTile(c->getChar());
 	}else if (side == '>'){
-		while (map[iter++][xSize - 1]->getGroundTile() != '>');
+		while (map[iter++][xSize - 1]->getGroundTile()->getSymbol() != '>');
 		c->setPos(xSize - 2, --iter);
 		map[iter][xSize - 2]->updateTile(c->getChar());
 
 	}else if (side == 'v'){
-		while (map[ySize - 1][iter++]->getGroundTile() != 'v');
+		while (map[ySize - 1][iter++]->getGroundTile()->getSymbol() != 'v');
 		c->setPos(--iter, ySize - 2);
 		map[ySize - 2][iter]->updateTile(c->getChar());
 
 	}else if (side == '^'){
-		while (map[0][iter++]->getGroundTile() != '^');
+		while (map[0][iter++]->getGroundTile()->getSymbol() != '^');
 		c->setPos(--iter, 1);
 		map[1][iter]->updateTile(c->getChar());
 
@@ -243,7 +243,7 @@ void Map::placeRandomCrafting(CraftingStation* c){
 }
 
 bool Map::tryPlaceChar(Character* c, int x, int y){
-	if (checkNotCollidable(map[y][x]->getShowingTile())){
+	if (checkNotCollidable(map[y][x]->getShowingTile()->getSymbol())){
 		c->setPos(x, y);
 		map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		return true;
@@ -252,7 +252,7 @@ bool Map::tryPlaceChar(Character* c, int x, int y){
 }
 
 bool Map::tryPlaceCrafting(CraftingStation* c, int x, int y){
-	if (checkNotCollidable(map[y][x]->getShowingTile())){
+	if (checkNotCollidable(map[y][x]->getShowingTile()->getSymbol())){
 		c->setPos(x, y);
 		map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		return true;
@@ -260,9 +260,8 @@ bool Map::tryPlaceCrafting(CraftingStation* c, int x, int y){
 	else return false;
 }
 
-string Map::movePlayerChar(char c){
-	return chars[0]->moveChar(c);
-	
+void Map::movePlayerChar(char c){
+	chars[0]->moveChar(c);	
 }
 
 void Map::updateMap(){
@@ -274,7 +273,7 @@ void Map::updateMap(){
 }
 
 bool Map::checkNotCollidable(int x, int y){
-	return checkNotCollidable(map[y][x]->getGroundTile());
+	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol());
 }
 
 bool Map::checkNotCollidable(char c){
@@ -297,18 +296,17 @@ Character* Map::findChar(int x, int y){
 	return NULL;
 }
 
-string Map::moveChar(Character* c, char dir){
-	stringstream ss;
+void Map::moveChar(Character* c, char dir){
 	if (dir == 'h'){
 		if (c->getXpos() - 1 < 0)
-			return "";
-		if (checkCharacter(map[c->getYpos()][c->getXpos() - 1]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos()][c->getXpos() - 1]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos());
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos());
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -316,14 +314,14 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'j'){
 		if (c->getYpos() + 1 >= ySize)
-			return "";
-		if (checkCharacter(map[c->getYpos() + 1][c->getXpos()]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos() + 1][c->getXpos()]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos(), c->getYpos() + 1);
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos(), c->getYpos() + 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -331,14 +329,14 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'k'){
 		if (c->getYpos() - 1 < 0)
-			return "";
-		if (checkCharacter(map[c->getYpos() - 1][c->getXpos()]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos() - 1][c->getXpos()]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos(), c->getYpos() - 1);
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos(), c->getYpos() - 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -346,14 +344,14 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'l'){
 		if (c->getXpos() + 1 >= xSize)
-			return "";
-		if (checkCharacter(map[c->getYpos()][c->getXpos() + 1]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos()][c->getXpos() + 1]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos());
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos());
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -361,14 +359,14 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'y'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() - 1 < 0)
-			return "";
-		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() - 1]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() - 1]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() - 1);
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos() - 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -376,14 +374,14 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'u'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() - 1 < 0)
-			return "";
-		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() + 1]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() + 1]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() - 1);
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos() - 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -391,14 +389,14 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'b'){
 		if (c->getXpos() - 1 < 0 || c->getYpos() + 1 >= ySize)
-			return "";
-		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() - 1]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() - 1]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() + 1);
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() - 1, c->getYpos() + 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
@@ -406,32 +404,30 @@ string Map::moveChar(Character* c, char dir){
 	}
 	else if (dir == 'n'){
 		if (c->getXpos() + 1 >= xSize || c->getYpos() + 1 >= ySize)
-			return "";
-		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() + 1]->getShowingTile())){
+			return;
+		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() + 1]->getShowingTile()->getSymbol())){
 			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() + 1);
-			ss << c->interactCharacter(toInteract);
+			c->interactCharacter(toInteract);
 			if (toInteract->getHP() < 0)
-				ss << kill(toInteract);
+				kill(toInteract);
 		}
-		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile())){
+		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile()->getSymbol())){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + 1, c->getYpos() + 1);
 			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 		}
 	}
-	ss << c->moveChar();
+	c->moveChar();
 
-	return ss.str();
 }
 
-string Map::kill(Character* c){
-	stringstream ss;
-	ss << c->getName() << " has been slain." << endl;
+void Map::kill(Character* c){
+	cout << c->getName() << " has been slain." << endl;
 	map[c->getYpos()][c->getXpos()]->removeChar(c->getChar());
 	c->unequipAll();
 	Gravestone* g = new Gravestone(c);
 	graves.push_back(g);
-	map[c->getYpos()][c->getXpos()]->updateTile(g->marker);
+	map[c->getYpos()][c->getXpos()]->updateTile(g->getMarker());
 	for (unsigned int i = 1; i < chars.size(); i++)
 		if (chars[i] == c){
 			swap(chars[i], chars.back());
@@ -439,40 +435,38 @@ string Map::kill(Character* c){
 		}
 	delete c;
 	c = NULL;
-	return ss.str();
 }
 
 
-string Map::updateMovement(){
-	stringstream ss;
+void Map::updateMovement(){
+	stringstream cout;
 	for (unsigned int i = 0; i < chars.size(); i++){
 		if (chars[i]->getMovement() != NULL){
 			if (chars[i]->getMovement() == 'f')
-				ss << interact(chars[i]);
-			ss << moveChar(chars[i], chars[i]->getMovement());
+				interact(chars[i]);
+			moveChar(chars[i], chars[i]->getMovement());
 		}
 
 	}
-	return ss.str();
 }
 
-string Map::interact(Character* c){
+void Map::interact(Character* c){
 	bool clearGrave = false;
 	lootGrave(c, clearGrave);
 	if (clearGrave)
 		map[c->getYpos()][c->getXpos()]->clearGraves();
 	craft(c);
 
-	return "";
+	return;
 }
 
-string Map::lootGrave(Character* c, bool &emptied){
+void Map::lootGrave(Character* c, bool &emptied){
 	for (unsigned int i = 0; i < graves.size(); i++){
 		if (c->getXpos() == graves[i]->getXpos() && c->getYpos() == graves[i]->getYpos())
 			if (graves[i]->lootGrave(c))
 				emptied = true;
 	}
-	return "";
+	return;
 }
 
 void Map::craft(Character* c){
@@ -483,23 +477,21 @@ void Map::craft(Character* c){
 }
 
 void Map::printMap(){
-	stringstream ss;
 	for (int i = 0; i < ySize; i++){
 		for (int j = 0; j < xSize; j++){
-			ss << map[i][j]->getShowingTile();
+			cout << *(map[i][j]->getShowingTile());
 		}
-		ss << endl;
+		cout << endl;
 	}
-	ss << endl;
-	cout.setf(ios::unitbuf);
-	cout << ss.str() << flush;
+	cout << endl;
+	cout << flush;
 }
 
 Character* Map::getPlayerChar(){
 	return chars[0];
 }
 
-char Map::getPCharGroundTile(){
+Symbol* Map::getPCharGroundTile(){
 	int x = chars[0]->getXpos();
 	int y = chars[0]->getYpos();
 	return map[y][x]->getGroundTile();

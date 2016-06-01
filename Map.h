@@ -25,10 +25,12 @@ public:
 	void placeChar(Character* c, char side = '<');
 	void placeRandomChar(Character *c);
 	void placeRandomCrafting(CraftingStation* c);
-	string updateMovement();
-	string movePlayerChar(char c);
+	void updateMovement();
+	void movePlayerChar(char c);
+
 	Character* getPlayerChar();
-	char getPCharGroundTile();
+	Symbol* getPCharGroundTile();
+
 	void deleteOldChar();
 	void moveNPCs();
 
@@ -50,7 +52,7 @@ protected:
 	Character* findChar(int x, int y);
 	bool checkCharacter(char c);
 	void updateMap();
-	string moveChar(Character* c, char dir);
+	void moveChar(Character* c, char dir);
 	void placeStairs();
 	void connectRooms();
 	//Puts exits on the borders.
@@ -69,9 +71,9 @@ protected:
 	void placeRocks(int numOfRocks);
 	bool tryPlaceChar(Character* c, int x, int y);
 	bool tryPlaceCrafting(CraftingStation* c, int x, int y);
-	string kill(Character* c);
-	string interact(Character* c);
-	string lootGrave(Character* c, bool &emptied);
+	void kill(Character* c);
+	void interact(Character* c);
+	void lootGrave(Character* c, bool &emptied);
 	void craft(Character* c);
 	
 

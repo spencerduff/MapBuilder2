@@ -14,15 +14,13 @@ Inventory::~Inventory(){
 	inventory.clear();
 }
 
-string Inventory::printInv(){
-	stringstream ss;
+void Inventory::printInv(){
 	for (unsigned int i = 0; i < inventory.size() && i < 36; i++){
-		ss << inventory[i]->getSymbol() << " " << inventory[i]->getName() << " " << invSpace[i];
+		cout << *(inventory[i]->getSymbol()) << " " << inventory[i]->getName() << " " << invSpace[i];
 		if (inventory[i]->equipped)
-			ss << " *EQUIPPED*";
-		ss << endl;
+			cout << " *EQUIPPED*";
+		cout << endl;
 	}
-	return ss.str();
 }
 
 int Inventory::parsePosInBackpack(char input){
@@ -93,92 +91,90 @@ void Paperdoll::unequip(Item *a){
 		a->equipped = false;
 }
 
-string Paperdoll::printPaperdoll(){
-	stringstream ss;
-	ss << "    ";
+void Paperdoll::printPaperdoll(){
+	cout << "    ";
 	if (earring != NULL)
-		ss << "[" << earring->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *earring->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (helm != NULL)
-		ss << "[" << helm->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
-	ss << "      ";
+		cout << "[" << *helm->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
+	cout << "      ";
 	if (necklace != NULL)
-		ss << "[" << necklace->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
+		cout << "[" << *necklace->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
 	
-	ss << "  ";
+	cout << "  ";
 	if (robe != NULL)
-		ss << "[" << robe->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *robe->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (chest != NULL)
-		ss << "[" << chest->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *chest->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (shoulders != NULL)
-		ss << "[" << shoulders->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
+		cout << "[" << *shoulders->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
 
-	ss << "  ";
+	cout << "  ";
 	if (vambraces != NULL)
-		ss << "[" << vambraces->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *vambraces->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (legs != NULL)
-		ss << "[" << legs->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *legs->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (elbows != NULL)
-		ss << "[" << elbows->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
+		cout << "[" << *elbows->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
 
-	ss << "  ";
-	ss << "  ";
+	cout << "  ";
+	cout << "  ";
 	if (girdle != NULL)
-		ss << "[" << girdle->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *girdle->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (gauntlets != NULL)
-		ss << "[" << gauntlets->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
+		cout << "[" << *gauntlets->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
 
 	if (lhRing != NULL)
-		ss << "[" << lhRing->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *lhRing->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (greaves != NULL)
-		ss << "[" << greaves->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *greaves->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (boots != NULL)
-		ss << "[" << boots->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *boots->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (rhRing != NULL)
-		ss << "[" << rhRing->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
+		cout << "[" << *rhRing->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
 
-	ss << "  ";
+	cout << "  ";
 	if (primary != NULL)
-		ss << "[" << primary->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *primary->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (shield != NULL)
-		ss << "[" << shield->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << " ";
+		cout << "[" << *shield->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << " ";
 	if (quiver != NULL)
-		ss << "[" << quiver->getSymbol() << "]";
-	else ss << "[ ]";
-	ss << endl;
+		cout << "[" << *quiver->getSymbol() << "]";
+	else cout << "[ ]";
+	cout << endl;
 
-	return ss.str();
 }

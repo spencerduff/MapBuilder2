@@ -2,7 +2,7 @@
 
 
 Character::Character(){
-	character = '@';
+	character = new Symbol('@', NULL, NULL, 6);
 	name = "Zorak Warslayer";
 	movement = NULL;
 	xPos = NULL;
@@ -27,11 +27,11 @@ Character::~Character(){
 }
 
 Character::Character(int x, int y){
-	character = '@';
 	name = "Zorak Warslayer";
 	movement = NULL;
 	xPos = x;
 	yPos = y;
+	character = new Symbol('@', x, y, 6);
 	racialAlignment = evil;
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
@@ -47,7 +47,7 @@ void Character::setPos(int x, int y){
 	yPos = y;
 }
 
-char Character::getChar(){
+Symbol* Character::getChar(){
 	return character;
 }
 
@@ -58,27 +58,25 @@ bool Character::isMovement(char m){
 	else return false;
 }
 
-string Character::moveChar(char m){
-	stringstream ss;
+void Character::moveChar(char m){
 	if (isMovement(m)){
 		movement = m;
 	}
 	else if (m == 'p')
-		ss << paperdoll->printPaperdoll();
+		paperdoll->printPaperdoll();
 	else if (m == 'i')
-		ss << backpack->printInv();
+		backpack->printInv();
 	else if (m == 'e')
-		ss << putOnGear();
+		putOnGear();
 	else if (m == 'I')
-		ss << examineItem();
+		examineItem();
 	else if (m == 's')
-		ss << stats->printStats();
+		stats->printStats();
 	else if (m == 'S')
-		ss << stats->printFullStats();
+		stats->printFullStats();
 	else if (m == 'f')
 		movement = m;
 	else movement = NULL;
-	return ss.str();
 }
 
 char Character::getMovement(){
@@ -110,56 +108,50 @@ void Character::setMovement(char m){
 		this->movement = m;
 }
 
-string Character::equip(Item *equippable, bool &result){
+void Character::equip(Item *equippable, bool &result){
 	// Check to see if it's in the characters backpack
-	stringstream ss;
 	for (unsigned int i = 0; i < backpack->inventory.size(); i++){
 		if (equippable->getItemID() == backpack->inventory[i]->getItemID()){
 			if (equippable->equipped){
-				ss << equippable->getName() << " is already equipped." << endl;
+				cout << equippable->getName() << " is already equipped." << endl;
 				result = false;
-				return ss.str();
+				return;
 			}
 			else{
-				ss << equippable->equip(this);
+				equippable->equip(this);
 				result = true;
-				return ss.str();
+				return;
 			}
 		}
 
 	}
 	result = false;
-	return ss.str();
 }
 
-string Character::examineItem(){
-	stringstream ss;
-	cout << backpack->printInv();
+void Character::examineItem(){
+	backpack->printInv();
 	cout << "Which item would you like to examine? Q to not examine any. " << endl << endl;
 	char input = _getch();
-	if (input == 'Q') return "";
+	if (input == 'Q') return;
 	int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
-		ss << temp->examine();
+		temp->examine();
 	}
-	return ss.str();
 }
 
-string Character::putOnGear(){
-	stringstream ss;
-	cout << backpack->printInv();
+void Character::putOnGear(){
+	backpack->printInv();
 	cout << "Press Q to not put on gear." << endl;
 	char input = _getch();
 	int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
 		bool result = false;
-		ss << equip(temp, result);
+		equip(temp, result);
 		if(result)
 			updateProts();
 	}
-	return ss.str();
 }
 
 void Character::updateProts(){
@@ -184,23 +176,20 @@ void Character::updateProts(){
 }
 
 //This interacts with c
-string Character::interactCharacter(Character* c){
-	stringstream ss;
+void Character::interactCharacter(Character* c){
 	if (c == NULL)
-		return "";
+		return;
 	if (this->racialAlignment != c->racialAlignment || this->racialAlignment == evil || c->racialAlignment == evil){
-		ss << this->calculateMeleeDamage(c);
+		this->calculateMeleeDamage(c);
 	}
-	return ss.str();
 }
 
 //Takes weapon damage multiplies it by character strength, adds 1 damage per 10 weapon rank, then adds a flat 8 damage.
-//Will be more complex once weapon skills/masteries/passives and such.
-string Character::calculateMeleeDamage(Character* c){
-	stringstream ss;
+//Will be more complex once weapon skills/masteries/pacoutives and such.
+void Character::calculateMeleeDamage(Character* c){
 	if (this->paperdoll->primary == NULL){
-		ss << "There's no weapon to attack with! " << endl;
-		return ss.str();
+		cout << "There's no weapon to attack with! " << endl;
+		return;
 	}
 	float damage = this->paperdoll->primary->getDamage();
 	damage *= this->stats->getStr();
@@ -218,15 +207,12 @@ string Character::calculateMeleeDamage(Character* c){
 	incDamage.damageType = this->paperdoll->primary->getDamageType();
 	incDamage.numOfHits = hits;
 	
-	ss << c->damage(incDamage);
+	c->damage(incDamage);
 
-	this->paperdoll->primary->decrementDura();
-
-	return ss.str();
+	cout << this->paperdoll->primary->decrementDura();
 }
 
-string Character::damage(Damage incDamage){
-	stringstream ss;
+void Character::damage(Damage incDamage){
 	switch (incDamage.damageType){
 	case slashing:
 		incDamage.damage -= this->stats->getProtSlashing();
@@ -246,12 +232,11 @@ string Character::damage(Damage incDamage){
 	if (incDamage.damage < 0)
 		incDamage.damage = 0;
 	this->stats->damage(incDamage);
-	ss << this->name << "'s HP is now: " << this->stats->getHP() << " after " << incDamage.numOfHits;
+	cout << this->name << "'s HP is now: " << this->stats->getHP() << " after " << incDamage.numOfHits;
 	if (incDamage.numOfHits == 1)
-		ss << " hit." << endl;
+		cout << " hit." << endl;
 	else
-		ss << " hits." << endl;
-	return ss.str();
+		cout << " hits." << endl;
 }
 
 void Character::damageArmor(){
@@ -395,7 +380,7 @@ void NPC::equipAll(){
 
 Goblin::Goblin(Map* m) : NPC(){
 	name = "Goblin";
-	character = 'g';
+	character = new Symbol('g', NULL, NULL, 2);
 	racialAlignment = monster;
 	backpack->inventory.clear();
 	backpack->inventory.push_back(new Shortsword(backpack));
