@@ -387,6 +387,89 @@ void Character::damageArmor(){
 
 }
 
+void Character::tryDeleteArmor(){
+	if (paperdoll->helm != NULL)
+		if (paperdoll->helm->getDura() <= 0){
+			delete paperdoll->helm;
+			paperdoll->helm = NULL;
+		}
+	if (paperdoll->chest != NULL)
+		if (paperdoll->chest->getDura() <= 0){
+			delete paperdoll->chest;
+			paperdoll->chest = NULL;
+		}
+	if (paperdoll->boots != NULL)
+		if (paperdoll->boots->getDura() <= 0){
+			delete paperdoll->boots;
+			paperdoll->boots = NULL;
+		}
+	if (paperdoll->earring != NULL)
+		if (paperdoll->earring->getDura() <= 0){
+			delete paperdoll->earring;
+			paperdoll->earring = NULL;
+		}
+	if (paperdoll->elbows != NULL)
+		if (paperdoll->elbows->getDura() <= 0){
+			delete paperdoll->elbows;
+			paperdoll->elbows = NULL;
+		}
+	if (paperdoll->gauntlets != NULL)
+		if (paperdoll->gauntlets->getDura() <= 0){
+			delete paperdoll->gauntlets;
+			paperdoll->gauntlets = NULL;
+		}
+	if (paperdoll->girdle != NULL)
+		if (paperdoll->girdle->getDura() <= 0){
+			delete paperdoll->girdle;
+			paperdoll->girdle = NULL;
+		}
+	if (paperdoll->greaves != NULL)
+		if (paperdoll->greaves->getDura() <= 0){
+			delete paperdoll->greaves;
+			paperdoll->greaves = NULL;
+		}
+	if (paperdoll->legs != NULL)
+		if (paperdoll->legs->getDura() <= 0){
+			delete paperdoll->legs;
+			paperdoll->legs = NULL;
+		}
+	if (paperdoll->lhRing != NULL)
+		if (paperdoll->lhRing->getDura() <= 0){
+			delete paperdoll->lhRing;
+			paperdoll->lhRing = NULL;
+		}
+	if (paperdoll->necklace != NULL)
+		if (paperdoll->necklace->getDura() <= 0){
+			delete paperdoll->necklace;
+			paperdoll->necklace = NULL;
+		}
+	if (paperdoll->rhRing != NULL)
+		if (paperdoll->rhRing->getDura() <= 0){
+			delete paperdoll->rhRing;
+			paperdoll->rhRing = NULL;
+		}
+	if (paperdoll->robe != NULL)
+		if (paperdoll->robe->getDura() <= 0){
+			delete paperdoll->robe;
+			paperdoll->robe = NULL;
+		}
+	if (paperdoll->shield != NULL)
+		if (paperdoll->shield->getDura() <= 0){
+			delete paperdoll->shield;
+			paperdoll->shield = NULL;
+		}
+	if (paperdoll->shoulders != NULL)
+		if (paperdoll->shoulders->getDura() <= 0){
+			delete paperdoll->shoulders;
+			paperdoll->shoulders = NULL;
+		}
+	if (paperdoll->vambraces != NULL)
+		if (paperdoll->vambraces->getDura() <= 0){
+			delete paperdoll->vambraces;
+			paperdoll->vambraces = NULL;
+		}
+}
+
 void Character::unequipAll(){
 	paperdoll->unequip(paperdoll->boots);
 	paperdoll->unequip(paperdoll->chest);

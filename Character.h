@@ -57,6 +57,7 @@ protected:
 	void calculateMeleeDamage(Character* c);
 	void damage(Damage incDamage);
 	void damageArmor();
+	void tryDeleteArmor();
 
 private:
 

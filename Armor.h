@@ -31,6 +31,9 @@ public:
 
 	Prots getProts(){ return prots; }
 	float getEncumbrance(){ return encumbrance; }
+	float getDura(){ return dura; }
+
+	Piece getPiece(){ return piece; }
 
 
 protected:
