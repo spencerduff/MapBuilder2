@@ -57,7 +57,7 @@ Darktaint::Darktaint(Inventory* p, float iquality, int istack) : EnchantingMat(d
 
 Numen::Numen(Inventory* p, int istack) : EnchantingCatalyst(numen, istack, p){
 	setName("Numen");
-	setSymbol(new Symbol('?', NULL, NULL, 5));
+	setSymbol(new Symbol('?', NULL, NULL, 13));
 	setWeight(0.05*stack);
 	setItemID(getNextID());
 }

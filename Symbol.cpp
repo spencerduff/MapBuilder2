@@ -12,9 +12,14 @@ void Symbol::setColor(int foreground, int background){
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), foreground | background);
 }
 
-ostream& operator<<(ostream& os, Symbol& s)
+void operator<<(ostream& os, Symbol& s)
 {
 	s.setColor(s.colorForeground);
-	os << s.symbol;
-	return os;
+	cout << s.symbol;
+	s.setColor(7);
+	return;
+}
+
+void Symbol::printSymbol(){
+	cout << *this;
 }
