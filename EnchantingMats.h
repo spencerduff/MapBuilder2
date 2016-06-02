@@ -12,13 +12,21 @@ public:
 	//Takes a material type and a quality
 	EnchantingMat(Material m, float q, int istack, Inventory* p);
 
+	void addStack(int a){ stack += a; totWeight = stack*getWeight(); }
+
 	Material getMat(){ return material; }
 	float getQuality(){ return quality; }
+	int getStack() override;
+
 	void decrementStack();
+	void addStacks(Item* i) override;
+
+	void examine() override;
 
 	void addToEnchantingTable(Thaumaturgy *t) override;
 
 protected:
+	float totWeight;
 	Material material;
 	float quality;
 	int stack;
@@ -28,12 +36,20 @@ class EnchantingCatalyst : public Item{
 public:
 	EnchantingCatalyst(Catalyst c, int istack, Inventory* p);
 
+	void addStack(int a){ stack += a; totWeight = stack*getWeight(); }
+
 	Catalyst getCatalyst(){ return catalyst; }
 	void decrementStack();
+
+	void addStacks(Item* i) override;
+	int getStack() override;
+
+	void examine() override;
 
 	void addToEnchantingTable(Thaumaturgy *t) override;
 
 protected:
+	float totWeight;
 	Catalyst catalyst;
 	int stack;
 };

@@ -148,7 +148,7 @@ void Armor::addToEnchantingTable(Thaumaturgy *t){
 DragonChest::DragonChest(Inventory* p) : Armor(p){
 	setName("Dragon Armor Cuirass");
 	setWeight(5.0);
-	setSymbol(new Symbol(']', NULL, NULL, 15));
+	setSymbol(new Symbol(']', 15));
 	duraMax = 60.50;
 	dura = duraMax;
 	encumbrance = 42.00;

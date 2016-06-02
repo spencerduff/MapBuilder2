@@ -1,11 +1,10 @@
 #include "Symbol.h"
 
-Symbol::Symbol(char s, int x, int y, int f, int b){
+Symbol::Symbol(char s, int f, int b){
 	symbol = s;
-	posX = x;
-	posY = y;
 	colorForeground = f;
-	setColor(f, b);
+	if (b >= 0)
+		colorBackground = b;
 }
 
 void Symbol::setColor(int foreground, int background){

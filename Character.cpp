@@ -2,7 +2,7 @@
 
 
 Character::Character(){
-	character = new Symbol('@', NULL, NULL, 6);
+	character = new Symbol('@', 6);
 	name = "Zorak Warslayer";
 	movement = NULL;
 	xPos = NULL;
@@ -18,7 +18,23 @@ Character::Character(){
 	backpack->inventory.push_back(new Cinder(backpack));
 	backpack->inventory.push_back(new Darktaint(backpack));
 	backpack->inventory.push_back(new Numen(backpack));
+	backpack->inventory.push_back(new Veilron(backpack));
+	backpack->inventory.push_back(new Selentine(backpack));
+	backpack->inventory.push_back(new Neithal(backpack));
+	backpack->inventory.push_back(new Leenspar(backpack));
+	backpack->inventory.push_back(new Theyril(backpack));
+	backpack->inventory.push_back(new Wood(backpack));
+	backpack->inventory.push_back(new Iron(backpack));
+	backpack->inventory.push_back(new Cloth(backpack));
+	backpack->inventory.push_back(new Leather(backpack));
 
+	backpack->inventory.push_back(new Bile(backpack, 1, 4));
+	backpack->inventory.push_back(new Cinder(backpack, 1, 4));
+	backpack->inventory.push_back(new Darktaint(backpack, 1, 4));
+	backpack->inventory.push_back(new Numen(backpack, 4));
+
+
+	backpack->consolidateStackables();
 }
 
 Character::~Character(){
@@ -31,7 +47,7 @@ Character::Character(int x, int y){
 	movement = NULL;
 	xPos = x;
 	yPos = y;
-	character = new Symbol('@', x, y, 6);
+	character = new Symbol('@', 6);
 	racialAlignment = evil;
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
@@ -500,10 +516,12 @@ void NPC::equipAll(){
 
 Goblin::Goblin(Map* m) : NPC(){
 	name = "Goblin";
-	character = new Symbol('g', NULL, NULL, 2);
+	character = new Symbol('g', 2);
 	racialAlignment = monster;
 	backpack->inventory.clear();
 	backpack->inventory.push_back(new Shortsword(backpack));
+	backpack->inventory.push_back(new Bile(backpack));
+	backpack->consolidateStackables();
 	equipAll();
 	stats->setHP(50);
 	stats->setStam(50);

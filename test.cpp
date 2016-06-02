@@ -5,8 +5,13 @@ bool isGUI(char a);
 int main(){
 	srand((unsigned int)time(NULL));
 
+	char* music = "C:\\Users\\Spencer\\Music\\Real_Music\\Darklight\\Darklight_-_Theatrum_October_full_album.mp3";
+
+//	system(music);
+
 	cout << "Creating World... " << endl;
 	World b;
+
 
 
 	Character* c = new Character();
@@ -40,4 +45,4 @@ bool isGUI(char a){
 	else return false;
 }
 
-//regex to count lines in solution: ^(?!(\s*\*))(?!(\s*\-\-\>))(?!(\s*\<\!\-\-))(?!(\s*\n))(?!(\s*\*\/))(?!(\s*\/\*))(?!(\s*\/\/\/))(?!(\s*\/\/))(?!(\s*\}))(?!(\s*\{))(?!(\s(using))).*$
+//regex to count lines in project: ^(?!(\s*\*))(?!(\s*\-\-\>))(?!(\s*\<\!\-\-))(?!(\s*\n))(?!(\s*\*\/))(?!(\s*\/\*))(?!(\s*\/\/\/))(?!(\s*\/\/))(?!(\s*\}))(?!(\s*\{))(?!(\s(using))).*$

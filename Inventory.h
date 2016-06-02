@@ -17,6 +17,7 @@ public:
 	int parsePosInBackpack(char input);
 
 	void removeItem(Item* item);
+	void consolidateStackables();
 
 protected:
 	

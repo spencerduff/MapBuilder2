@@ -14,7 +14,7 @@ void CraftingStation::setPos(int x, int y){
 
 Thaumaturgy::Thaumaturgy(){
 	name = "Thaumaturgist's Table";
-	symbol = new Symbol('%', NULL, NULL, 14, 6);
+	symbol = new Symbol('%', 14, BACKGROUND_GREEN | BACKGROUND_RED);
 	posX = NULL;
 	posY = NULL;
 

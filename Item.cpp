@@ -42,3 +42,11 @@ void Item::enchant(Enchant* e){
 void Item::addToEnchantingTable(Thaumaturgy *t){
 	cout << "Not an item to use here. " << endl;
 }
+
+void Item::addStacks(Item* i){
+	return;
+}
+
+int Item::getStack(){
+	return 1;
+}

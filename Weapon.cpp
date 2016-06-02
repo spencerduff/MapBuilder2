@@ -78,7 +78,7 @@ void Weapon::addToEnchantingTable(Thaumaturgy *t){
 Leafblade::Leafblade(Inventory* p) : Weapon(p){
 	setName("Leafblade");
 	setWeight(0.0);
-	setSymbol(new Symbol('/', NULL, NULL, 2));
+	setSymbol(new Symbol('/', 2));
 	damage = 0.26;
 	speed = 0.6;
 	duraMax = 999.00;
@@ -98,7 +98,7 @@ Leafblade::~Leafblade(){
 Shortsword::Shortsword(Inventory* p) : Weapon(p){
 	setName("Short Sword");
 	setWeight(1.0);
-	setSymbol(new Symbol('/', NULL, NULL, 8));
+	setSymbol(new Symbol('/', 8));
 	damage = 0.31;
 	speed = 0.6;
 	duraMax = 51.00;

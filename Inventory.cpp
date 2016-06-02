@@ -17,6 +17,8 @@ Inventory::~Inventory(){
 void Inventory::printInv(){
 	for (unsigned int i = 0; i < inventory.size() && i < 36; i++){
 		inventory[i]->getSymbol()->printSymbol();
+		if (inventory[i]->isStackable())
+			cout << " (" << inventory[i]->getStack() << ")";
 		cout << " " << inventory[i]->getName() << " " << invSpace[i];
 		if (inventory[i]->equipped)
 			cout << " *EQUIPPED*";
@@ -39,6 +41,18 @@ void Inventory::removeItem(Item* item){
 	for (unsigned int i = 0; i < inventory.size(); i++){
 		if (inventory[i]->getItemID() == item->getItemID()){
 			inventory.erase(inventory.begin() + i);
+		}
+	}
+}
+
+void Inventory::consolidateStackables(){
+	for (unsigned int i = 0; i < inventory.size(); i++){
+		if (inventory[i]->isStackable()){
+			for (unsigned int j = i + 1; j < inventory.size(); j++){
+				if (inventory[j]->getName() == inventory[i]->getName()){
+					inventory[i]->addStacks(inventory[j]);
+				}
+			}
 		}
 	}
 }

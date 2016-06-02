@@ -16,10 +16,10 @@ void Room::makeWalls(){
 	for (int i = 0; i < size; i++){
 		for (int j = 0; j < size; j++){
 			if (i == 0 || i == size - 1 || j == 0 || j == size - 1){
-				board[i][j].setGroundTile(new Symbol('#', i, j, 8));
+				board[i][j].setGroundTile(new Symbol('#', 8));
 			}
 			else{
-				board[i][j].setGroundTile(new Symbol('.', i, j, 8));
+				board[i][j].setGroundTile(new Symbol('.', 8));
 			}
 
 		}
@@ -44,28 +44,28 @@ void Room::addPorts(){
 			//having doors.
 			for (int i = 0; i < 4; i++){
 				if (!leftSide && i == 0 && rand() % (size * 4 / numPorts) == 0){
-					board[0][iter].setGroundTile(new Symbol('+', 0, iter));
+					board[0][iter].setGroundTile(new Symbol('+'));
 					leftSide = true;
 					portsToGo--;
 					if (portsToGo == 0)
 						return;
 				}
 				if (!rightSide && i == 1 && rand() % (size * 4 / numPorts) == 0){
-					board[size - 1][iter].setGroundTile(new Symbol('+', size - 1, iter));
+					board[size - 1][iter].setGroundTile(new Symbol('+'));
 					rightSide = true;
 					portsToGo--;
 					if (portsToGo == 0)
 						return;
 				}
 				if (!topSide && i == 2 && rand() % (size * 4 / numPorts) == 0){
-					board[iter][0].setGroundTile(new Symbol('+', iter, 0));
+					board[iter][0].setGroundTile(new Symbol('+'));
 					topSide = true;
 					portsToGo--;
 					if (portsToGo == 0)
 						return;
 				}
 				if (!bottomSide && i == 3 && rand() % (size * 4 / numPorts) == 0){
-					board[iter][size - 1].setGroundTile(new Symbol('+', iter, size - 1));
+					board[iter][size - 1].setGroundTile(new Symbol('+'));
 					bottomSide = true;
 					portsToGo--;
 					if (portsToGo == 0)
@@ -90,11 +90,11 @@ void makeDiagonalRight(MapTile** &board, int size, int mid, int y = 0){
 	if (mid == size){
 		mid = size - 1;
 		while (y < size){
-			board[mid][y++] = new Symbol('#', mid, y, 8);
+			board[mid][y++] = new Symbol('#', 8);
 		}
 		return;
 	}
-	board[mid][y] = new Symbol('#', mid, y, 8);
+	board[mid][y] = new Symbol('#', 8);
 	makeDiagonalRight(board, size, ++mid, ++y);
 }
 
@@ -102,11 +102,11 @@ void makeDiagonalLeft(MapTile** &board, int size, int mid, int y = 0){
 	if (mid < 0){
 		mid = 0;
 		while (y < size){
-			board[mid][y++] = new Symbol('#', mid, y, 8);
+			board[mid][y++] = new Symbol('#', 8);
 		}
 		return;
 	}
-	board[mid][y] = new Symbol('#', mid, y, 8);
+	board[mid][y] = new Symbol('#', 8);
 	makeDiagonalLeft(board, size, --mid, ++y);
 }
 
@@ -120,10 +120,10 @@ void OrkRoom::makeWalls(){
 	for (int i = 0; i < size; i++){
 		for (int j = 0; j < size; j++){
 			if (j == size - 1){
-				board[i][j].setGroundTile(new Symbol('#', i, j, 8));
+				board[i][j].setGroundTile(new Symbol('#', 8));
 			}
 			else{
-				board[i][j].setGroundTile(new Symbol('.', i, j, 8));
+				board[i][j].setGroundTile(new Symbol('.', 8));
 			}
 		}
 	}
@@ -136,7 +136,7 @@ void OrkRoom::addPorts(){
 		pos++;
 	if (pos == size - 1)
 		pos--;
-	board[pos][size - 1] = new Symbol('+', pos, size - 1);
+	board[pos][size - 1] = new Symbol('+');
 }
 
 OrkRoom::OrkRoom() : Room(){

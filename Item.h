@@ -24,7 +24,8 @@ public:
 
 	virtual void equip(Character *c);
 	virtual void examine();
-
+	virtual void addStacks(Item* i);
+	virtual int getStack();
 
 	virtual void enchant(Enchant* e);
 
@@ -35,6 +36,7 @@ public:
 	string getName(){ return name; }
 	float getWeight(){ return weight; }
 	unsigned long getItemID(){ return itemID; }
+	bool isStackable(){ return stackable; }
 
 	void setParentContainer(Inventory* p){ parent = p; }
 

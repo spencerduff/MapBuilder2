@@ -5,7 +5,10 @@ enum ResourceType{ iron, wood, cloth, leather, selentine, veilron, neithal, leen
 
 class Resource : public Item{
 public:
-	void addStack(int a){ stack += a; }
+	void addStack(int a){ stack += a; totWeight = stack*getWeight(); }
+	void addStacks(Item* i) override;
+	int getStack() override;
+	void examine() override;
 
 protected:
 	Resource(Inventory* p) : Item(p) { stackable = true; }
@@ -13,6 +16,7 @@ protected:
 	void setResourceType(ResourceType iType){ type = iType; }
 
 private:
+	float totWeight;
 	ResourceType type;
 	int stack;
 };

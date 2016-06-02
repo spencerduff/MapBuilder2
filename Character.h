@@ -7,6 +7,7 @@
 #include "Inventory.h"
 #include "CharacterStats.h"
 #include "AI.h"
+#include "Resource.h"
 
 class Item;
 class AI;

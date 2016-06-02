@@ -16,13 +16,13 @@ Map::Map(){
 	
 	//Set map borders
 	for (int i = 0; i < ySize; i++){
-		map[i][0]->setGroundTile(new Symbol('|', 0, i, 8));
-		map[i][xSize - 1]->setGroundTile(new Symbol('|', xSize - 1, i, 8));
+		map[i][0]->setGroundTile(new Symbol('|', 8));
+		map[i][xSize - 1]->setGroundTile(new Symbol('|', 8));
 	}
 	for (int i = 0; i < xSize; i++){
 
-		map[0][i]->setGroundTile(new Symbol('_', i, 0, 8));
-		map[ySize - 1][i]->setGroundTile(new Symbol('_', i, ySize - 1, 8));
+		map[0][i]->setGroundTile(new Symbol('_', 8));
+		map[ySize - 1][i]->setGroundTile(new Symbol('_', 8));
 	}
 
 	//rooms = new Room[numOfRooms];
@@ -47,22 +47,22 @@ void Map::makeExits(){
 	while (map[iter][1]->getGroundTile()->getSymbol() == '#' || map[iter][1]->getGroundTile()->getSymbol() == '+'){
 		iter = (rand() % (ySize - 2)) + 1;
 	}
-	map[iter][0]->setGroundTile(new Symbol('<', 0, iter, 15));
+	map[iter][0]->setGroundTile(new Symbol('<', 15));
 
 	while (map[iter2][xSize - 2]->getGroundTile()->getSymbol() == '#' || map[iter2][xSize - 2]->getGroundTile()->getSymbol() == '+'){
 		iter2 = (rand() % (ySize - 2)) + 1;
 	}
-	map[iter2][xSize - 1]->setGroundTile(new Symbol('>', xSize - 1, iter2, 15));
+	map[iter2][xSize - 1]->setGroundTile(new Symbol('>', 15));
 
 	while (map[1][iter3]->getGroundTile()->getSymbol() == '#' || map[1][iter3]->getGroundTile()->getSymbol() == '+'){
 		iter3 = (rand() % (xSize - 2)) + 1;
 	}
-	map[0][iter3]->setGroundTile(new Symbol('^', iter3, 0, 15));
+	map[0][iter3]->setGroundTile(new Symbol('^', 15));
 
 	while (map[ySize - 2][iter4]->getGroundTile()->getSymbol() == '#' || map[ySize - 2][iter4]->getGroundTile()->getSymbol() == '+'){
 		iter4 = (rand() % (xSize - 2)) + 1;
 	}
-	map[ySize - 1][iter4]->setGroundTile(new Symbol('v', iter4, ySize - 1, 15));
+	map[ySize - 1][iter4]->setGroundTile(new Symbol('v', 15));
 
 
 }
@@ -159,10 +159,10 @@ void Map::placeDirt(){
 		for (int j = 0; j < xSize; j++){
 			if (map[i][j]->getGroundTile() == NULL){
 				if (rand() % 100){
-					map[i][j]->setGroundTile(new Symbol('`', j, i, 2));
+					map[i][j]->setGroundTile(new Symbol('`', 2));
 				}
 				else{
-					map[i][j]->setGroundTile(new Symbol('~', j, i, 10));
+					map[i][j]->setGroundTile(new Symbol('~', 10));
 				}
 			}
 		}
