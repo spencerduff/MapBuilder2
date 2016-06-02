@@ -8,9 +8,13 @@
 #include "CharacterStats.h"
 #include "AI.h"
 #include "Resource.h"
+#include "Modifiers.h"
+#include "Spellbook.h"
 
+class Spellbook;
 class Item;
 class AI;
+class Modifier;
 
 enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, Alfar, evil, monster};
 
@@ -29,8 +33,10 @@ public:
 	float getHP();
 	string getName();
 	AI* getAI();
+
 	Inventory* getBackpack(){ return backpack; }
 	Paperdoll* getPaperdoll(){ return paperdoll; }
+	CharacterStats* getStats(){ return stats; }
 
 	void setMovement(char m);
 
@@ -39,6 +45,9 @@ public:
 	void unequipAll();
 	void clearPastMap();
 	void putCursorPastMap();
+	void heal(float amount);
+	void addMod(Modifier* m);
+	void tickMods();
 
 protected:
 	string name;
@@ -50,6 +59,10 @@ protected:
 	Paperdoll *paperdoll;
 	CharacterStats *stats;
 	AI* ai;
+	Spellbook* spellbook;
+	vector<Modifier*> modifiers;
+
+	Spell* getSpell();
 
 	bool isMovement(char m);
 	void examineItem();

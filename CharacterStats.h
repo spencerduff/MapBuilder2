@@ -18,11 +18,16 @@ public:
 	void printStats();
 	void printFullStats();
 	void damage(Damage amount);
+	void healHP(float amount);
+
+	void spendMana(float amount);
 
 
-	float getStr(){ return str; }
 	float getHP(){ return currhp; }
+	float getMana(){ return currmana; }
+	float getStr(){ return str; }
 	float getQuick(){ return quick; }
+	float getIntel(){ return intel; }
 
 	float getProtSlashing(){ return slashingProt; }
 	float getProtBludgeoning(){ return bludgeoningProt; }
@@ -43,7 +48,7 @@ public:
 private:
 	///Status///
 	const int maxPlayerStat = 450;
-	float hp, stam, mana;
+	float hpMax, stamMax, manaMax;
 	float currhp, currstam, currmana;
 	int alignment;
 

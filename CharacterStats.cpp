@@ -5,9 +5,9 @@
 using namespace std;
 
 CharacterStats::CharacterStats(){
-	currhp = hp = 200;
-	currmana = mana = 200;
-	currstam = stam = 200;
+	currhp = hpMax = 200;
+	currmana = manaMax = 200;
+	currstam = stamMax = 200;
 
 	alignment = 10;
 
@@ -24,9 +24,9 @@ CharacterStats::CharacterStats(){
 }
 
 CharacterStats::CharacterStats(float iHP, float iStam, float iMana, float iStr, float iVit, float iDex, float iQuick, float iIntel, float iWis){
-	currhp = hp = iHP;
-	currmana = mana = iMana;
-	currstam = stam = iStam;
+	currhp = hpMax = iHP;
+	currmana = manaMax = iMana;
+	currstam = stamMax = iStam;
 
 	alignment = 10;
 
@@ -85,9 +85,9 @@ void CharacterStats::addProts(Armor *a){
 
 void CharacterStats::printStats(){
 	cout << "Status..." << endl;
-	cout << "Health: " << setprecision(2) << fixed << currhp << "/" << setprecision(2) << fixed << hp << endl;
-	cout << "Stamina: " << setprecision(2) << fixed << currstam << "/" << setprecision(2) << fixed << stam << endl;
-	cout << "Mana: " << setprecision(2) << fixed << currmana << "/" << setprecision(2) << fixed << mana << endl;
+	cout << "Health: " << setprecision(2) << fixed << currhp << "/" << setprecision(2) << fixed << hpMax << endl;
+	cout << "Stamina: " << setprecision(2) << fixed << currstam << "/" << setprecision(2) << fixed << stamMax << endl;
+	cout << "Mana: " << setprecision(2) << fixed << currmana << "/" << setprecision(2) << fixed << manaMax << endl;
 	cout << "Alignment: " << alignment << endl << endl;
 }
 
@@ -144,23 +144,23 @@ void CharacterStats::damage(Damage amount){
 void CharacterStats::setHP(float newHP){
 	if (newHP < 5)
 		return;
-	hp = newHP;
-	if (currhp > hp)
-		currhp = hp;
+	hpMax = newHP;
+	if (currhp > hpMax)
+		currhp = hpMax;
 }
 void CharacterStats::setStam(float newStam){
 	if (newStam < 5)
 		return;
-	stam = newStam;
-	if (currstam > stam)
-		currstam = stam;
+	stamMax = newStam;
+	if (currstam > stamMax)
+		currstam = stamMax;
 }
 void CharacterStats::setMana(float newMana){
 	if (newMana < 5)
 		return;
-	mana = newMana;
-	if (currmana > mana)
-		currmana = mana;
+	manaMax = newMana;
+	if (currmana > manaMax)
+		currmana = manaMax;
 }
 void CharacterStats::setStr(float newStr){
 	if (newStr > 100){
@@ -209,4 +209,16 @@ void CharacterStats::setWis(float newWis){
 	if (newWis < 4)
 		return;
 	wis = newWis;
+}
+
+void CharacterStats::healHP(float amount){
+	currhp += amount;
+	if (currhp > hpMax)
+		currhp = hpMax;
+}
+
+void CharacterStats::spendMana(float amount){
+	currmana -= amount;
+	if (currmana < 0)
+		currmana = 0;
 }

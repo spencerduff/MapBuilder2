@@ -5,9 +5,10 @@
 
 class Character;
 class Keen;
+class Spell;
 
 enum Type { primary, quiver };
-enum DamageType { slashing, piercing, bludgeoning, arrow };
+enum DamageType { slashing, piercing, bludgeoning, arrow, indirect };
 
 class Weapon : public Item{
 public:
@@ -23,6 +24,7 @@ public:
 
 	void equip(Character *c) override;
 	void examine() override;
+	virtual void cast(Spell* s);
 
 	void enchant(Enchant* e) override;
 	void keen(Keen* k);
@@ -93,7 +95,26 @@ private:
 	void setSymbolOfWep(Symbol* symbol){ setSymbol(symbol); }
 	void setWeightOfWep(float weight){ setWeight(weight); }
 
+};
 
+class Staff : public Weapon{
+public:
+	Staff(Inventory* p) : Weapon(p){}
+	void cast(Spell* s) override;
+
+private:
+	
+};
+
+class TrollStaff : public Staff{
+public:
+	TrollStaff(Inventory* p);
+	~TrollStaff(){}
+
+private:
+	void setNameOfWep(string name){ setName(name); }
+	void setSymbolOfWep(Symbol* symbol){ setSymbol(symbol); }
+	void setWeightOfWep(float weight){ setWeight(weight); }
 };
 
 

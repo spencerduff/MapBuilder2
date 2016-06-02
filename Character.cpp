@@ -11,6 +11,8 @@ Character::Character(){
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
+	spellbook = new Spellbook(this);
+	spellbook->learn(new HealSelf(this));
 	ai = NULL;
 	backpack->inventory.push_back(new Leafblade(backpack));
 	backpack->inventory.push_back(new DragonChest(backpack));
@@ -18,20 +20,21 @@ Character::Character(){
 	backpack->inventory.push_back(new Cinder(backpack));
 	backpack->inventory.push_back(new Darktaint(backpack));
 	backpack->inventory.push_back(new Numen(backpack));
-	backpack->inventory.push_back(new Veilron(backpack));
-	backpack->inventory.push_back(new Selentine(backpack));
-	backpack->inventory.push_back(new Neithal(backpack));
-	backpack->inventory.push_back(new Leenspar(backpack));
-	backpack->inventory.push_back(new Theyril(backpack));
-	backpack->inventory.push_back(new Wood(backpack));
-	backpack->inventory.push_back(new Iron(backpack));
-	backpack->inventory.push_back(new Cloth(backpack));
-	backpack->inventory.push_back(new Leather(backpack));
+	backpack->inventory.push_back(new TrollStaff(backpack));
+	//backpack->inventory.push_back(new Veilron(backpack));
+	//backpack->inventory.push_back(new Selentine(backpack));
+	//backpack->inventory.push_back(new Neithal(backpack));
+	//backpack->inventory.push_back(new Leenspar(backpack));
+	//backpack->inventory.push_back(new Theyril(backpack));
+	//backpack->inventory.push_back(new Wood(backpack));
+	//backpack->inventory.push_back(new Iron(backpack));
+	//backpack->inventory.push_back(new Cloth(backpack));
+	//backpack->inventory.push_back(new Leather(backpack));
 
-	backpack->inventory.push_back(new Bile(backpack, 1, 4));
-	backpack->inventory.push_back(new Cinder(backpack, 1, 4));
-	backpack->inventory.push_back(new Darktaint(backpack, 1, 4));
-	backpack->inventory.push_back(new Numen(backpack, 4));
+	//backpack->inventory.push_back(new Bile(backpack, 1, 4));
+	//backpack->inventory.push_back(new Cinder(backpack, 1, 4));
+	//backpack->inventory.push_back(new Darktaint(backpack, 1, 4));
+	//backpack->inventory.push_back(new Numen(backpack, 4));
 
 
 	backpack->consolidateStackables();
@@ -93,7 +96,22 @@ void Character::moveChar(char m){
 		stats->printFullStats();
 	else if (m == 'f')
 		movement = m;
+	else if (m == 'B')
+		paperdoll->primary->cast(getSpell());
 	else movement = NULL;
+}
+
+Spell* Character::getSpell(){
+	spellbook->printSpellbook();
+	cout << "Which spell would you like to cast? Q to not cast any." << endl;
+	char input = _getch();
+	if (input == 'Q') return NULL;
+	int pos = spellbook->parsePosInSpellbook(input);
+	if (pos < spellbook->spellList.size()){
+		Spell *temp = spellbook->spellList[pos];
+		return temp;
+	}
+	return NULL;
 }
 
 void Character::clearPastMap(){
@@ -229,6 +247,10 @@ void Character::interactCharacter(Character* c){
 void Character::calculateMeleeDamage(Character* c){
 	if (this->paperdoll->primary == NULL){
 		cout << "There's no weapon to attack with! " << endl;
+		return;
+	}
+	if (this->paperdoll->primary->getDamageType() == indirect){
+		cout << "You cannot melee attack with this weapon! " << endl;
 		return;
 	}
 	float damage = this->paperdoll->primary->getDamage();
@@ -507,6 +529,22 @@ void Character::unequipAll(){
 	paperdoll->unequip(paperdoll->vambraces);
 }
 
+void Character::heal(float amount){
+	stats->healHP(amount);
+}
+
+void Character::addMod(Modifier* m){
+	modifiers.push_back(m);
+}
+
+void Character::tickMods(){
+	for (unsigned int i = 0; i < modifiers.size(); i++){
+		modifiers[i]->tick();
+		if (modifiers[i]->getTurns() <= 0)
+			modifiers.erase(modifiers.begin() + i);
+	}
+}
+
 void NPC::equipAll(){
 	for (unsigned int i = 0; i < backpack->inventory.size(); i++){
 		backpack->inventory[i]->equip(this);
@@ -518,6 +556,7 @@ Goblin::Goblin(Map* m) : NPC(){
 	name = "Goblin";
 	character = new Symbol('g', 2);
 	racialAlignment = monster;
+	spellbook = new Spellbook(this);
 	backpack->inventory.clear();
 	backpack->inventory.push_back(new Shortsword(backpack));
 	backpack->inventory.push_back(new Bile(backpack));

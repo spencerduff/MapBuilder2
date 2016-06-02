@@ -458,6 +458,7 @@ void Map::kill(Character* c){
 void Map::updateMovement(){
 	stringstream cout;
 	for (unsigned int i = 0; i < chars.size(); i++){
+		chars[i]->tickMods();
 		if (chars[i]->getMovement() != NULL){
 			if (chars[i]->getMovement() == 'f')
 				interact(chars[i]);
