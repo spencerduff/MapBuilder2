@@ -159,7 +159,10 @@ void Map::placeDirt(){
 		for (int j = 0; j < xSize; j++){
 			if (map[i][j]->getGroundTile() == NULL){
 				if (rand() % 100){
-					map[i][j]->setGroundTile(new Symbol('`', 2));
+					if (rand() % 4)
+						map[i][j]->setGroundTile(new Symbol('`', 2));
+					else 
+						map[i][j]->setGroundTile(new Symbol('`', 6));
 				}
 				else{
 					map[i][j]->setGroundTile(new Symbol('~', 10));
@@ -428,7 +431,6 @@ void Map::moveChar(Character* c, char dir){
 		}
 	}
 	c->moveChar();
-
 }
 
 void Map::kill(Character* c){
@@ -460,8 +462,10 @@ void Map::updateMovement(){
 	for (unsigned int i = 0; i < chars.size(); i++){
 		chars[i]->tickMods();
 		if (chars[i]->getMovement() != NULL){
-			if (chars[i]->getMovement() == 'f')
+			if (chars[i]->getMovement() == 'f'){
 				interact(chars[i]);
+				chars[0]->clearPastMap();
+			}
 			moveChar(chars[i], chars[i]->getMovement());
 		}
 	}

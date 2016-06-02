@@ -82,22 +82,45 @@ void Character::moveChar(char m){
 		movement = m;
 		clearPastMap();
 	}
-	else if (m == 'p')
+	else if (m == 'p'){
+		clearPastMap();
+		putCursorPastMap();
 		paperdoll->printPaperdoll();
-	else if (m == 'i')
+	}
+	else if (m == 'i'){
+		clearPastMap();
+		putCursorPastMap();
 		backpack->printInv();
+	}
 	else if (m == 'e')
 		putOnGear();
-	else if (m == 'I')
+	else if (m == 'I'){
+		clearPastMap();
+		putCursorPastMap();
 		examineItem();
-	else if (m == 's')
+	}
+	else if (m == 's'){
+		clearPastMap();
+		putCursorPastMap();
 		stats->printStats();
-	else if (m == 'S')
+	}
+	else if (m == 'S'){
+		clearPastMap();
+		putCursorPastMap();
 		stats->printFullStats();
+	}
 	else if (m == 'f')
 		movement = m;
-	else if (m == 'B')
-		paperdoll->primary->cast(getSpell());
+	else if (m == 'B'){
+		clearPastMap();
+		putCursorPastMap();
+		if (paperdoll->primary != NULL){
+			paperdoll->primary->cast(getSpell());
+		}
+		else{
+			cout << "You must equip a staff to cast a spell. " << endl;
+		}
+	}
 	else movement = NULL;
 }
 
@@ -199,6 +222,8 @@ void Character::examineItem(){
 }
 
 void Character::putOnGear(){
+	clearPastMap();
+	putCursorPastMap();
 	backpack->printInv();
 	cout << "Press Q to not put on gear." << endl;
 	char input = _getch();
