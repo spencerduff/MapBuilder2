@@ -33,6 +33,7 @@ public:
 	float getProtBludgeoning(){ return bludgeoningProt; }
 	float getProtArrow(){ return arrowProt; }
 	float getProtPiercing(){ return piercingProt; }
+	float getProtFire(){ return fireProt; }
 
 	void setHP(float newHP);
 	void setStam(float newStam);

@@ -10,6 +10,7 @@
 #include "Resource.h"
 #include "Modifiers.h"
 #include "Spellbook.h"
+#include "Velocity.h"
 
 class Spellbook;
 class Item;
@@ -20,11 +21,11 @@ enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, Alfar, evil, monster};
 
 class Character{
 public:
-	Character();
+	Character(Map* m);
 	virtual ~Character();
-	Character(int x, int y);
-	void setPos(int x, int y);
+	//Character(int x, int y);
 	void moveChar(char m = NULL);
+	void setPos(int x, int y);
 
 	Symbol* getChar();
 	char getMovement();
@@ -45,9 +46,12 @@ public:
 	void unequipAll();
 	void clearPastMap();
 	void putCursorPastMap();
+	void putCursorOnSelf();
 	void heal(float amount);
 	void addMod(Modifier* m);
 	void tickMods();
+	void damage(Damage incDamage);
+	Velocity aimProjectile();
 
 protected:
 	string name;
@@ -61,6 +65,7 @@ protected:
 	AI* ai;
 	Spellbook* spellbook;
 	vector<Modifier*> modifiers;
+	Map* currMap;
 
 	Spell* getSpell();
 
@@ -69,18 +74,16 @@ protected:
 	void putOnGear();
 	void updateProts();
 	void calculateMeleeDamage(Character* c);
-	void damage(Damage incDamage);
 	void damageArmor();
 	void tryDeleteArmor();
 
 private:
-
-
+	void moveCursor(char dir);
 };
 
 class NPC : public Character{
 public:
-	NPC() : Character() {}
+	NPC(Map* m) : Character(m) {}
 	virtual ~NPC() {}
 	void equipAll();
 

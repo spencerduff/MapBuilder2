@@ -7,8 +7,10 @@
 #include "Node.h"
 #include "Gravestone.h"
 #include "Crafting.h"
+#include "Projectile.h"
 
 class Gravestone;
+class Projectile;
 
 //Each map should have 4 exits to new maps: up, down, left, and right, Unless it is on the
 //edge of a Land. Then the exit will not let the player through.
@@ -27,6 +29,7 @@ public:
 	void placeRandomCrafting(CraftingStation* c);
 	void updateMovement();
 	void movePlayerChar(char c);
+	Character* findChar(int x, int y);
 
 	Character* getPlayerChar();
 	Symbol* getPCharGroundTile();
@@ -34,15 +37,24 @@ public:
 	void deleteOldChar();
 	void moveNPCs();
 
+	void kill(Character* c);
+
+	void addProjectile(Projectile* p);
+	void removeProjectile(Projectile* p);
+	void explodeProj(Projectile* p);
+
 	bool checkNotCollidable(int x, int y);
+
+	void refreshNeeded();
 
 	//Prints the Map
 	void printMap();
 
 protected:
+	vector<Projectile*> projectiles;
+	vector<MapTile*> toRefresh;
 	int numOfRooms, numOfTrees, numOfRocks;
 	Room* rooms;
-	vector<MapTile*> toRefresh;
 	static const int ySize = 50;
 	static const int xSize = 175;
 	double avgSize;
@@ -50,7 +62,6 @@ protected:
 	TreeNode** trees;
 	RockNode** rocks;
 
-	Character* findChar(int x, int y);
 	bool checkCharacter(char c);
 	void updateMap();
 	void moveChar(Character* c, char dir);
@@ -72,13 +83,14 @@ protected:
 	void placeRocks(int numOfRocks);
 	bool tryPlaceChar(Character* c, int x, int y);
 	bool tryPlaceCrafting(CraftingStation* c, int x, int y);
-	void kill(Character* c);
 	void interact(Character* c);
 	void lootGrave(Character* c, bool &emptied);
 	void craft(Character* c);
 	
 
 private:
+	void updateProjectiles();
+	void tickProjectile();
 
 };
 

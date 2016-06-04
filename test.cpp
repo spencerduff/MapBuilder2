@@ -14,7 +14,7 @@ int main(){
 
 
 
-	Character* c = new Character();
+	Character* c = new Character(b.getCurrMap());
 
 
 	b.placeChar(c);

@@ -49,6 +49,7 @@ void Land::moveMaps(){
 void Land::movePlayerChar(char c) { 
 	currMap->movePlayerChar(c); 
 	currMap->moveNPCs();
+	currMap->refreshNeeded();
 	moveMaps();
 }
 

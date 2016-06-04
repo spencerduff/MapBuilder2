@@ -6,9 +6,10 @@
 class Character;
 class Keen;
 class Spell;
+class Map;
 
 enum Type { primary, quiver };
-enum DamageType { slashing, piercing, bludgeoning, arrow, indirect };
+enum DamageType { slashing, piercing, bludgeoning, arrow, fire, indirect };
 
 class Weapon : public Item{
 public:
@@ -24,7 +25,7 @@ public:
 
 	void equip(Character *c) override;
 	void examine() override;
-	virtual void cast(Spell* s);
+	virtual void cast(Spell* s, Map* m);
 
 	void enchant(Enchant* e) override;
 	void keen(Keen* k);
@@ -100,7 +101,7 @@ private:
 class Staff : public Weapon{
 public:
 	Staff(Inventory* p) : Weapon(p){}
-	void cast(Spell* s) override;
+	void cast(Spell* s, Map* m) override;
 
 private:
 	

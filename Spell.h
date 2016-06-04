@@ -3,51 +3,47 @@
 
 #include "Weapon.h"
 #include "Character.h"
-
-struct VECTOR{
-	int xDir, yDir;
-	float speed;
-};
+#include "Velocity.h"
 
 class Spell{
 public:
-	virtual void cast(float staffMag) = 0;
+	virtual void cast(float staffMag, Map* m = NULL) = 0;
 	virtual void setMagnitude() = 0;
+
 	string getName(){ return name; }
 	float getLevel(){ return level; }
 
 protected:
 	Character* owner;
-	int posX, posY;
 	float level;
 	string name;
 	string description;
 	int cooldown;
 	int currentCooldown;
 	float manaCost;
+	float magnitude;
 };
 
-//class Fireball : public Spell{
-//public:
-//	Fireball();
-//	void cast() override;
-//
-//private:
-//	VECTOR v;
-//
-//};
+class Fireball : public Spell{
+public:
+	Fireball(Character* c);
+	void cast(float staffMag, Map* m = NULL) override;
+	void setMagnitude() override;
+
+private:
+
+};
 
 class HealSelf : public Spell{
 public:
 	HealSelf(Character* c);
-	void cast(float staffMag) override;
+	void cast(float staffMag, Map* m = NULL) override;
 
 	void setTurns();
 	void setMagnitude();
 
 private:
 	int turns;
-	float magnitude;
 
 };
 

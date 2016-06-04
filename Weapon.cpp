@@ -78,7 +78,7 @@ void Weapon::addToEnchantingTable(Thaumaturgy *t){
 	t->setToEnchant(this);
 }
 
-void Weapon::cast(Spell* s){
+void Weapon::cast(Spell* s, Map* m){
 	cout << "You must equip a staff to cast a spell. " << endl;
 }
 
@@ -122,10 +122,10 @@ Shortsword::~Shortsword(){
 
 }
 
-void Staff::cast(Spell* s){
+void Staff::cast(Spell* s, Map* m){
 	if (s == NULL)
 		return;
-	s->cast(damage);
+	s->cast(damage, m);
 }
 
 TrollStaff::TrollStaff(Inventory* p) : Staff(p){

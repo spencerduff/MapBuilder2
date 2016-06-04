@@ -1,7 +1,7 @@
 #include "Character.h"
 
 
-Character::Character(){
+Character::Character(Map* m){
 	character = new Symbol('@', 6);
 	name = "Zorak Warslayer";
 	movement = NULL;
@@ -13,7 +13,9 @@ Character::Character(){
 	stats = new CharacterStats;
 	spellbook = new Spellbook(this);
 	spellbook->learn(new HealSelf(this));
+	spellbook->learn(new Fireball(this));
 	ai = NULL;
+	currMap = m;
 	backpack->inventory.push_back(new Leafblade(backpack));
 	backpack->inventory.push_back(new DragonChest(backpack));
 	backpack->inventory.push_back(new Bile(backpack));
@@ -45,21 +47,21 @@ Character::~Character(){
 	delete ai;
 }
 
-Character::Character(int x, int y){
-	name = "Zorak Warslayer";
-	movement = NULL;
-	xPos = x;
-	yPos = y;
-	character = new Symbol('@', 6);
-	racialAlignment = evil;
-	backpack = new Inventory;
-	paperdoll = new Paperdoll;
-	stats = new CharacterStats;
-	ai = NULL;
-	backpack->inventory.push_back(new Leafblade(backpack));
-	backpack->inventory.push_back(new DragonChest(backpack));
-
-}
+//Character::Character(int x, int y){
+//	name = "Zorak Warslayer";
+//	movement = NULL;
+//	xPos = x;
+//	yPos = y;
+//	character = new Symbol('@', 6);
+//	racialAlignment = evil;
+//	backpack = new Inventory;
+//	paperdoll = new Paperdoll;
+//	stats = new CharacterStats;
+//	ai = NULL;
+//	backpack->inventory.push_back(new Leafblade(backpack));
+//	backpack->inventory.push_back(new DragonChest(backpack));
+//
+//}
 
 void Character::setPos(int x, int y){
 	xPos = x;
@@ -115,7 +117,7 @@ void Character::moveChar(char m){
 		clearPastMap();
 		putCursorPastMap();
 		if (paperdoll->primary != NULL){
-			paperdoll->primary->cast(getSpell());
+			paperdoll->primary->cast(getSpell(), currMap);
 		}
 		else{
 			cout << "You must equip a staff to cast a spell. " << endl;
@@ -320,6 +322,9 @@ void Character::damage(Damage incDamage){
 	case arrow:
 		incDamage.damage -= this->stats->getProtArrow();
 		break;
+	case fire:
+		incDamage.damage -= this->stats->getProtFire();
+		break;
 	}
 	this->damageArmor();
 
@@ -331,11 +336,19 @@ void Character::damage(Damage incDamage){
 		cout << " hit." << endl;
 	else
 		cout << " hits." << endl;
+	if (this->getStats()->getHP() <= 0)
+		this->currMap->kill(this);
 }
 
 void Character::putCursorPastMap(){
 	COORD homeCoords = { 0, 52 };
 	HANDLE hStdOut= GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hStdOut, homeCoords);
+}
+
+void Character::putCursorOnSelf(){
+	COORD homeCoords = { xPos, yPos + 1 };
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
 
@@ -570,6 +583,81 @@ void Character::tickMods(){
 	}
 }
 
+Velocity Character::aimProjectile(){
+	putCursorOnSelf();
+	char input = NULL;
+	while (input != 'f' && input != 'F'){
+		input = _getch();
+		if (isMovement(input))
+			moveCursor(input);
+	}
+	Velocity v;
+
+	CONSOLE_SCREEN_BUFFER_INFO SBInfo;
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfo(hStdOut, &SBInfo);
+	int x = SBInfo.dwCursorPosition.X;
+	int y = SBInfo.dwCursorPosition.Y - 1;
+
+	if (x > xPos)
+		v.xDir = 1;
+	else if (x < xPos)
+		v.xDir = -1;
+	else v.xDir = 0;
+
+	if (y > yPos)
+		v.yDir = 1;
+	else if (y < yPos)
+		v.yDir = -1;
+	else v.yDir = 0;
+
+	v.xSpeed = (abs(xPos - x));
+	v.ySpeed = (abs(yPos - y));
+
+	return v;
+}
+
+void Character::moveCursor(char dir){
+	CONSOLE_SCREEN_BUFFER_INFO SBInfo;
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfo(hStdOut, &SBInfo);
+	int xPos = SBInfo.dwCursorPosition.X;
+	int yPos = SBInfo.dwCursorPosition.Y;
+
+	if (dir == 'l'){
+		COORD homeCoords = { xPos + 1, yPos };
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'k'){
+		COORD homeCoords = { xPos, yPos - 1};
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'j'){
+		COORD homeCoords = { xPos, yPos + 1 };
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'h'){
+		COORD homeCoords = { xPos - 1, yPos };
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'u'){
+		COORD homeCoords = { xPos + 1, yPos - 1};
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'y'){
+		COORD homeCoords = { xPos - 1, yPos - 1 };
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'n'){
+		COORD homeCoords = { xPos + 1, yPos + 1};
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+	if (dir == 'b'){
+		COORD homeCoords = { xPos - 1, yPos + 1 };
+		SetConsoleCursorPosition(hStdOut, homeCoords);
+	}
+}
+
 void NPC::equipAll(){
 	for (unsigned int i = 0; i < backpack->inventory.size(); i++){
 		backpack->inventory[i]->equip(this);
@@ -577,7 +665,7 @@ void NPC::equipAll(){
 	updateProts();
 }
 
-Goblin::Goblin(Map* m) : NPC(){
+Goblin::Goblin(Map* m) : NPC(m){
 	name = "Goblin";
 	character = new Symbol('g', 2);
 	racialAlignment = monster;
