@@ -6,17 +6,22 @@
 #include "Weapon.h"
 #include <iostream>
 
+// Inventory. Holds items. Characters and Gravestones have Inventories
 class Inventory{
 public:
 	Inventory();
 	~Inventory();
 
 	vector<Item*> inventory;
+	// Prints the Inventory prettily
 	void printInv();
 
+	// Parse the pos in the vector of an input. 0-9 a-z.
 	int parsePosInBackpack(char input);
 
+	// Removes an Item from the Inventory. Used when destroying an Item
 	void removeItem(Item* item);
+	// Stacks up all like Items that are stackable.
 	void consolidateStackables();
 
 protected:
@@ -24,9 +29,9 @@ protected:
 
 };
 
+// Paperdoll. Each Character has a Paperdoll.
 class Paperdoll{
 public:
-	
 	Paperdoll();
 	~Paperdoll();
 
@@ -49,10 +54,12 @@ public:
 	Weapon *primary;
 	Weapon *quiver;
 
-
+	// Prints the Paperdoll prettily.
 	void printPaperdoll();
+	// Unequip an Item. Used in the unequipAll() and when changing Armors or Weapons.
 	void unequip(Item *a);
 
+	// Setters
 	void setHelm(Armor *h){ 
 		if (helm != NULL)
 			helm->equipped = false;

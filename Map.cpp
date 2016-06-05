@@ -277,14 +277,6 @@ void Map::movePlayerChar(char c){
 	chars[0]->moveChar(c);
 }
 
-void Map::updateMap(){
-	for (int i = 0; i < ySize; i++){
-		for (int j = 0; j < xSize; j++){
-			return;
-		}
-	}
-}
-
 bool Map::checkNotCollidable(int x, int y){
 	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol()) && !checkCharacter(map[y][x]->getShowingTile()->getSymbol());
 }

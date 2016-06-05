@@ -36,7 +36,7 @@ void Item::examine(){
 }
 
 void Item::enchant(Enchant* e){
-	return;
+	cout << "Enchantment Failed." << endl;
 }
 
 void Item::addToEnchantingTable(Thaumaturgy *t){

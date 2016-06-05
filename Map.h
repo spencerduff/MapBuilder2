@@ -12,45 +12,61 @@
 class Gravestone;
 class Projectile;
 
-//Each map should have 4 exits to new maps: up, down, left, and right, Unless it is on the
-//edge of a Land. Then the exit will not let the player through.
+// Each map should have 4 exits to new maps: up, down, left, and right,
+// TODO:
+// Unless it is on the edge of the World. Then the exit will not let the player through.
 class Map{
 public:
-
+	// The map knows about all its Characters, Gravestones, and CraftingStations.
 	vector<Character*> chars;
 	vector<Gravestone*> graves;
 	vector<CraftingStation*> crafting;
-	//Constructs the map. Initializes map and sets the borders.
-	//Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
+	// Constructs the map. Initializes map and sets the borders.
+	// Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
 	Map();
 
+	// Finds the side of the Map and places the Character there. Used for movement through Maps.
 	void placeChar(Character* c, char side = '<');
+	// Randomly places the Character in an allowable MapTile.
 	void placeRandomChar(Character *c);
+	// Randomly places the CraftingStation in an allowable MapTile.
 	void placeRandomCrafting(CraftingStation* c);
+	// Updates the game. Movement of everything is applied. Everything time based is ticked.
 	void updateMovement();
+	// Determines what the Player's input should do to the Player Character
 	void movePlayerChar(char c);
+	// Finds a Character in the given coordinates. Used for interacting Characters and Projectile interaction.
 	Character* findChar(int x, int y);
 
+	// Getters
 	Character* getPlayerChar();
 	Symbol* getPCharGroundTile();
 
+	// When moving off maps, updates the old tile the Character used to be on.
 	void deleteOldChar();
+	// Moves NPCs according to their AI
 	void moveNPCs();
 
+	// Kills a Character and deletes it, leaving a Gravestone of his backpack.
 	void kill(Character* c);
 
+	// Adding a removing projectiles to and from the Map.
 	void addProjectile(Projectile* p);
 	void removeProjectile(Projectile* p);
+	// For AoE Projectiles, shows a graphic for their explosion.
 	void explodeProj(Projectile* p);
 
+	// Checks if a position is a collidable groundTile or Character
 	bool checkNotCollidable(int x, int y);
 
+	// Refreshes the refresh list, then empties it.
 	void refreshNeeded();
 
-	//Prints the Map
+	// Prints the Map
 	void printMap();
 
 protected:
+	// The projectiles held by the Map
 	vector<Projectile*> projectiles;
 	vector<MapTile*> toRefresh;
 	int numOfRooms, numOfTrees, numOfRocks;
@@ -62,8 +78,9 @@ protected:
 	TreeNode** trees;
 	RockNode** rocks;
 
+	// Checks if a char represents a Character
 	bool checkCharacter(char c);
-	void updateMap();
+
 	void moveChar(Character* c, char dir);
 	void placeStairs();
 	void connectRooms();
