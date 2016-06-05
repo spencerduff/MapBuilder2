@@ -13,7 +13,7 @@ Keen::Keen(){
 	requiredCatalyst = numen;
 	name = "Keen";
 	quality = 1.0;
-	dmgModifier = .02;
+	dmgModifier = .024;
 }
 
 void Keen::enchant(EnchantingMat* m1, EnchantingMat* m2, EnchantingMat* m3, EnchantingCatalyst* c, Item* i){

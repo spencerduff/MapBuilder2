@@ -64,6 +64,11 @@ bool Projectile::iterPos(){
 			}
 			if (checkCollision())
 				return true;
+			range--;
+			if (range <= 0){
+				activate();
+				return true;
+			}
 		}		
 	}
 	return false;
@@ -87,13 +92,7 @@ FireballProj::~FireballProj(){
 }
 
 bool FireballProj::tick(){
-	float a, b, c;
-	a = v.xSpeed;
-	b = v.ySpeed;
-	c = a*a + b*b;
-	c = sqrt(c);
 	bool activated = iterPos();
-	range -= c / v.speed;
 	if (activated == false){
 		if (range <= 0){
 			activate();

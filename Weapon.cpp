@@ -69,7 +69,7 @@ void Weapon::keen(Keen* k){
 	else if (enchantSuffix == NULL && enchantPrefix->getName() != "Keen"){
 		enchantSuffix = k;
 		damage += k->getDmgMod();
-		string a = "of Keenecout";
+		string a = "of Keeness";
 		setName(getName() += a);
 	}
 }
@@ -126,6 +126,10 @@ void Staff::cast(Spell* s, Map* m){
 	if (s == NULL)
 		return;
 	s->cast(damage, m);
+}
+
+void Staff::keen(Keen* k){
+	cout << "Enchantment failed." << endl;
 }
 
 TrollStaff::TrollStaff(Inventory* p) : Staff(p){

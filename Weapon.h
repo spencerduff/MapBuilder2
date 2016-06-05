@@ -28,7 +28,7 @@ public:
 	virtual void cast(Spell* s, Map* m);
 
 	void enchant(Enchant* e) override;
-	void keen(Keen* k);
+	virtual void keen(Keen* k);
 	void addToEnchantingTable(Thaumaturgy *t) override;
 
 	string decrementDura(){ 
@@ -102,6 +102,7 @@ class Staff : public Weapon{
 public:
 	Staff(Inventory* p) : Weapon(p){}
 	void cast(Spell* s, Map* m) override;
+	void keen(Keen* k) override;
 
 private:
 	

@@ -460,7 +460,7 @@ void Character::damageArmor(){
 			break;
 		}
 	}
-
+	tryDeleteArmor();
 }
 
 void Character::tryDeleteArmor(){
@@ -672,7 +672,7 @@ Goblin::Goblin(Map* m) : NPC(m){
 	spellbook = new Spellbook(this);
 	backpack->inventory.clear();
 	backpack->inventory.push_back(new Shortsword(backpack));
-	backpack->inventory.push_back(new Bile(backpack));
+//	backpack->inventory.push_back(new Bile(backpack));
 	backpack->consolidateStackables();
 	equipAll();
 	stats->setHP(50);
