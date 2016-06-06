@@ -80,33 +80,42 @@ protected:
 
 	// Checks if a char represents a Character
 	bool checkCharacter(char c);
-
+	// Interacts or moves the Character to the given direction.
 	void moveChar(Character* c, char dir);
+	// TODO:
 	void placeStairs();
+	// TODO:
 	void connectRooms();
-	//Puts exits on the borders.
+	// Puts exits on the borders.
 	void makeExits();
-	//Places how many rooms there need to be placed, but making sure to not try for too
-	//long. Randomly places them, but checks to not overlap or go off the map. Doesn't
-	//place rooms right next to each other.
+	// Places how many rooms there need to be placed, but making sure to not try for too
+	// long. Randomly places them, but checks to not overlap or go off the map. Doesn't
+	// place rooms right next to each other.
 	void placeRooms(int numOfRooms);
-	//Fills in outside space with dirt and plants.
+	// Fills in outside space with dirt and plants.
 	void placeDirt();
-	//If character is collidable, returns false, else returns true.
+	// If character is collidable, returns false, else returns true.
 	bool checkNotCollidable(char c);
-	//TODO:
+	// Places Trees from the Map's array of Trees
 	void placeTrees(int numOfTrees);
-	//TODO:
+	// Places Rocks from the Map's array of Rocks
 	void placeRocks(int numOfRocks);
+	// Tries to place a Character at a location. Used when randomly placing a Character
 	bool tryPlaceChar(Character* c, int x, int y);
+	// Same as above but with a CraftingStation
 	bool tryPlaceCrafting(CraftingStation* c, int x, int y);
+	// The 'use key' for a Character. Causes the Character to interact with the tile below him.
 	void interact(Character* c);
+	// Loots the grave and passes back if it's empty by reference
 	void lootGrave(Character* c, bool &emptied);
+	// Through polymorphism calls the correct crafting based on what station the Character is standing on.
 	void craft(Character* c);
 	
 
 private:
+	// Draws the projectiles to their new location.
 	void updateProjectiles();
+	// Ticks the projectiles, making them update their movement.
 	void tickProjectile();
 
 };
