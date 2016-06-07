@@ -281,6 +281,10 @@ bool Map::checkNotCollidable(int x, int y){
 	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol()) && !checkCharacter(map[y][x]->getShowingTile()->getSymbol());
 }
 
+bool Map::checkNotCollidableMapTile(int x, int y){
+	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol());
+}
+
 bool Map::checkNotCollidable(char c){
 	if (c == '#' || c == '|' || c == '_' || c == 'x')
 		return false;

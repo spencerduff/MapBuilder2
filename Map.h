@@ -58,6 +58,7 @@ public:
 
 	// Checks if a position is a collidable groundTile or Character
 	bool checkNotCollidable(int x, int y);
+	bool checkNotCollidableMapTile(int x, int y);
 
 	// Refreshes the refresh list, then empties it.
 	void refreshNeeded();
