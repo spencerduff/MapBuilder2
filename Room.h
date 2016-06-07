@@ -3,6 +3,7 @@
 
 #include "MapTile.h"
 
+// Rooms are collidable buildings that can be added to a Map.
 class Room{
 public:
 	//Constructs a room, Randomizes size, randomizes number of doors, then adds walls
@@ -10,6 +11,7 @@ public:
 	Room();
 	//Prints the room.
 	void printRoom();
+	// Getters
 	int getRoomSize(){ return size; }
 	static double getAvgSize(){ return static_cast<double> (maxSize + minSize) / 2; }
 	MapTile** getBoard(){ return board; }
@@ -29,8 +31,9 @@ protected:
 class OrkRoom : public Room{
 public:
 	OrkRoom();
-
+	// Makes a tent shaped room
 	void makeWalls(); 
+	// Adds a door to the bottom
 	void addPorts();
 
 private:
