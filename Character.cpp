@@ -14,8 +14,10 @@ Character::Character(Map* m){
 	spellbook = new Spellbook(this);
 	spellbook->learn(new HealSelf(this));
 	spellbook->learn(new Fireball(this));
+	spellbook->learn(new Stormblast(this));
 	ai = NULL;
 	currMap = m;
+	v.setNULL();
 	backpack->inventory.push_back(new Leafblade(backpack));
 	backpack->inventory.push_back(new DragonChest(backpack));
 	backpack->inventory.push_back(new Bile(backpack));
@@ -74,7 +76,7 @@ Symbol* Character::getChar(){
 
 bool Character::isMovement(char m){
 	if (m == 'l' || m == 'k' || m == 'j' || m == 'h' ||
-		m == 'y' || m == 'u' || m == 'b' || m == 'n')
+		m == 'y' || m == 'u' || m == 'b' || m == 'n' || m == ' ')
 		return true;
 	else return false;
 }
@@ -309,6 +311,8 @@ void Character::calculateMeleeDamage(Character* c){
 }
 
 void Character::damage(Damage incDamage){
+	if (ai != NULL)
+		ai->setAttacked();
 	switch (incDamage.damageType){
 	case slashing:
 		incDamage.damage -= this->stats->getProtSlashing();
@@ -669,10 +673,12 @@ Goblin::Goblin(Map* m) : NPC(m){
 	name = "Goblin";
 	character = new Symbol('g', 2);
 	racialAlignment = monster;
+	v.setNULL();
 	spellbook = new Spellbook(this);
 	backpack->inventory.clear();
 	backpack->inventory.push_back(new Shortsword(backpack));
-//	backpack->inventory.push_back(new Bile(backpack));
+	if (!(rand() % 10))
+		backpack->inventory.push_back(new Tooth(backpack, 2));
 	backpack->consolidateStackables();
 	equipAll();
 	stats->setHP(50);

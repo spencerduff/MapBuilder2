@@ -43,10 +43,6 @@ void Fireball::cast(float staffMag, Map* m){
 	owner->clearPastMap();
 }
 
-//Velocity iV, Damage d, int x, int y, Map* iM
-//int xDir, yDir;
-//int xSpeed, ySpeed;
-
 void Fireball::setMagnitude(){
 	magnitude = 10 + (level / 2);
 	magnitude += (owner->getStats()->getIntel() / 10);
@@ -87,4 +83,33 @@ void HealSelf::cast(float staffMag, Map* m){
 	}
 	owner->addMod(new HealingModifier(turns, (magnitude * (1 + staffMag)), owner));
 	owner->getStats()->spendMana(manaCost);
+}
+
+Stormblast::Stormblast(Character* c){
+	owner = c;
+	name = "Stormblast";
+	description = "Causes a force that knocks characters away from the blast";
+	level = 1.00;
+	setMagnitude();
+	cooldown = 30;
+	currentCooldown = 0;
+	manaCost = 20 - (2 * owner->getStats()->getIntel() / 100);
+}
+
+void Stormblast::setMagnitude(){
+	magnitude = 5 + (level * .1);
+	magnitude = floor(magnitude + .5);
+}
+
+void Stormblast::cast(float staffMag, Map* m){
+	if (owner->getStats()->getMana() < manaCost){
+		cout << "Not enough mana to cast " << name << "." << endl;
+		return;
+	}
+	Velocity explosionPoint = owner->aimProjectile();
+	explosionPoint.speed = 1;
+	Damage d;
+	d.damage = magnitude;
+
+	m->addProjectile(new StormblastProj(explosionPoint, d, owner->getXpos(), owner->getYpos(), m));
 }

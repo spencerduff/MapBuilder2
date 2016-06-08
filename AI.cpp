@@ -3,13 +3,14 @@
 MeleeAI::MeleeAI(Map* iMap, Character* iChar){
 	currMap = iMap;
 	me = iChar;
+	attacked = false;
 }
 
 
 void MeleeAI::move(){
 	Character* pChar = currMap->getPlayerChar();
 
-	if (abs(pChar->getXpos() - me->getXpos()) > 10 || abs(pChar->getYpos() - me->getYpos()) > 10)
+	if ((abs(pChar->getXpos() - me->getXpos()) > 10 || abs(pChar->getYpos() - me->getYpos()) > 10) && attacked == false )
 		return;
 	//AI needs to move left and up
 	if (pChar->getXpos() - me->getXpos() < 0 && pChar->getYpos() - me->getYpos() < 0){

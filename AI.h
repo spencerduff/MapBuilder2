@@ -13,11 +13,15 @@ public:
 	// How a character decides to move.
 	virtual void move() = 0;
 
+	void setAttacked(){ attacked = true; }
+
 protected:
 	// The map a character is on.
 	Map* currMap;
 	// The character associated with the AI
 	Character* me;
+
+	bool attacked;
 };
 
 

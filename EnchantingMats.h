@@ -13,6 +13,8 @@ public:
 	// Takes a material type and a quality
 	EnchantingMat(Material m, float q, int istack, Inventory* p);
 
+	EnchantingMat(const EnchantingMat &obj);
+
 	// Adds an int to the stack.
 	void addStack(int a){ stack += a; totWeight = stack*getWeight(); }
 
@@ -31,6 +33,8 @@ public:
 
 	// Adds the item to the Mats slot in the enchanting table.
 	void addToEnchantingTable(Thaumaturgy *t) override;
+
+	Item* clone() override;
 
 protected:
 	float totWeight;
@@ -64,6 +68,8 @@ public:
 	// Adds the Item to the EnchantingCatalyst slot on an enchanting table.
 	void addToEnchantingTable(Thaumaturgy *t) override;
 
+	virtual Item* clone() override;
+
 protected:
 	float totWeight;
 	Catalyst catalyst;
@@ -73,21 +79,36 @@ protected:
 class Bile : public EnchantingMat{
 public:
 	Bile(Inventory* p, float iquality = 1.0, int istack = 1);
+
+	Item* clone() override;
 };
 
 class Cinder : public EnchantingMat{
 public:
 	Cinder(Inventory* p, float iquality = 1.0, int istack = 1);
+
+	Item* clone() override;
 };
 
 class Darktaint : public EnchantingMat{
 public:
 	Darktaint(Inventory* p, float iquality = 1.0, int istack = 1);
+
+	Item* clone() override;
+};
+
+class Tooth : public EnchantingMat{
+public:
+	Tooth(Inventory* p, float iquality = 1.0, int istack = 1);
+
+	Item* clone() override;
 };
 
 class Numen : public EnchantingCatalyst{
 public:
 	Numen(Inventory* p, int istack = 1);
+
+	Item* clone() override;
 };
 
 #endif

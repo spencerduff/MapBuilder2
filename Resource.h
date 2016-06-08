@@ -16,6 +16,8 @@ public:
 	// Prints details about the Resource to the screen.
 	void examine() override;
 
+	virtual Item* clone() override;
+
 protected:
 	Resource(Inventory* p) : Item(p) { stackable = true; }
 	// Setters

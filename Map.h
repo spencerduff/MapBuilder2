@@ -66,6 +66,8 @@ public:
 	// Prints the Map
 	void printMap();
 
+	bool knockback(Character* c);
+
 protected:
 	// The projectiles held by the Map
 	vector<Projectile*> projectiles;

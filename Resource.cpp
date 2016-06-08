@@ -26,6 +26,10 @@ void Resource::examine(){
 	cout << "Weight: " << setprecision(2) << fixed << totWeight << endl;
 }
 
+Item* Resource::clone(){
+	return new Resource(*this);
+}
+
 Iron::Iron(Inventory* p, int stack) : Resource(p){
 	setName("Iron");
 	setWeight(0.5);

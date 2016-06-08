@@ -42,6 +42,7 @@ public:
 	Inventory* getBackpack(){ return backpack; }
 	Paperdoll* getPaperdoll(){ return paperdoll; }
 	CharacterStats* getStats(){ return stats; }
+	Velocity getVelocity(){ return v; }
 
 	// Sets the movement of a Character. Used for AI to make sure it is a movement key.
 	void setMovement(char m);
@@ -70,6 +71,11 @@ public:
 	// Function used for a player to aim a projectile. Returns the velocity of the aimed projectile.
 	Velocity aimProjectile();
 
+	void setVelocity(Velocity newVelo){ v = newVelo; }
+	void resetVelocity(){ v.setNULL(); }
+
+
+
 protected:
 	string name;
 	RacialAlignment racialAlignment;
@@ -83,6 +89,7 @@ protected:
 	Spellbook* spellbook;
 	vector<Modifier*> modifiers;
 	Map* currMap;
+	Velocity v;
 
 	Spell* getSpell();
 

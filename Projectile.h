@@ -24,9 +24,11 @@ protected:
 	bool AoE;
 	int effectRadius;
 	int posX, posY;
+	int endX, endY;
 	Map* m;
 	int range;
 	Symbol* symbol;
+	bool collidable;
 	
 	// Returns true if it is activated. Moves the position of the Projectile
 	bool iterPos();
@@ -49,6 +51,20 @@ private:
 	void activate() override;
 	// Calls the Map explode function to show the explosion on the screen.
 	void explode();
+};
+
+class StormblastProj : public Projectile{
+public:
+	StormblastProj(Velocity iV, Damage d, int x, int y, Map* iM);
+
+	bool tick() override;
+
+private:
+
+	void activate() override;
+
+	void explode();
+
 };
 
 #endif

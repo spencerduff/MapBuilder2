@@ -54,4 +54,13 @@ private:
 
 };
 
+class Stormblast : public Spell{
+public:
+	Stormblast(Character *c);
+
+	void cast(float staffMag, Map* m = NULL) override;
+
+	void setMagnitude() override;
+};
+
 #endif

@@ -6,6 +6,10 @@ struct Velocity{
 	int xDir, yDir;
 	int xSpeed, ySpeed;
 	int speed;
+
+	void setNULL(){
+		xDir = yDir = xSpeed = ySpeed = speed = 0;
+	}
 };
 
 #endif

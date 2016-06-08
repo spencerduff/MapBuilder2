@@ -496,18 +496,21 @@ void Map::removeProjectile(Projectile* p){
 }
 
 void Map::updateMovement(){
-	stringstream cout;
-	updateProjectiles();
 	for (unsigned int i = 0; i < chars.size(); i++){
-		chars[i]->tickMods();
-		if (chars[i]->getMovement() != NULL){
-			if (chars[i]->getMovement() == 'f'){
-				interact(chars[i]);
-				chars[0]->clearPastMap();
-			}
-			moveChar(chars[i], chars[i]->getMovement());
+		chars[i]->tickMods();	
+		if (chars[i]->getMovement() == 'f'){
+			interact(chars[i]);
+			chars[0]->clearPastMap();
 		}
+		if (knockback(chars[i])){
+			if (chars[i]->getMovement() != ' '){
+				chars[i]->resetVelocity();
+			}
+		}
+		else
+			moveChar(chars[i], chars[i]->getMovement());
 	}
+	updateProjectiles();
 	chars[0]->putCursorPastMap();
 }
 
@@ -738,6 +741,19 @@ void Map::placeRocks(int numOfRocks){
 void Map::moveNPCs(){
 	for (unsigned int i = 1; i < chars.size(); i++)
 		chars[i]->getAI()->move();
+}
+
+bool Map::knockback(Character* c){
+	if (c->getVelocity().speed == 0) return false;
+	int hopsToGo = c->getVelocity().speed;
+	while (hopsToGo-- > 0){
+		if (checkNotCollidable(c->getXpos() + c->getVelocity().xDir, c->getYpos() + c->getVelocity().yDir)){
+			map[c->getYpos()][c->getXpos()]->updateTile();
+			c->setPos(c->getXpos() + c->getVelocity().xDir, c->getYpos() + c->getVelocity().yDir);
+			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
+		}
+	}
+	return true;
 }
 
 OrkMap::OrkMap() : Map(){
