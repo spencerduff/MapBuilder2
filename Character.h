@@ -11,11 +11,15 @@
 #include "Modifiers.h"
 #include "Spellbook.h"
 #include "Velocity.h"
+#include "MobSpawn.h"
+#include "Food.h"
 
+class MobSpawn;
 class Spellbook;
 class Item;
 class AI;
 class Modifier;
+class Food;
 
 // Alignment of a character determines which NPCs will attack
 enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, Alfar, evil, monster};
@@ -60,8 +64,10 @@ public:
 	void putCursorPastMap();
 	// Puts the cursor on the current Character. Used for aiming projectiles.
 	void putCursorOnSelf();
-	// Heals a characters health for the amount.
+	// Heals a characters stats for the amount.
 	void heal(float amount);
+	void healStam(float amount);
+	void healMana(float amount);
 	// Adds a modifier to a Character
 	void addMod(Modifier* m);
 	// Ticks all of a Character's mods.
@@ -74,13 +80,15 @@ public:
 	void setVelocity(Velocity newVelo){ v = newVelo; }
 	void resetVelocity(){ v.setNULL(); }
 
-
+	bool getFoodSickness(){ return foodSickness; }
+	void setFoodSickness(int n){ foodSickness = n; }
 
 protected:
 	string name;
 	RacialAlignment racialAlignment;
 	int xPos, yPos;
 	char movement;
+	int foodSickness;
 	Symbol* character;
 	Inventory *backpack;
 	Paperdoll *paperdoll;
@@ -121,12 +129,13 @@ public:
 	void equipAll();
 
 protected:
+	MobSpawn* parentSpawn;
 
 };
 
 class Goblin : public NPC{
 public:
-	Goblin(Map* m);
+	Goblin(Map* m, MobSpawn* ms);
 	~Goblin();
 
 private:

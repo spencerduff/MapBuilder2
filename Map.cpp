@@ -756,6 +756,10 @@ bool Map::knockback(Character* c){
 	return true;
 }
 
+void Map::addMobSpawn(MobSpawn* m){
+	spawns.push_back(m);
+}
+
 OrkMap::OrkMap() : Map(){
 //	rooms = new OrkRoom[numOfRooms];
 	//Place Rooms	

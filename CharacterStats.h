@@ -28,6 +28,8 @@ public:
 	void damage(Damage amount);
 	// Heals the HP of a Character for an amount
 	void healHP(float amount);
+	void healStam(float amount);
+	void healMana(float amount);
 	// Spends Mana of a Character. Called when a spell is cast.
 	void spendMana(float amount);
 

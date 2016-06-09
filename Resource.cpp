@@ -36,6 +36,7 @@ Iron::Iron(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 8));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(iron);
 }
 
@@ -45,6 +46,7 @@ Wood::Wood(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 6));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(wood);
 }
 
@@ -54,6 +56,7 @@ Cloth::Cloth(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 7));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(cloth);
 }
 
@@ -63,6 +66,7 @@ Leather::Leather(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 14));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(leather);
 }
 
@@ -72,6 +76,7 @@ Selentine::Selentine(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 7));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(selentine);
 }
 
@@ -81,6 +86,7 @@ Veilron::Veilron(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 0, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(veilron);
 }
 
@@ -90,6 +96,7 @@ Neithal::Neithal(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 1));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(neithal);
 }
 
@@ -99,6 +106,7 @@ Leenspar::Leenspar(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 4));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(leenspar);
 }
 
@@ -108,5 +116,6 @@ Theyril::Theyril(Inventory* p, int stack) : Resource(p){
 	setSymbol(new Symbol('*', 15));
 	setItemID(getNextID());
 	setStack(stack);
+	totWeight = getWeight()*stack;
 	setResourceType(theyril);
 }

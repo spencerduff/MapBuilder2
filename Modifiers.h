@@ -31,5 +31,17 @@ private:
 
 };
 
+class RegenerationModifier : public Modifier{
+public:
+
+	RegenerationModifier(int t, float m, Character* c, bool br = false);
+
+	void tick() override;
+
+private:
+	bool baseRegen;
+
+};
+
 
 #endif;

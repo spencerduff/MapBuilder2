@@ -217,6 +217,18 @@ void CharacterStats::healHP(float amount){
 		currhp = hpMax;
 }
 
+void CharacterStats::healStam(float amount){
+	currstam += amount;
+	if (currstam > stamMax)
+		currstam = stamMax;
+}
+
+void CharacterStats::healMana(float amount){
+	currmana += amount;
+	if (currmana > manaMax)
+		currmana = manaMax;
+}
+
 void CharacterStats::spendMana(float amount){
 	currmana -= amount;
 	if (currmana < 0)

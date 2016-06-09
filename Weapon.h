@@ -25,6 +25,7 @@ public:
 	void setSymbol(Symbol* newSymbol){ Item::setSymbol(newSymbol); }
 	void setWeight(float newWeight){ Item::setWeight(newWeight); }
 
+	void use(Character* c) override { equip(c); }
 	// Equips the Weapon to the correct slot on the Paperdoll of a Character
 	void equip(Character *c) override;
 	// Prints information of a Weapon

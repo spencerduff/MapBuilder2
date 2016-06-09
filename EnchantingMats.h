@@ -49,6 +49,8 @@ public:
 	// Needs to pass up the inventory it is in.
 	EnchantingCatalyst(Catalyst c, int istack, Inventory* p);
 
+	EnchantingCatalyst(const EnchantingCatalyst &obj);
+
 	// Add to the stack a number and update weight.
 	void addStack(int a){ stack += a; totWeight = stack*getWeight(); }
 

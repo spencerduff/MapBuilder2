@@ -8,6 +8,7 @@ Character::Character(Map* m){
 	xPos = NULL;
 	yPos = NULL;
 	racialAlignment = evil;
+	foodSickness = 0;
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
@@ -18,6 +19,7 @@ Character::Character(Map* m){
 	ai = NULL;
 	currMap = m;
 	v.setNULL();
+	modifiers.push_back(new RegenerationModifier(1, .10, this, true));
 	backpack->inventory.push_back(new Leafblade(backpack));
 	backpack->inventory.push_back(new DragonChest(backpack));
 	backpack->inventory.push_back(new Bile(backpack));
@@ -25,6 +27,9 @@ Character::Character(Map* m){
 	backpack->inventory.push_back(new Darktaint(backpack));
 	backpack->inventory.push_back(new Numen(backpack));
 	backpack->inventory.push_back(new TrollStaff(backpack));
+	backpack->inventory.push_back(new Bread(backpack));
+	backpack->consolidateStackables();
+
 	//backpack->inventory.push_back(new Veilron(backpack));
 	//backpack->inventory.push_back(new Selentine(backpack));
 	//backpack->inventory.push_back(new Neithal(backpack));
@@ -34,14 +39,11 @@ Character::Character(Map* m){
 	//backpack->inventory.push_back(new Iron(backpack));
 	//backpack->inventory.push_back(new Cloth(backpack));
 	//backpack->inventory.push_back(new Leather(backpack));
-
 	//backpack->inventory.push_back(new Bile(backpack, 1, 4));
 	//backpack->inventory.push_back(new Cinder(backpack, 1, 4));
 	//backpack->inventory.push_back(new Darktaint(backpack, 1, 4));
 	//backpack->inventory.push_back(new Numen(backpack, 4));
 
-
-	backpack->consolidateStackables();
 }
 
 Character::~Character(){
@@ -203,7 +205,7 @@ void Character::equip(Item *equippable, bool &result){
 				return;
 			}
 			else{
-				equippable->equip(this);
+				equippable->use(this);
 				result = true;
 				return;
 			}
@@ -229,7 +231,7 @@ void Character::putOnGear(){
 	clearPastMap();
 	putCursorPastMap();
 	backpack->printInv();
-	cout << "Press Q to not put on gear." << endl;
+	cout << "Press Q to not use an Item." << endl;
 	char input = _getch();
 	int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
@@ -575,15 +577,27 @@ void Character::heal(float amount){
 	stats->healHP(amount);
 }
 
+void Character::healStam(float amount){
+	stats->healStam(amount);
+}
+
+void Character::healMana(float amount){
+	stats->healMana(amount);
+}
+
 void Character::addMod(Modifier* m){
 	modifiers.push_back(m);
 }
 
 void Character::tickMods(){
+	if (foodSickness > 0)
+		foodSickness--;
 	for (unsigned int i = 0; i < modifiers.size(); i++){
 		modifiers[i]->tick();
-		if (modifiers[i]->getTurns() <= 0)
+		if (modifiers[i]->getTurns() <= 0){
 			modifiers.erase(modifiers.begin() + i);
+			i--;
+		}
 	}
 }
 
@@ -669,7 +683,7 @@ void NPC::equipAll(){
 	updateProts();
 }
 
-Goblin::Goblin(Map* m) : NPC(m){
+Goblin::Goblin(Map* m, MobSpawn* ms) : NPC(m){
 	name = "Goblin";
 	character = new Symbol('g', 2);
 	racialAlignment = monster;
@@ -679,6 +693,8 @@ Goblin::Goblin(Map* m) : NPC(m){
 	backpack->inventory.push_back(new Shortsword(backpack));
 	if (!(rand() % 10))
 		backpack->inventory.push_back(new Tooth(backpack, 2));
+	if (!(rand() % 20))
+		backpack->inventory.push_back(new Bread(backpack));
 	backpack->consolidateStackables();
 	equipAll();
 	stats->setHP(50);
@@ -691,9 +707,10 @@ Goblin::Goblin(Map* m) : NPC(m){
 	stats->setIntel(10);
 	stats->setWis(10);
 	ai = new MeleeAI(m, this);
+	parentSpawn = ms;
 
 }
 
 Goblin::~Goblin(){
-
+	parentSpawn->removeMe(this);
 }

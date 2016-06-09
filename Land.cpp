@@ -65,6 +65,9 @@ OrkLands::OrkLands() : Land(){
 				continue;
 			}
 			maps[i][j] = new OrkMap();
+			if (i == 1 && j == 2){
+				maps[i][j]->addMobSpawn(new GoblinSpawn(maps[i][j]));
+			}
 		}
 	}
 	currMap = maps[xMapPos][yMapPos];

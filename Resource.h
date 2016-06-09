@@ -23,9 +23,9 @@ protected:
 	// Setters
 	void setStack(int s);
 	void setResourceType(ResourceType iType){ type = iType; }
+	float totWeight;
 
 private:
-	float totWeight;
 	ResourceType type;
 	int stack;
 };

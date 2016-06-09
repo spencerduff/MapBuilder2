@@ -7,6 +7,7 @@ unsigned long Item::nextID = 0;
 Item::Item(Inventory* p){
 	stackable = false;
 	equipped = false;
+	useable = false;
 	nextID++;
 	parent = p;
 }
@@ -49,4 +50,8 @@ void Item::addStacks(Item* i){
 
 int Item::getStack(){
 	return 1;
+}
+
+void Item::use(Character* c){
+	return;
 }

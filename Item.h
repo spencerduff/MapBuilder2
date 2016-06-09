@@ -32,6 +32,8 @@ public:
 	// Getter. Overridden because subclasses determine if they are stackable or not.
 	virtual int getStack();
 
+	virtual void use(Character* c);
+
 	// Overridden to enchant an Item. Will call correct Weapon/Armor/Staff enchant through polymorphism.
 	virtual void enchant(Enchant* e);
 
@@ -52,6 +54,7 @@ public:
 protected:
 	Item(Inventory* p);
 	bool stackable;
+	bool useable;
 	Inventory* parent;
 
 	void setName(string newName){ name = newName; }

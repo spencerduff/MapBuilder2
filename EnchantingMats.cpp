@@ -75,6 +75,11 @@ EnchantingMat::EnchantingMat(const EnchantingMat &obj) : Item(obj){
 	this->stack = obj.stack;
 }
 
+EnchantingCatalyst::EnchantingCatalyst(const EnchantingCatalyst &obj) : Item(obj){
+	this->stackable = obj.stackable;
+	this->stack = obj.stack;
+}
+
 void EnchantingCatalyst::examine(){
 	cout << "(" << stack << ") ";
 	cout << getName() << endl;

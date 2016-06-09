@@ -8,9 +8,11 @@
 #include "Gravestone.h"
 #include "Crafting.h"
 #include "Projectile.h"
+#include "MobSpawn.h"
 
 class Gravestone;
 class Projectile;
+class MobSpawn;
 
 // Each map should have 4 exits to new maps: up, down, left, and right,
 // TODO:
@@ -68,10 +70,13 @@ public:
 
 	bool knockback(Character* c);
 
+	void addMobSpawn(MobSpawn* m);
+
 protected:
 	// The projectiles held by the Map
 	vector<Projectile*> projectiles;
 	vector<MapTile*> toRefresh;
+	vector<MobSpawn*> spawns;
 	int numOfRooms, numOfTrees, numOfRocks;
 	Room* rooms;
 	static const int ySize = 50;
