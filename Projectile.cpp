@@ -9,6 +9,8 @@ Projectile::Projectile(Velocity iV, Damage d, bool iaoe, int x, int y, Map* iM){
 	m = iM;
 	endX = (iV.xSpeed*iV.xDir + x);
 	endY = (iV.ySpeed*iV.yDir + y);
+	truePosX = x;
+	truePosY = y;
 }
 
 Projectile::~Projectile(){
@@ -27,25 +29,20 @@ bool Projectile::iterPos(){
 		toDivY = 1;
 	if (v.xSpeed == 0)
 		toDivX = 1;
-	float avgX = float(v.xSpeed) / float(toDivY);
-	float avgY = float(v.ySpeed) / float(toDivX);
-	float toIterX = 0, toIterY = 0;
+	float avgX = float(v.xSpeed);
+	float avgY = float(v.ySpeed);
 	int iterSoFarX = -1, iterSoFarY = -1;
 
 	avgX /= v.speed;
 	avgY /= v.speed;
 
-	while (iterSoFarX < ceil(v.xSpeed / v.speed) || iterSoFarY < ceil(v.ySpeed / v.speed)){
-		toIterX += avgX;
-		toIterY += avgY;
+	while (iterSoFarX < v.xSpeed / v.speed || iterSoFarY < v.ySpeed / v.speed){
+		truePosX += (avgX * v.xDir);
+		truePosY += (avgY * v.yDir);
 
-		int addPosX = floor(toIterX + .5);
-		int addPosY = floor(toIterY + .5);
+		int addPosX = (int)floor(abs((float)posX - truePosX) + .5);
+		int addPosY = (int)floor(abs((float)posY - truePosY) + .5);
 
-		if (addPosX >= 1)
-			toIterX = 0;
-		if (addPosY >= 1)
-			toIterY = 0;
 
 		if (iterSoFarX == -1)
 			iterSoFarX = 0;

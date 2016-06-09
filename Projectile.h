@@ -24,6 +24,7 @@ protected:
 	bool AoE;
 	int effectRadius;
 	int posX, posY;
+	float truePosX, truePosY;
 	int endX, endY;
 	Map* m;
 	int range;
