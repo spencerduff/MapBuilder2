@@ -7,6 +7,8 @@ void MobSpawn::removeMe(Character* c){
 			spawns.pop_back();
 		}
 	}
+	if (spawns.size() == 0)
+		spawnToCapacity();
 }
 
 GoblinSpawn::GoblinSpawn(Map* m){

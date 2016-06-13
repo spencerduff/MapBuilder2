@@ -13,6 +13,7 @@ void Land::moveMaps(){
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
+		temp->setCurrMap(currMap);
 		placeChar(temp, '>');
 		system("CLS");
 		printMap();
@@ -22,6 +23,7 @@ void Land::moveMaps(){
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
+		temp->setCurrMap(currMap);
 		placeChar(temp, '^');
 		system("CLS");
 		printMap();
@@ -31,6 +33,7 @@ void Land::moveMaps(){
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
+		temp->setCurrMap(currMap);
 		placeChar(temp, 'v');
 		system("CLS");
 		printMap();
@@ -40,6 +43,7 @@ void Land::moveMaps(){
 		Character* temp = currMap->getPlayerChar();
 		currMap->deleteOldChar();
 		currMap = maps[xMapPos][yMapPos];
+		temp->setCurrMap(currMap);
 		placeChar(temp, '<');
 		system("CLS");
 		printMap();

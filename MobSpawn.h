@@ -8,7 +8,7 @@
 class MobSpawn{
 public:
 	void removeMe(Character* c);
-
+	virtual void spawnToCapacity() = 0;
 
 protected:
 	vector<Character*> spawns;
@@ -21,7 +21,7 @@ public:
 	GoblinSpawn(Map* m);
 
 private:
-	void spawnToCapacity();
+	void spawnToCapacity() override;
 };
 
 #endif

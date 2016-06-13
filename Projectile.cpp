@@ -22,13 +22,6 @@ bool Projectile::iterPos(){
 	if (checkCollision())
 		return true;
 
-	int toDivX = v.xSpeed;
-	int toDivY = v.ySpeed;
-
-	if (v.ySpeed == 0)
-		toDivY = 1;
-	if (v.xSpeed == 0)
-		toDivX = 1;
 	float avgX = float(v.xSpeed);
 	float avgY = float(v.ySpeed);
 	int iterSoFarX = -1, iterSoFarY = -1;

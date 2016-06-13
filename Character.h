@@ -79,6 +79,7 @@ public:
 
 	void setVelocity(Velocity newVelo){ v = newVelo; }
 	void resetVelocity(){ v.setNULL(); }
+	void setCurrMap(Map* m){ currMap = m; }
 
 	bool getFoodSickness(){ return foodSickness; }
 	void setFoodSickness(int n){ foodSickness = n; }
