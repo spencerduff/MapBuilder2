@@ -72,12 +72,15 @@ Item* EnchantingCatalyst::clone(){
 
 EnchantingMat::EnchantingMat(const EnchantingMat &obj) : Item(obj){
 	this->stackable = obj.stackable;
-	this->stack = obj.stack;
+	this->stack = obj.stack; 
+	this->quality = obj.quality;
+	this->totWeight = obj.totWeight;
 }
 
 EnchantingCatalyst::EnchantingCatalyst(const EnchantingCatalyst &obj) : Item(obj){
 	this->stackable = obj.stackable;
 	this->stack = obj.stack;
+	this->totWeight = obj.totWeight;
 }
 
 void EnchantingCatalyst::examine(){

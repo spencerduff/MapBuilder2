@@ -1,3 +1,6 @@
+#ifndef WORLD_H
+#define WORLD_H
+
 #include "Land.h"
 
 class World{
@@ -29,3 +32,5 @@ private:
 	Land *currLand;
 
 };
+
+#endif

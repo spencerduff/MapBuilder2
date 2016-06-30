@@ -1,3 +1,6 @@
+#ifndef LAND_H
+#define LAND_H
+
 #include "Map.h"
 
 
@@ -61,3 +64,5 @@ public:
 	HumanLands();
 
 };
+
+#endif

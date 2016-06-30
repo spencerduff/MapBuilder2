@@ -2,47 +2,18 @@
 
 
 Character::Character(Map* m){
-	character = new Symbol('@', 6);
-	name = "Zorak Warslayer";
 	movement = NULL;
 	xPos = NULL;
 	yPos = NULL;
-	racialAlignment = evil;
 	foodSickness = 0;
 	backpack = new Inventory;
 	paperdoll = new Paperdoll;
 	stats = new CharacterStats;
 	spellbook = new Spellbook(this);
-	spellbook->learn(new HealSelf(this));
-	spellbook->learn(new Fireball(this));
-	spellbook->learn(new Stormblast(this));
-	ai = NULL;
 	currMap = m;
 	v.setNULL();
-	modifiers.push_back(new RegenerationModifier(1, .10, this, true));
-	backpack->inventory.push_back(new Leafblade(backpack));
-	backpack->inventory.push_back(new DragonChest(backpack));
-	backpack->inventory.push_back(new Bile(backpack));
-	backpack->inventory.push_back(new Cinder(backpack));
-	backpack->inventory.push_back(new Darktaint(backpack));
-	backpack->inventory.push_back(new Numen(backpack));
-	backpack->inventory.push_back(new TrollStaff(backpack));
-	backpack->inventory.push_back(new Bread(backpack));
-	backpack->consolidateStackables();
 
-	//backpack->inventory.push_back(new Veilron(backpack));
-	//backpack->inventory.push_back(new Selentine(backpack));
-	//backpack->inventory.push_back(new Neithal(backpack));
-	//backpack->inventory.push_back(new Leenspar(backpack));
-	//backpack->inventory.push_back(new Theyril(backpack));
-	//backpack->inventory.push_back(new Wood(backpack));
-	//backpack->inventory.push_back(new Iron(backpack));
-	//backpack->inventory.push_back(new Cloth(backpack));
-	//backpack->inventory.push_back(new Leather(backpack));
-	//backpack->inventory.push_back(new Bile(backpack, 1, 4));
-	//backpack->inventory.push_back(new Cinder(backpack, 1, 4));
-	//backpack->inventory.push_back(new Darktaint(backpack, 1, 4));
-	//backpack->inventory.push_back(new Numen(backpack, 4));
+	modifiers.push_back(new RegenerationModifier(1, .10, this, true));
 
 }
 
@@ -50,22 +21,6 @@ Character::~Character(){
 	delete stats;
 	delete ai;
 }
-
-//Character::Character(int x, int y){
-//	name = "Zorak Warslayer";
-//	movement = NULL;
-//	xPos = x;
-//	yPos = y;
-//	character = new Symbol('@', 6);
-//	racialAlignment = evil;
-//	backpack = new Inventory;
-//	paperdoll = new Paperdoll;
-//	stats = new CharacterStats;
-//	ai = NULL;
-//	backpack->inventory.push_back(new Leafblade(backpack));
-//	backpack->inventory.push_back(new DragonChest(backpack));
-//
-//}
 
 void Character::setPos(int x, int y){
 	xPos = x;
@@ -688,8 +643,6 @@ Goblin::Goblin(Map* m, MobSpawn* ms) : NPC(m){
 	character = new Symbol('g', 2);
 	racialAlignment = monster;
 	v.setNULL();
-	spellbook = new Spellbook(this);
-	backpack->inventory.clear();
 	backpack->inventory.push_back(new Shortsword(backpack));
 	if (!(rand() % 10))
 		backpack->inventory.push_back(new Tooth(backpack, 2));

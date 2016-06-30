@@ -25,14 +25,6 @@ Map::Map(){
 		map[ySize - 1][i]->setGroundTile(new Symbol('_', 8));
 	}
 
-	//rooms = new Room[numOfRooms];
-	////Place Rooms
-	//placeRooms(numOfRooms);
-	////Place Dirt
-	//placeDirt();
-	////Make Exits
-	//makeExits();
-
 }
 
 void Map::makeExits(){
@@ -306,111 +298,73 @@ Character* Map::findChar(int x, int y){
 }
 
 void Map::moveChar(Character* c, char dir){
-	if (dir == 'h'){
-		if (c->getXpos() - 1 < 0)
-			return;
-		if (checkCharacter(map[c->getYpos()][c->getXpos() - 1]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos());
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() - 1]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos() - 1, c->getYpos());
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
+	MoveDir moveDir = getMoveDir(dir);
+
+	// Don't move to the space you're already on
+	if (moveDir.x == 0 && moveDir.y == 0)
+		return;
+
+	if (!isInsideBoard(c->getXpos() + moveDir.x, c->getYpos() + moveDir.y))
+		return;
+	
+	if (checkCharacter(map[c->getYpos() + moveDir.y][c->getXpos() + moveDir.x]->getShowingTile()->getSymbol())){
+		Character* toInteract = findChar(c->getXpos() + moveDir.x, c->getYpos() + moveDir.y);
+		c->interactCharacter(toInteract);
 	}
-	else if (dir == 'j'){
-		if (c->getYpos() + 1 >= ySize)
-			return;
-		if (checkCharacter(map[c->getYpos() + 1][c->getXpos()]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos(), c->getYpos() + 1);
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos()]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos(), c->getYpos() + 1);
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
+	else if (checkNotCollidable(map[c->getYpos() + moveDir.y][c->getXpos() + moveDir.x]->getGroundTile()->getSymbol())){
+		map[c->getYpos()][c->getXpos()]->updateTile();
+		c->setPos(c->getXpos() + moveDir.x, c->getYpos() + moveDir.y);
+		map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
 	}
-	else if (dir == 'k'){
-		if (c->getYpos() - 1 < 0)
-			return;
-		if (checkCharacter(map[c->getYpos() - 1][c->getXpos()]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos(), c->getYpos() - 1);
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos()]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos(), c->getYpos() - 1);
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
-	}
-	else if (dir == 'l'){
-		if (c->getXpos() + 1 >= xSize)
-			return;
-		if (checkCharacter(map[c->getYpos()][c->getXpos() + 1]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos());
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos()][c->getXpos() + 1]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos() + 1, c->getYpos());
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
-	}
-	else if (dir == 'y'){
-		if (c->getXpos() - 1 < 0 || c->getYpos() - 1 < 0)
-			return;
-		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() - 1]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() - 1);
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() - 1]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos() - 1, c->getYpos() - 1);
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
-	}
-	else if (dir == 'u'){
-		if (c->getXpos() + 1 >= xSize || c->getYpos() - 1 < 0)
-			return;
-		if (checkCharacter(map[c->getYpos() - 1][c->getXpos() + 1]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() - 1);
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos() - 1][c->getXpos() + 1]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos() + 1, c->getYpos() - 1);
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
-	}
-	else if (dir == 'b'){
-		if (c->getXpos() - 1 < 0 || c->getYpos() + 1 >= ySize)
-			return;
-		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() - 1]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos() - 1, c->getYpos() + 1);
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() - 1]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos() - 1, c->getYpos() + 1);
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
-	}
-	else if (dir == 'n'){
-		if (c->getXpos() + 1 >= xSize || c->getYpos() + 1 >= ySize)
-			return;
-		if (checkCharacter(map[c->getYpos() + 1][c->getXpos() + 1]->getShowingTile()->getSymbol())){
-			Character* toInteract = findChar(c->getXpos() + 1, c->getYpos() + 1);
-			c->interactCharacter(toInteract);
-		}
-		else if (checkNotCollidable(map[c->getYpos() + 1][c->getXpos() + 1]->getGroundTile()->getSymbol())){
-			map[c->getYpos()][c->getXpos()]->updateTile();
-			c->setPos(c->getXpos() + 1, c->getYpos() + 1);
-			map[c->getYpos()][c->getXpos()]->updateTile(c->getChar());
-		}
-	}
+	
 	c->moveChar();
+}
+
+bool Map::isInsideBoard(int x, int y){
+	if (x < 0 || x >= xSize)
+		return false;
+	if (y < 0 || y >= ySize)
+		return false;
+	return true;
+}
+
+MoveDir Map::getMoveDir(char dir){
+	MoveDir moveDir;
+
+	switch (dir){
+	case 'h':
+	case 'y':
+	case 'b':
+		moveDir.x = -1;
+		break;
+	case 'j':
+	case 'k':
+	default:
+		moveDir.x = 0;
+		break;
+	case 'l':
+	case 'u':
+	case 'n':
+		moveDir.x = 1;
+	}
+
+	switch (dir){
+	case 'y':
+	case 'u':
+	case 'k':
+		moveDir.y = -1;
+		break;
+	case 'h':
+	case 'l':
+	default:
+		moveDir.y = 0;
+		break;
+	case 'b':
+	case 'n':
+	case 'j':
+		moveDir.y = 1;
+	}
+	return moveDir;
 }
 
 void Map::kill(Character* c){
@@ -747,6 +701,8 @@ bool Map::knockback(Character* c){
 	if (c->getVelocity().speed == 0) return false;
 	int hopsToGo = c->getVelocity().speed;
 	while (hopsToGo-- > 0){
+		if (checkExit(map[c->getYpos() + c->getVelocity().yDir][c->getXpos() + c->getVelocity().xDir]->getGroundTile()->getSymbol()))
+			return true;
 		if (checkNotCollidable(c->getXpos() + c->getVelocity().xDir, c->getYpos() + c->getVelocity().yDir)){
 			map[c->getYpos()][c->getXpos()]->updateTile();
 			c->setPos(c->getXpos() + c->getVelocity().xDir, c->getYpos() + c->getVelocity().yDir);
@@ -754,6 +710,12 @@ bool Map::knockback(Character* c){
 		}
 	}
 	return true;
+}
+
+bool Map::checkExit(char tile){
+	if (tile == 'v' || tile == '^' || tile == '<' || tile == '>')
+		return true;
+	return false;
 }
 
 void Map::addMobSpawn(MobSpawn* m){
@@ -780,6 +742,7 @@ OrkMap::OrkMap() : Map(){
 		}
 	}
 	placeTrees(numOfTrees);
+
 	//Place Rocks
 	numOfRocks = static_cast<int>((xSize*ySize) / ((30) + 225));
 	rocks = new RockNode*[numOfRocks];
@@ -796,20 +759,19 @@ OrkMap::OrkMap() : Map(){
 		}
 	}
 	placeRocks(numOfRocks);
-	//Place Dirt
+
 	placeDirt();
-	//Make Exits
+
 	makeExits();
 
 }
 
 OrkMap::OrkMap(bool starter) : Map(){
 	rooms = new OrkRoom[numOfRooms];
-	//Place Rooms
 	placeRooms(numOfRooms);
-	//Place Dirt
+
 	placeDirt();
-	//Make Exits
+
 	makeExits();
 
 }
@@ -831,21 +793,17 @@ HumanMap::HumanMap() : Map(){
 	}
 	placeTrees(numOfTrees);
 
-	//Place Dirt
 	placeDirt();
-	//Make Exits
+
 	makeExits();
 }
 
 HumanMap::HumanMap(bool starter) : Map(){
-	//Place Rooms
 	rooms = new HumanRoom[numOfRooms];
 	placeRooms(numOfRooms);
-
-	//Place Dirt
+	
 	placeDirt();
 
-	//Make Exits
 	makeExits();
 
 }

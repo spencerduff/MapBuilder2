@@ -22,7 +22,7 @@ class Modifier;
 class Food;
 
 // Alignment of a character determines which NPCs will attack
-enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, Alfar, evil, monster};
+enum RacialAlignment{OrkMahirim, HumanDwarfMirdain, GoodAlfar, evil, monster};
 
 class Character{
 public:

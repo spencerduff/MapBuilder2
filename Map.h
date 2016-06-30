@@ -14,6 +14,10 @@ class Gravestone;
 class Projectile;
 class MobSpawn;
 
+struct MoveDir{
+	int x, y;
+};
+
 // Each map should have 4 exits to new maps: up, down, left, and right,
 // TODO:
 // Unless it is on the edge of the World. Then the exit will not let the player through.
@@ -125,6 +129,12 @@ private:
 	void updateProjectiles();
 	// Ticks the projectiles, making them update their movement.
 	void tickProjectile();
+
+	MoveDir getMoveDir(char dir);
+
+	bool isInsideBoard(int x, int y);
+
+	bool checkExit(char tile);
 
 };
 
