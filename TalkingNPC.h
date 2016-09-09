@@ -4,14 +4,5 @@
 #include "Character.h"
 
 
-class TalkingNPC : public NPC {
-public:
-
-
-private:
-
-
-};
-
 
 #endif

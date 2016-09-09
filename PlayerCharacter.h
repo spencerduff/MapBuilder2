@@ -10,7 +10,7 @@ public:
 	PlayerCharacter(Map* m);
 
 
-
+	void talk(Character* c) override;
 
 private:
 	const static string races[6];
@@ -19,6 +19,8 @@ private:
 	void namePrompt();
 	void racePrompt();
 	void openingScreen();
+
+	void movementTowardsMe(Character* c);
 };
 
 #endif

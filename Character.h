@@ -120,6 +120,8 @@ protected:
 private:
 	// Moves the cursor on the console. Used in the AimingProjectile function.
 	void moveCursor(char dir);
+
+	virtual void talk(Character* c){ cout << name << " grunts." << endl; };
 };
 
 class NPC : public Character{
@@ -142,6 +144,27 @@ public:
 private:
 
 };
+
+
+class TalkingNPC : public NPC {
+public:
+	TalkingNPC(Map* m) : NPC(m) {}
+
+private:
+
+
+};
+
+class OrkGuide : public TalkingNPC {
+public:
+	OrkGuide(Map* m);
+	void talk(Character* c) override;
+
+private:
+
+
+};
+
 
 
 

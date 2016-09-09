@@ -36,4 +36,14 @@ protected:
 
 };
 
+class TalkingAI : public AI{
+public:
+	// Takes a map pointer(currMap) and a character pointer(itself)
+	TalkingAI(Map* iMap, Character* iChar);
+protected:
+	// If the player character is within 10 spaces of me, move toward him.
+	// It will attack if within one space.
+	void move() override;
+};
+
 #endif

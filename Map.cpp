@@ -284,7 +284,7 @@ bool Map::checkNotCollidable(char c){
 }
 
 bool Map::checkCharacter(char c){
-	if (c == '@' || c == 'g')
+	if (c == '@' || c == 'g' || c == 'O')
 		return true;
 	else return false;
 }
@@ -773,6 +773,8 @@ OrkMap::OrkMap(bool starter) : Map(){
 	placeDirt();
 
 	makeExits();
+
+	this->placeRandomChar(new OrkGuide(this));
 
 }
 

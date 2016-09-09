@@ -82,7 +82,13 @@ void Character::moveChar(char m){
 			cout << "You must equip a staff to cast a spell. " << endl;
 		}
 	}
-	else movement = NULL;
+	else if (m == '.'){
+		movement = NULL;
+		clearPastMap();
+	}
+	else {
+		movement = NULL;
+	}
 }
 
 Spell* Character::getSpell(){
@@ -225,6 +231,9 @@ void Character::interactCharacter(Character* c){
 		return;
 	if (this->racialAlignment != c->racialAlignment || this->racialAlignment == evil || c->racialAlignment == evil){
 		this->calculateMeleeDamage(c);
+	}
+	else{
+		this->talk(c);
 	}
 }
 
@@ -666,4 +675,32 @@ Goblin::Goblin(Map* m, MobSpawn* ms) : NPC(m){
 
 Goblin::~Goblin(){
 	parentSpawn->removeMe(this);
+}
+
+
+OrkGuide::OrkGuide(Map* m) : TalkingNPC(m){
+	name = "Ork Guide";
+	character = new Symbol('O', 8);
+	racialAlignment = OrkMahirim;
+	v.setNULL();
+	backpack->inventory.push_back(new Shortsword(backpack));
+	if (!(rand() % 20))
+		backpack->inventory.push_back(new Bread(backpack));
+	backpack->consolidateStackables();
+	equipAll();
+	stats->setHP(50);
+	stats->setStam(50);
+	stats->setMana(50);
+	stats->setStr(15);
+	stats->setVit(15);
+	stats->setDex(15);
+	stats->setQuick(15);
+	stats->setIntel(10);
+	stats->setWis(10);
+	ai = new TalkingAI(m, this);
+
+}
+
+void OrkGuide::talk(Character* c){
+	cout << "Orkish Guide grunts." << endl;
 }

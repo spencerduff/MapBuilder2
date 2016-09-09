@@ -29,6 +29,15 @@ PlayerCharacter::PlayerCharacter(Map* m) : Character(m){
 	openingScreen();
 }
 
+void PlayerCharacter::talk(Character* c){
+	cout << name << " attempts to talk to " << c->getName() << endl;
+	movementTowardsMe(c);
+}
+
+void PlayerCharacter::movementTowardsMe(Character* c){
+	c->getAI()->setAttacked();
+}
+
 void PlayerCharacter::namePrompt(){
 	cout << "What would you like to name your Character?" << endl;
 	cin >> name;
