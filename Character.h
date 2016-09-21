@@ -81,7 +81,7 @@ public:
 	void resetVelocity(){ v.setNULL(); }
 	void setCurrMap(Map* m){ currMap = m; }
 
-	bool getFoodSickness(){ return foodSickness; }
+	bool getFoodSickness(){ return !!foodSickness; } // Bool casting for compiler warnings
 	void setFoodSickness(int n){ foodSickness = n; }
 
 protected:

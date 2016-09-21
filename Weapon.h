@@ -41,7 +41,7 @@ public:
 	void addToEnchantingTable(Thaumaturgy *t) override;
 
 	string decrementDura(){ 
-		if (getName() != "Leafblade") dura -= .10;
+		if (getName() != "Leafblade") dura -= float(.10);
 		if (dura <= 0){
 			delete this;
 			return "A weapon has broken from use!\n";

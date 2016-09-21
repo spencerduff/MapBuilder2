@@ -1,7 +1,7 @@
 #include "Enchants.h"
 
 float Enchant::setQuality(float mq1, float mq2, float mq3){
-	return (mq1 + mq2 + mq3) / 3.0;
+	return float((mq1 + mq2 + mq3) / 3.0);
 }
 
 Keen::Keen(){
@@ -13,12 +13,12 @@ Keen::Keen(){
 	requiredCatalyst = numen;
 	name = "Keen";
 	quality = 1.0;
-	dmgModifier = .024;
+	dmgModifier = float(.024);
 }
 
 void Keen::enchant(EnchantingMat* m1, EnchantingMat* m2, EnchantingMat* m3, EnchantingCatalyst* c, Item* i){
 	quality = setQuality(m1->getQuality(), m2->getQuality(), m3->getQuality());
-	dmgModifier = (quality * .024);
+	dmgModifier = (quality * float(.024));
 	i->enchant(this); //Figure out what type of item you're enchanting
 }
 

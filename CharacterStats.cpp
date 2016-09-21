@@ -129,12 +129,12 @@ void CharacterStats::damage(Damage amount){
 
 		switch (amount.damageType){
 		case bludgeoning:
-			currstam -= (amount.damage * 0.4);
+			currstam -= (amount.damage * float(0.4));
 			break;
 		case slashing:
 		case piercing:
 		case arrow:
-			currstam -= (amount.damage * 0.2);
+			currstam -= (amount.damage * float(0.2));
 			break;
 		}
 	}

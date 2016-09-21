@@ -32,7 +32,7 @@ Item* Resource::clone(){
 
 Iron::Iron(Inventory* p, int stack) : Resource(p){
 	setName("Iron");
-	setWeight(0.5);
+	setWeight(float(0.5));
 	setSymbol(new Symbol('*', 8));
 	setItemID(getNextID());
 	setStack(stack);
@@ -42,7 +42,7 @@ Iron::Iron(Inventory* p, int stack) : Resource(p){
 
 Wood::Wood(Inventory* p, int stack) : Resource(p){
 	setName("Wood");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 6));
 	setItemID(getNextID());
 	setStack(stack);
@@ -52,7 +52,7 @@ Wood::Wood(Inventory* p, int stack) : Resource(p){
 
 Cloth::Cloth(Inventory* p, int stack) : Resource(p){
 	setName("Cloth");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 7));
 	setItemID(getNextID());
 	setStack(stack);
@@ -62,7 +62,7 @@ Cloth::Cloth(Inventory* p, int stack) : Resource(p){
 
 Leather::Leather(Inventory* p, int stack) : Resource(p){
 	setName("Leather");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 14));
 	setItemID(getNextID());
 	setStack(stack);
@@ -72,7 +72,7 @@ Leather::Leather(Inventory* p, int stack) : Resource(p){
 
 Selentine::Selentine(Inventory* p, int stack) : Resource(p){
 	setName("Selentine");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 7));
 	setItemID(getNextID());
 	setStack(stack);
@@ -82,7 +82,7 @@ Selentine::Selentine(Inventory* p, int stack) : Resource(p){
 
 Veilron::Veilron(Inventory* p, int stack) : Resource(p){
 	setName("Veilron");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 0, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED));
 	setItemID(getNextID());
 	setStack(stack);
@@ -92,7 +92,7 @@ Veilron::Veilron(Inventory* p, int stack) : Resource(p){
 
 Neithal::Neithal(Inventory* p, int stack) : Resource(p){
 	setName("Neithal");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 1));
 	setItemID(getNextID());
 	setStack(stack);
@@ -102,7 +102,7 @@ Neithal::Neithal(Inventory* p, int stack) : Resource(p){
 
 Leenspar::Leenspar(Inventory* p, int stack) : Resource(p){
 	setName("Leenspar");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 4));
 	setItemID(getNextID());
 	setStack(stack);
@@ -112,7 +112,7 @@ Leenspar::Leenspar(Inventory* p, int stack) : Resource(p){
 
 Theyril::Theyril(Inventory* p, int stack) : Resource(p){
 	setName("Theyril");
-	setWeight(0.1);
+	setWeight(float(0.1));
 	setSymbol(new Symbol('*', 15));
 	setItemID(getNextID());
 	setStack(stack);

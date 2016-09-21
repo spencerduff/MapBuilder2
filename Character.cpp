@@ -13,7 +13,7 @@ Character::Character(Map* m){
 	currMap = m;
 	v.setNULL();
 
-	modifiers.push_back(new RegenerationModifier(1, .10, this, true));
+	modifiers.push_back(new RegenerationModifier(1, float(.10), this, true));
 
 }
 
@@ -96,7 +96,7 @@ Spell* Character::getSpell(){
 	cout << "Which spell would you like to cast? Q to not cast any." << endl;
 	char input = _getch();
 	if (input == 'Q') return NULL;
-	int pos = spellbook->parsePosInSpellbook(input);
+	unsigned int pos = spellbook->parsePosInSpellbook(input);
 	if (pos < spellbook->spellList.size()){
 		Spell *temp = spellbook->spellList[pos];
 		return temp;
@@ -181,7 +181,7 @@ void Character::examineItem(){
 	cout << "Which item would you like to examine? Q to not examine any. " << endl << endl;
 	char input = _getch();
 	if (input == 'Q') return;
-	int pos = backpack->parsePosInBackpack(input);
+	unsigned int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
 		temp->examine();
@@ -194,7 +194,7 @@ void Character::putOnGear(){
 	backpack->printInv();
 	cout << "Press Q to not use an Item." << endl;
 	char input = _getch();
-	int pos = backpack->parsePosInBackpack(input);
+	unsigned int pos = backpack->parsePosInBackpack(input);
 	if (pos < backpack->inventory.size()){
 		Item *temp = backpack->inventory[pos];
 		bool result = false;
@@ -255,7 +255,7 @@ void Character::calculateMeleeDamage(Character* c){
 
 	float calcHits = this->paperdoll->primary->getSpeed();
 	calcHits *= (this->stats->getQuick() / 10);
-	int hits = calcHits;
+	int hits = int(calcHits);
 	if (calcHits < 1)
 		hits = 1;
 

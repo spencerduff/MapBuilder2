@@ -37,7 +37,7 @@ public:
 	// Overridden function of Item that prints out details about the armor
 	void examine() override;
 	// Decrements durability. Need to implement a check for deletion.
-	void decrementDura(){ this->dura -= .10; }
+	void decrementDura(){ this->dura -= float(.10); }
 
 	// Overridden function of Item that adds the armor to the correct spot on the enchanting table.
 	void addToEnchantingTable(Thaumaturgy *t) override;

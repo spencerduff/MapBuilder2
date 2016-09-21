@@ -98,7 +98,7 @@ Bile::Bile(Inventory* p, float iquality, int istack) : EnchantingMat(bile, iqual
 	ss << " Bile";
 	setName(ss.str());
 	setSymbol(new Symbol('?', 14));
-	setWeight(0.01);
+	setWeight(float(0.01));
 	totWeight = getWeight()*stack;
 	setItemID(getNextID());
 }
@@ -114,7 +114,7 @@ Cinder::Cinder(Inventory* p, float iquality, int istack) : EnchantingMat(cinder,
 	ss << " Cinder";
 	setName(ss.str());
 	setSymbol(new Symbol('?', 8));
-	setWeight(0.01);
+	setWeight(float(0.01));
 	totWeight = getWeight()*stack;
 	setItemID(getNextID());
 }
@@ -130,7 +130,7 @@ Darktaint::Darktaint(Inventory* p, float iquality, int istack) : EnchantingMat(d
 	ss << " Darktaint";
 	setName(ss.str());
 	setSymbol(new Symbol('?', 1));
-	setWeight(0.01);
+	setWeight(float(0.01));
 	totWeight = getWeight()*stack;
 	setItemID(getNextID());
 }
@@ -146,7 +146,7 @@ Tooth::Tooth(Inventory* p, float iquality, int istack) : EnchantingMat(tooth, iq
 	ss << " Tooth";
 	setName(ss.str());
 	setSymbol(new Symbol('?', 6));
-	setWeight(0.01);
+	setWeight(float(0.01));
 	totWeight = getWeight()*stack;
 	setItemID(getNextID());
 }
@@ -158,7 +158,7 @@ Item* Tooth::clone(){
 Numen::Numen(Inventory* p, int istack) : EnchantingCatalyst(numen, istack, p){
 	setName("Numen");
 	setSymbol(new Symbol('?', 13));
-	setWeight(0.05);
+	setWeight(float(0.05));
 	totWeight = getWeight()*stack;
 	setItemID(getNextID());
 }

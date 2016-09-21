@@ -62,7 +62,7 @@ void MapTile::printTile(){
 }
 
 void MapTile::clearGraves(){
-	for (int i = 0; i < underTiles.size(); i++){
+	for (unsigned int i = 0; i < underTiles.size(); i++){
 		if (underTiles[i]->getSymbol() == '&'){
 			underTiles.erase(underTiles.begin() + i);
 		}
@@ -70,7 +70,7 @@ void MapTile::clearGraves(){
 }
 
 void MapTile::removeChar(Symbol* c){
-	for (int i = 0; i < underTiles.size(); i++){
+	for (unsigned int i = 0; i < underTiles.size(); i++){
 		if (underTiles[i] == c){
 			underTiles.erase(underTiles.begin() + i);
 		}

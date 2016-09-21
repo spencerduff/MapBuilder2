@@ -86,8 +86,8 @@ Leafblade::Leafblade(Inventory* p) : Weapon(p){
 	setName("Leafblade");
 	setWeight(0.0);
 	setSymbol(new Symbol('/', 2));
-	damage = 0.26;
-	speed = 0.6;
+	damage = float(0.26);
+	speed = float(0.6);
 	duraMax = 999.00;
 	dura = duraMax;
 	maker = "The World";
@@ -106,10 +106,10 @@ Shortsword::Shortsword(Inventory* p) : Weapon(p){
 	setName("Short Sword");
 	setWeight(1.0);
 	setSymbol(new Symbol('/', 8));
-	damage = 0.31;
-	speed = 0.6;
+	damage = float(0.31);
+	speed = float(0.6);
 	duraMax = 51.00;
-	dura = (rand() % (int)duraMax) + 1.0;
+	dura = float((rand() % (int)duraMax) + 1.0);
 	maker = "The World";
 	weaponRank = 0;
 	setItemID(getNextID());
@@ -139,7 +139,7 @@ TrollStaff::TrollStaff(Inventory* p) : Staff(p){
 	damage = 0.00;
 	speed = 0.5;
 	duraMax = 51.00;
-	dura = (rand() % (int)duraMax) + 1.0;
+	dura = float((rand() % (int)duraMax) + 1.0);
 	maker = "The World";
 	weaponRank = 0;
 	setItemID(getNextID());

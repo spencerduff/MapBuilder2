@@ -1,7 +1,7 @@
 #include "MobSpawn.h"
 
 void MobSpawn::removeMe(Character* c){
-	for (int i = 0; i < spawns.size(); i++){
+	for (unsigned int i = 0; i < spawns.size(); i++){
 		if (spawns[i] == c){
 			swap(spawns[i], spawns.back());
 			spawns.pop_back();

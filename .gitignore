@@ -49,3 +49,10 @@ Temporary Items
 *.vcxproj
 MapBuilder.vcxproj.filters
 Debug/
+MapBuilderGit/MapBuilderGit.vcxproj.filters
+*.suo
+MapBuilderGit/MapBuilderGit.sln
+MapBuilderGit/MapBuilderGit.sdf
+test/test.sdf
+*.sln
+test/test.vcxproj.filters

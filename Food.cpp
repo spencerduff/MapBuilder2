@@ -42,7 +42,7 @@ Item* Food::clone(){
 void Food::eat(Character* c){
 	if (!c->getFoodSickness()){
 		stack--;
-		RegenerationModifier* temp = new RegenerationModifier(turns, .15, c);
+		RegenerationModifier* temp = new RegenerationModifier(turns, float(.15), c);
 		if (stack <= 0)
 			delete this;
 

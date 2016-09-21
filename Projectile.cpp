@@ -9,8 +9,8 @@ Projectile::Projectile(Velocity iV, Damage d, bool iaoe, int x, int y, Map* iM){
 	m = iM;
 	endX = (iV.xSpeed*iV.xDir + x);
 	endY = (iV.ySpeed*iV.yDir + y);
-	truePosX = x;
-	truePosY = y;
+	truePosX = static_cast<float>(x);
+	truePosY = static_cast<float>(y);
 }
 
 Projectile::~Projectile(){
@@ -171,88 +171,88 @@ void StormblastProj::activate(){
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = -1;
 		v.yDir = -1;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX, posY - 1);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = 0;
 		v.yDir = -1;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX + 1, posY - 1);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = 1;
 		v.yDir = -1;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX - 1, posY);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = -1;
 		v.yDir = 0;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX + 1, posY);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = 1;
 		v.yDir = 0;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX - 1, posY + 1);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = -1;
 		v.yDir = 1;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX + 1, posY + 1);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = 1;
 		v.yDir = 1;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	temp = m->findChar(posX, posY + 1);
 	if (temp != NULL){
 		// Set velocity away from impact.
 		Velocity v;
-		v.speed = damage.damage;
+		v.speed = int(damage.damage);
 		v.xDir = 0;
 		v.yDir = 1;
-		v.xSpeed = damage.damage;
-		v.ySpeed = damage.damage;
+		v.xSpeed = int(damage.damage);
+		v.ySpeed = int(damage.damage);
 		temp->setVelocity(v);
 	}
 	m->explodeProj(this);

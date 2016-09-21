@@ -155,11 +155,11 @@ DragonChest::DragonChest(Inventory* p) : Armor(p){
 	maker = "The World";
 	setItemID(getNextID());
 	piece = chest;
-	prots.protAcid = prots.protCold = prots.protFire = prots.protHoly = prots.protUnholy = 7.69;
-	prots.protBludgeoning = prots.protImpact = 3.59;
-	prots.protLightning = 5.71;
-	prots.protPiercing = 4.05;
-	prots.protSlashing = 4.50;
+	prots.protAcid = prots.protCold = prots.protFire = prots.protHoly = prots.protUnholy = float(7.69);
+	prots.protBludgeoning = prots.protImpact = float(3.59);
+	prots.protLightning = float(5.71);
+	prots.protPiercing = float(4.05);
+	prots.protSlashing = float(4.50);
 	prots.protArcane = 0;
 	equipped = false;
 }

@@ -119,7 +119,7 @@ void Thaumaturgy::craft(Character* c){
 				return;
 			}
 		}
-		int pos = c->getBackpack()->parsePosInBackpack(input);
+		unsigned int pos = c->getBackpack()->parsePosInBackpack(input);
 		if (pos < c->getBackpack()->inventory.size()){
 			Item *temp = c->getBackpack()->inventory[pos];
 			temp->addToEnchantingTable(this);
@@ -131,25 +131,25 @@ void Thaumaturgy::craft(Character* c){
 // Then attempt to apply that enchant to the item.
 void Thaumaturgy::enchant(EnchantingMat* m1, EnchantingMat* m2, EnchantingMat* m3, EnchantingCatalyst* c, Item* i){
 	vector<Enchant*> possibleEnchants = enchants;
-	for (unsigned int i = 0; i < possibleEnchants.size(); i++){
-		if (possibleEnchants[i]->getReq1() != m1->getMat() && possibleEnchants[i]->getReq2() != m1->getMat() && possibleEnchants[i]->getReq3() != m1->getMat()){
-			possibleEnchants.erase(possibleEnchants.begin() + i);
-			i--;
+	for (unsigned int j = 0; j < possibleEnchants.size(); j++){
+		if (possibleEnchants[j]->getReq1() != m1->getMat() && possibleEnchants[j]->getReq2() != m1->getMat() && possibleEnchants[j]->getReq3() != m1->getMat()){
+			possibleEnchants.erase(possibleEnchants.begin() + j);
+			j--;
 			continue;
 		}
-		if (possibleEnchants[i]->getReq1() != m2->getMat() && possibleEnchants[i]->getReq2() != m2->getMat() && possibleEnchants[i]->getReq3() != m2->getMat()){
-			possibleEnchants.erase(possibleEnchants.begin() + i);
-			i--;
+		if (possibleEnchants[j]->getReq1() != m2->getMat() && possibleEnchants[j]->getReq2() != m2->getMat() && possibleEnchants[j]->getReq3() != m2->getMat()){
+			possibleEnchants.erase(possibleEnchants.begin() + j);
+			j--;
 			continue;
 		}
-		if (possibleEnchants[i]->getReq1() != m3->getMat() && possibleEnchants[i]->getReq2() != m3->getMat() && possibleEnchants[i]->getReq3() != m3->getMat()){
-			possibleEnchants.erase(possibleEnchants.begin() + i);
-			i--;
+		if (possibleEnchants[j]->getReq1() != m3->getMat() && possibleEnchants[j]->getReq2() != m3->getMat() && possibleEnchants[j]->getReq3() != m3->getMat()){
+			possibleEnchants.erase(possibleEnchants.begin() + j);
+			j--;
 			continue;
 		}
-		if (possibleEnchants[i]->getCata() != c->getCatalyst()){
-			possibleEnchants.erase(possibleEnchants.begin() + i);
-			i--;
+		if (possibleEnchants[j]->getCata() != c->getCatalyst()){
+			possibleEnchants.erase(possibleEnchants.begin() + j);
+			j--;
 			continue;
 		}
 	}

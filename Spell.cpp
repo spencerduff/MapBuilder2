@@ -72,7 +72,7 @@ void HealSelf::setTurns(){
 }
 
 void HealSelf::setMagnitude(){
-	magnitude = 5.0 + (level / 30);
+	magnitude = float(5.0 + (level / 30));
 	magnitude += (owner->getStats()->getIntel() / 10);
 }
 
@@ -97,8 +97,8 @@ Stormblast::Stormblast(Character* c){
 }
 
 void Stormblast::setMagnitude(){
-	magnitude = 5 + (level * .1);
-	magnitude = floor(magnitude + .5);
+	magnitude = float(5 + (level * .1));
+	magnitude = float(floor(magnitude + .5));
 }
 
 void Stormblast::cast(float staffMag, Map* m){
