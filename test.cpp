@@ -41,9 +41,11 @@ int main(){
 	char input;
 
 	while (true){
-		input = _getch();	
+		input = _getch();
+		if (input == '?')
+			HelpMenu a;
 		b->movePlayerChar(input);
-		if (input == 27)
+		if (input == 27) //ESC
 			SaveState::save(b);
 		if (isGUI(input)){
 			continue;
@@ -56,7 +58,7 @@ int main(){
 }
 
 bool isGUI(char a){
-	if (a == 'p' || a == 'i' || a == 'e' || a == 'I' || a == 's' || a == 'S')
+	if (a == 'p' || a == 'i' || a == 'e' || a == 'I' || a == 's' || a == 'S' || a == '?')
 		return true;
 	else return false;
 }

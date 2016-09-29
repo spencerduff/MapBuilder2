@@ -13,6 +13,7 @@
 #include "Velocity.h"
 #include "MobSpawn.h"
 #include "Food.h"
+#include "HelpMenu.h"
 
 class MobSpawn;
 class Spellbook;
