@@ -8,6 +8,8 @@ class World{
 public:
 	World();
 
+	~World();
+
 	// Places the Character to the side of a map.
 	void placeChar(Character* c, char side = '<'){ currLand->placeChar(c, side); }
 	// Places a Character randomly on currLand's currMap.

@@ -6,12 +6,33 @@ World::World(){
 	for (int i = 0; i < 3; i++){
 		lands[i] = new Land*[5];
 	}
+	for (int i = 0; i < 3; ++i){
+		for (int j = 0; j < 5; ++j){
+			lands[i][j] = NULL;
+		}
+	}
 	lands[2][3] = new OrkLands();
 	lands[2][2] = new HumanLands();
 	xLandPos = 2;
 	yLandPos = 3;
 	currLand = lands[xLandPos][yLandPos];
 
+}
+
+World::~World(){
+	for (int i = 0; i < 3; ++i){
+		for (int j = 0; j < 5; ++j){
+			if (lands[i][j] != NULL){
+				delete lands[i][j];
+				lands[i][j] = NULL;
+			}
+		}
+		delete[] lands[i];
+		lands[i] = NULL;
+	}
+	delete[] lands;
+	lands = NULL;
+	currLand = NULL;
 }
 
 void World::moveLands(){

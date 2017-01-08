@@ -13,6 +13,7 @@ public:
 	Map* currMap;
 	Land();
 	Land(string l);
+	~Land();
 
 	// Used to move the Player Character between maps.
 	void moveMaps();

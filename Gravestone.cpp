@@ -12,7 +12,9 @@ Gravestone::Gravestone(Character *c){
 
 Gravestone::~Gravestone(){
 	delete grave;
-	grave = NULL;
+	grave = nullptr;
+	delete marker;
+	marker = nullptr;
 }
 
 bool Gravestone::lootGrave(Character* c){

@@ -43,7 +43,6 @@ protected:
 class FireballProj : public Projectile{
 public:
 	FireballProj(Velocity iV, Damage d, int x, int y, Map* iM);
-	~FireballProj();
 	// Moves the FireballProj then sees if it was activated. Returns false if activated.
 	bool tick() override;
 

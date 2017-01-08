@@ -27,6 +27,66 @@ Map::Map(){
 
 }
 
+Map::~Map(){
+	for (auto it = graves.begin(); it < graves.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+	for (auto it = crafting.begin(); it < crafting.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+	for (auto it = projectiles.begin(); it < projectiles.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+	for (auto it = spawns.begin(); it < spawns.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+
+	chars.clear();
+	graves.clear();
+	crafting.clear();
+	projectiles.clear();
+	spawns.clear();
+	
+	delete[] rooms;
+	rooms = nullptr;
+
+	for (int i = 0; i < ySize; ++i){
+		for (int j = 0; j < xSize; ++j){
+			if (map[i][j] != nullptr){
+				delete map[i][j];
+				map[i][j] = nullptr;
+			}
+		}
+		delete[] map[i];
+		map[i] = nullptr;
+	}
+	delete[] map;
+	map = nullptr;
+
+	for (int i = 0; i < numOfTrees; ++i){
+		if (trees[i] != nullptr){
+			delete[] trees[i];
+			trees[i] = nullptr;
+		}
+	}
+	delete[] trees;
+	trees = nullptr;
+
+
+	for (int i = 0; i < numOfRocks; ++i){
+		if (rocks[i] != nullptr){
+			delete[] rocks[i];
+			rocks[i] = nullptr;
+		}
+	}
+	delete[] rocks;
+	rocks = nullptr;
+}
+
 void Map::makeExits(){
 	int iter = 0, iter2 = 0, iter3 = 0, iter4 = 0;
 
@@ -132,7 +192,7 @@ void Map::placeRooms(int numOfRooms){
 			int k = 0, l = 0;
 			for (int i = y; i < y + roomToPlaceSize; i++){
 				for (int j = x; j < x + roomToPlaceSize; j++){
-					map[i][j]->setGroundTile(rooms[iter].getBoard()[k][l].getGroundTile());
+					map[i][j]->setGroundTile(rooms[iter].getBoard()[k][l]->getGroundTile());
 					k++;
 				}
 				k = 0;
@@ -445,6 +505,7 @@ void Map::removeProjectile(Projectile* p){
 			swap(projectiles[i], projectiles.back());
 			projectiles.pop_back();
 			delete p;
+			p = nullptr;
 		}
 	}
 }

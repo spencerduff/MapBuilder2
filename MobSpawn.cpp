@@ -1,5 +1,13 @@
 #include "MobSpawn.h"
 
+MobSpawn::~MobSpawn(){
+	for (auto it = spawns.begin(); it < spawns.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+	spawns.clear();
+}
+
 void MobSpawn::removeMe(Character* c){
 	for (unsigned int i = 0; i < spawns.size(); i++){
 		if (spawns[i] == c){

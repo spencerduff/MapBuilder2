@@ -6,6 +6,22 @@ Land::Land(){
 	xMapPos = yMapPos = 2;
 }
 
+Land::~Land(){
+	for (int i = 0; i < landSize; ++i){
+		for (int j = 0; j < landSize; ++j){
+			if (maps[i][j] != NULL){
+				delete maps[i][j];
+				maps[i][j] = NULL;
+			}
+		}
+		delete[] maps[i];
+		maps[i] = NULL;
+	}
+	delete[] maps;
+	maps = NULL;
+	currMap = NULL;
+}
+
 //If PChar is on an exit, move him to the next map
 void Land::moveMaps(){
 	if (currMap->getPCharGroundTile()->getSymbol() == '<'){

@@ -10,6 +10,7 @@ using namespace std;
 class Spellbook{
 public:
 	Spellbook(Character* c);
+	~Spellbook();
 	// Teaches the owner a new Spell.
 	void learn(Spell* s);
 

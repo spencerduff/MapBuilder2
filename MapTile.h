@@ -13,6 +13,7 @@ public:
 	MapTile();
 	MapTile(int x, int y);
 	MapTile(Symbol* gTile);
+	~MapTile();
 
 	// Getters
 	Symbol* getGroundTile(){ return groundTile; }

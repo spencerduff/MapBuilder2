@@ -10,6 +10,8 @@ public:
 	// Set the position on the map of the crafting station
 	void setPos(int x, int y);
 
+	virtual ~CraftingStation();
+
 	// Getters
 	int getXpos(){ return posX; }
 	int getYpos(){ return posY; }
@@ -30,6 +32,7 @@ class Thaumaturgy : public CraftingStation{
 public:
 	// Creates a new enchanting table. Pushes back all possible enchants it can do.
 	Thaumaturgy();
+	~Thaumaturgy();
 	
 	// Checks if the given mats is a possible enchant. Then enchants the item with the enchant.
 	void enchant(EnchantingMat* m1, EnchantingMat* m2, EnchantingMat* m3, EnchantingCatalyst* c, Item* i);

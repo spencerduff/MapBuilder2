@@ -29,6 +29,7 @@ public:
 	// Constructs the map. Initializes map and sets the borders.
 	// Makes a number of rooms based on the avg room size. Then calls placeRooms and placeDirt.
 	Map();
+	virtual ~Map();
 
 	// Finds the side of the Map and places the Character there. Used for movement through Maps.
 	void placeChar(Character* c, char side = '<');

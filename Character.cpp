@@ -20,6 +20,20 @@ Character::Character(Map* m){
 Character::~Character(){
 	delete stats;
 	delete ai;
+	delete spellbook;
+	delete character;
+
+	for (auto it = modifiers.begin(); it != modifiers.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+
+	modifiers.clear();
+
+	stats = nullptr;
+	ai = nullptr;
+	spellbook = nullptr;
+	character = nullptr;
 }
 
 void Character::setPos(int x, int y){

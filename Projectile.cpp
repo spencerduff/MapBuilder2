@@ -15,7 +15,7 @@ Projectile::Projectile(Velocity iV, Damage d, bool iaoe, int x, int y, Map* iM){
 
 Projectile::~Projectile(){
 	delete symbol;
-	symbol = NULL;
+	symbol = nullptr;
 }
 
 bool Projectile::iterPos(){
@@ -81,9 +81,6 @@ FireballProj::FireballProj(Velocity iV, Damage d, int x, int y, Map* iM) : Proje
 	if (range > 75)
 		range = 75;
 	symbol = new Symbol('*', FOREGROUND_RED | FOREGROUND_INTENSITY, BACKGROUND_GREEN | BACKGROUND_RED);
-}
-
-FireballProj::~FireballProj(){
 }
 
 bool FireballProj::tick(){

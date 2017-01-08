@@ -14,6 +14,8 @@ Item::Item(Inventory* p){
 
 Item::~Item(){
 	parent->removeItem(this);
+	delete symbol;
+	symbol = nullptr;
 }
 
 Item::Item(const Item &obj){

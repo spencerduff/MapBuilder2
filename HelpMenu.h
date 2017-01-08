@@ -8,7 +8,7 @@ public:
 	~HelpMenu();
 
 private:
-
+	void printMainScreen();
 
 };
 

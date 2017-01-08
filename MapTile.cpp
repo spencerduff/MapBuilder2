@@ -25,6 +25,22 @@ MapTile::MapTile(Symbol* gTile){
 	showingTile = groundTile;
 }
 
+Symbol *groundTile;
+Symbol *showingTile;
+vector<Symbol*> underTiles;
+
+MapTile::~MapTile(){
+	for (auto it = underTiles.begin(); it != underTiles.end() && underTiles.size() > 1; ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+	underTiles.clear();
+	if (groundTile != nullptr){
+		delete groundTile;
+		groundTile = nullptr;
+	}
+}
+
 void MapTile::setGroundTile(Symbol* gTile){
 	groundTile = gTile;
 	if (showingTile == NULL || isGroundTile()){

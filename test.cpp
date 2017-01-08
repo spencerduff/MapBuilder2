@@ -1,3 +1,5 @@
+#include <vld.h>
+
 #include "World.h"
 #include "SaveState.h"
 #include "PlayerCharacter.h"
@@ -46,13 +48,15 @@ int main(){
 			HelpMenu a;
 		b->movePlayerChar(input);
 		if (input == 27) //ESC
-			SaveState::save(b);
+			break;
 		if (isGUI(input)){
 			continue;
 		}
 		b->updateMovement();
 		//b->printMap();
 	}
+
+	delete b;
 
 	return 0;
 }

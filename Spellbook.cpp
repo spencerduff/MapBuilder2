@@ -7,6 +7,14 @@ Spellbook::Spellbook(Character* c){
 	owner = c;
 }
 
+Spellbook::~Spellbook(){
+	for (auto i = spellList.begin(); i != spellList.end(); ++i){
+		delete (*i);
+		*i = nullptr;
+	}
+	spellList.clear();
+}
+
 void Spellbook::learn(Spell* s){
 	spellList.push_back(s);
 }

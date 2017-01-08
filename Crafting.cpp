@@ -12,6 +12,11 @@ void CraftingStation::setPos(int x, int y){
 	posY = y;
 }
 
+CraftingStation::~CraftingStation(){
+	delete symbol;
+	symbol = nullptr;
+}
+
 Thaumaturgy::Thaumaturgy(){
 	name = "Thaumaturgist's Table";
 	symbol = new Symbol('%', 14, BACKGROUND_GREEN | BACKGROUND_RED);
@@ -19,6 +24,14 @@ Thaumaturgy::Thaumaturgy(){
 	posY = NULL;
 
 	enchants.push_back(new Keen());
+}
+
+Thaumaturgy::~Thaumaturgy(){
+	for (auto it = enchants.begin(); it != enchants.end(); ++it){
+		delete (*it);
+		*it = nullptr;
+	}
+	enchants.clear();
 }
 
 void Thaumaturgy::setCatalyst(EnchantingCatalyst* i){

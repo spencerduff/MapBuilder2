@@ -7,6 +7,7 @@
 
 class MobSpawn{
 public:
+	~MobSpawn();
 	void removeMe(Character* c);
 	virtual void spawnToCapacity() = 0;
 
