@@ -1,9 +1,9 @@
 #include "MobSpawn.h"
 
 MobSpawn::~MobSpawn(){
-	for (auto it = spawns.begin(); it < spawns.end(); ++it){
+	for (auto it = spawns.begin(); it < spawns.end();){
 		delete (*it);
-		*it = nullptr;
+		it = spawns.begin();
 	}
 	spawns.clear();
 }
@@ -15,8 +15,6 @@ void MobSpawn::removeMe(Character* c){
 			spawns.pop_back();
 		}
 	}
-	if (spawns.size() == 0)
-		spawnToCapacity();
 }
 
 GoblinSpawn::GoblinSpawn(Map* m){

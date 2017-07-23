@@ -1,4 +1,4 @@
-#include <vld.h>
+//#include <vld.h>
 
 #include "World.h"
 #include "SaveState.h"
@@ -28,7 +28,6 @@ int main(){
 
 
 		b->placeChar(c);
-		b->placeRandomCrafting(new Thaumaturgy());
 
 	}
 	else {

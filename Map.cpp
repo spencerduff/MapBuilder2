@@ -30,19 +30,15 @@ Map::Map(){
 Map::~Map(){
 	for (auto it = graves.begin(); it < graves.end(); ++it){
 		delete (*it);
-		*it = nullptr;
 	}
 	for (auto it = crafting.begin(); it < crafting.end(); ++it){
 		delete (*it);
-		*it = nullptr;
 	}
 	for (auto it = projectiles.begin(); it < projectiles.end(); ++it){
 		delete (*it);
-		*it = nullptr;
 	}
 	for (auto it = spawns.begin(); it < spawns.end(); ++it){
 		delete (*it);
-		*it = nullptr;
 	}
 
 	chars.clear();
@@ -837,6 +833,8 @@ OrkMap::OrkMap(bool starter) : Map(){
 
 	this->placeRandomChar(new OrkGuide(this));
 
+	this->placeRandomCrafting(new Thaumaturgy());
+
 }
 
 HumanMap::HumanMap() : Map(){
@@ -868,5 +866,7 @@ HumanMap::HumanMap(bool starter) : Map(){
 	placeDirt();
 
 	makeExits();
+
+	this->placeRandomCrafting(new Thaumaturgy());
 
 }

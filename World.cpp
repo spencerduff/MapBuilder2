@@ -35,6 +35,10 @@ World::~World(){
 	currLand = NULL;
 }
 
+void World::placeChar(Character* c, char side){
+	currLand->placeChar(c, side);
+}
+
 void World::moveLands(){
 	if (currLand->currMap->getPCharGroundTile()->getSymbol() == '<' && currLand->getXMapPos() == 0){
 		cout << "You have moved to ";
@@ -45,12 +49,9 @@ void World::moveLands(){
 		currLand = lands[--xLandPos][yLandPos];
 		currLand->setXMapPos(newXMapPos);
 		currLand->setYMapPos(currMapYPos);
+		currLand->movedToNewLand();
 		currLand->currMap = currLand->maps[newXMapPos][currMapYPos];
 		placeChar(temp, '>');
-		cout << currLand->getLand() << "." << endl;
-		system("CLS");
-		printMap();
-		return;
 	}
 	else if (currLand->currMap->getPCharGroundTile()->getSymbol() == 'v' && currLand->getYMapPos() == 0){
 		cout << "You have moved to ";
@@ -61,12 +62,9 @@ void World::moveLands(){
 		currLand = lands[xLandPos][--yLandPos];
 		currLand->setXMapPos(currMapXPos);
 		currLand->setYMapPos(newYMapPos);
+		currLand->movedToNewLand();
 		currLand->currMap = currLand->maps[currMapXPos][newYMapPos];
 		placeChar(temp, '^');
-		cout << currLand->getLand() << "." << endl;
-		system("CLS");
-		printMap();
-		return;
 	}
 	else if (currLand->currMap->getPCharGroundTile()->getSymbol() == '^' && currLand->getYMapPos() == currLand->getLandSize() - 1){
 		cout << "You have moved to ";
@@ -77,12 +75,9 @@ void World::moveLands(){
 		currLand = lands[xLandPos][++yLandPos];
 		currLand->setXMapPos(currMapXPos);
 		currLand->setYMapPos(newYMapPos);
+		currLand->movedToNewLand();
 		currLand->currMap = currLand->maps[currMapXPos][newYMapPos];
 		placeChar(temp, 'v');
-		cout << currLand->getLand() << "." << endl;
-		system("CLS");
-		printMap();
-		return;
 	}
 	else if (currLand->currMap->getPCharGroundTile()->getSymbol() == '>' && currLand->getYMapPos() == currLand->getLandSize() - 1){
 		cout << "You have moved to ";
@@ -93,14 +88,16 @@ void World::moveLands(){
 		currLand = lands[++xLandPos][yLandPos];
 		currLand->setXMapPos(newXMapPos);
 		currLand->setYMapPos(currMapYPos);
+		currLand->movedToNewLand();
 		currLand->currMap = currLand->maps[newXMapPos][currMapYPos];
 		placeChar(temp, '<');
-		cout << currLand->getLand() << "." << endl;
-		system("CLS");
-		printMap();
+	}
+	else {
 		return;
 	}
-	else return;
+	cout << currLand->getLand() << "." << endl;
+	system("CLS");
+	printMap();
 }
 
 void World::movePlayerChar(char c) { 

@@ -45,18 +45,24 @@ public:
 	void setXMapPos(int x){ xMapPos = x; }
 	void setYMapPos(int y){ yMapPos = y; }
 
+	void movedToNewLand();
+
 protected:
 	int landSize;
 	int xMapPos, yMapPos;
 	string land;
 
+private:
+	Character* movePlayerCharToNextMap();
+	virtual void createMap(int posX, int posY) = 0;
 };
 
 class OrkLands : public Land{
-
 public:
 	OrkLands();
 
+private:
+	void createMap(int posX, int posY) override;
 };
 
 class HumanLands : public Land{
@@ -64,6 +70,8 @@ class HumanLands : public Land{
 public:
 	HumanLands();
 
+private:
+	void createMap(int posX, int posY) override;
 };
 
 #endif

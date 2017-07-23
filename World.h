@@ -11,7 +11,7 @@ public:
 	~World();
 
 	// Places the Character to the side of a map.
-	void placeChar(Character* c, char side = '<'){ currLand->placeChar(c, side); }
+	void placeChar(Character* c, char side = '<');
 	// Places a Character randomly on currLand's currMap.
 	void placeRandomChar(Character* c){ currLand->placeRandomChar(c); }
 	// Places a CraftingStation randomly on currLand's currMap.

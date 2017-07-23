@@ -7,9 +7,9 @@ Inventory::Inventory(){
 }
 
 Inventory::~Inventory(){
-	for (auto i = inventory.begin(); i < inventory.end(); ++i){
+	for (auto i = inventory.begin(); i < inventory.end();){
 		delete *i;
-		*i = NULL;
+		i = inventory.begin();
 	}
 	inventory.clear();
 }

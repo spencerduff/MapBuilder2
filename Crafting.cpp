@@ -27,9 +27,8 @@ Thaumaturgy::Thaumaturgy(){
 }
 
 Thaumaturgy::~Thaumaturgy(){
-	for (auto it = enchants.begin(); it != enchants.end(); ++it){
+	for (auto it = enchants.begin(); it < enchants.end(); ++it){
 		delete (*it);
-		*it = nullptr;
 	}
 	enchants.clear();
 }
