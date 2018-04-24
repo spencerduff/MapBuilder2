@@ -1,4 +1,8 @@
 #include "Map.h"
+#include "TimeF.h"
+#include "fstream"
+#include <stdlib.h> 
+#include <windows.h>
 
 Map::Map(){
 	avgSize = rooms[0].getAvgSize();
@@ -750,8 +754,18 @@ void Map::placeRocks(int numOfRocks){
 }
 
 void Map::moveNPCs(){
-	for (unsigned int i = 1; i < chars.size(); i++)
+	double total = 0;
+	for (unsigned int i = 1; i < chars.size(); i++){
+		auto start = std::chrono::steady_clock::now();
 		chars[i]->getAI()->move();
+		Sleep(10);
+		auto end = std::chrono::steady_clock::now();
+		total += std::chrono::duration<double, std::nano>(end - start).count();
+	}
+	std::ofstream thinkTimes("think_time.txt", ofstream::app);
+	if (thinkTimes.is_open()){
+		thinkTimes << total - ((chars.size() - 1) * std::chrono::duration<double, std::nano>(10000000).count()) << " " << total / (chars.size() - 1) - std::chrono::duration<double, std::nano>(10000000).count() << "\n";
+	}
 }
 
 bool Map::knockback(Character* c){
