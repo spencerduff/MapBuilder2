@@ -10,11 +10,14 @@ public:
 	~MobSpawn();
 	void removeMe(Character* c);
 	virtual void spawnToCapacity() = 0;
+	int getAgentNum();
 
 protected:
+	int NUM_OF_AGENTS = 250;
 	vector<Character*> spawns;
 	int maxNumOfSpawns;
 	Map* currMap;
+	
 };
 
 class GoblinSpawn : public MobSpawn{

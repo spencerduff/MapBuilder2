@@ -5,7 +5,7 @@
 using namespace std;
 
 CharacterStats::CharacterStats(){
-	currhp = hpMax = 200;
+	currhp = hpMax = 900000;
 	currmana = manaMax = 200;
 	currstam = stamMax = 200;
 

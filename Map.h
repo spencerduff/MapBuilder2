@@ -64,7 +64,8 @@ public:
 
 	// Checks if a position is a collidable groundTile or Character
 	bool checkNotCollidable(int x, int y);
-	bool checkNotCollidableMapTile(int x, int y);
+	bool checkNotCollidableMapTile(int x, int y); 
+	bool checkNotCollidableWithoutPChar(int x, int y);
 
 	// Refreshes the refresh list, then empties it.
 	void refreshNeeded();
@@ -92,6 +93,7 @@ protected:
 
 	// Checks if a char represents a Character
 	bool checkCharacter(char c);
+	bool checkNPC(char c);
 	// Interacts or moves the Character to the given direction.
 	void moveChar(Character* c, char dir);
 	// TODO:

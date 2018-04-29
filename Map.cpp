@@ -28,7 +28,7 @@ Map::Map(){
 		map[0][i]->setGroundTile(new Symbol('_', 8));
 		map[ySize - 1][i]->setGroundTile(new Symbol('_', 8));
 	}
-
+	
 }
 
 Map::~Map(){
@@ -333,6 +333,10 @@ bool Map::checkNotCollidable(int x, int y){
 	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol()) && !checkCharacter(map[y][x]->getShowingTile()->getSymbol());
 }
 
+bool Map::checkNotCollidableWithoutPChar(int x, int y){
+	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol()) && !checkNPC(map[y][x]->getShowingTile()->getSymbol());
+}
+
 bool Map::checkNotCollidableMapTile(int x, int y){
 	return checkNotCollidable(map[y][x]->getGroundTile()->getSymbol());
 }
@@ -345,6 +349,12 @@ bool Map::checkNotCollidable(char c){
 
 bool Map::checkCharacter(char c){
 	if (c == '@' || c == 'g' || c == 'O')
+		return true;
+	else return false;
+}
+
+bool Map::checkNPC(char c){
+	if (c == 'g' || c == 'O')
 		return true;
 	else return false;
 }
@@ -758,13 +768,13 @@ void Map::moveNPCs(){
 	for (unsigned int i = 1; i < chars.size(); i++){
 		auto start = std::chrono::steady_clock::now();
 		chars[i]->getAI()->move();
-		Sleep(10);
+		//Sleep(10);
 		auto end = std::chrono::steady_clock::now();
 		total += std::chrono::duration<double, std::nano>(end - start).count();
 	}
 	std::ofstream thinkTimes("think_time.txt", ofstream::app);
 	if (thinkTimes.is_open()){
-		thinkTimes << total - ((chars.size() - 1) * std::chrono::duration<double, std::nano>(10000000).count()) << " " << total / (chars.size() - 1) - std::chrono::duration<double, std::nano>(10000000).count() << "\n";
+		thinkTimes << total /* - ((chars.size() - 1) * std::chrono::duration<double, std::nano>(10000000).count()) */<< " " << total / (chars.size() - 1) /* - std::chrono::duration<double, std::nano>(10000000).count() */ << "\n";
 	}
 }
 
@@ -834,7 +844,6 @@ OrkMap::OrkMap() : Map(){
 	placeDirt();
 
 	makeExits();
-
 }
 
 OrkMap::OrkMap(bool starter) : Map(){

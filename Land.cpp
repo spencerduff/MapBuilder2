@@ -1,4 +1,5 @@
 #include "Land.h"
+#include "fstream"
 
 Land::Land(){
 	land = "";
@@ -48,8 +49,16 @@ void OrkLands::createMap(int posX, int posY){
 	}
 	else{
 		maps[posX][posY] = new OrkMap();
-		maps[posX][posY]->addMobSpawn(new GoblinSpawn(maps[posX][posY]));
+		GoblinSpawn *gs = new GoblinSpawn(maps[posX][posY]);
+		maps[posX][posY]->addMobSpawn(gs);
+		std::ofstream mobThinkTimes("think_time.txt");
+		if (mobThinkTimes.is_open()){
+			mobThinkTimes << "Total Number of monsters: " << gs->getAgentNum() << "\n";
+			mobThinkTimes << "Total Monster Think Time | Per Monster Think Time \n";
+		}
+		mobThinkTimes.close();
 	}
+	
 }
 
 void HumanLands::createMap(int posX, int posY){

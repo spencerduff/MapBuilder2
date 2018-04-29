@@ -17,9 +17,13 @@ void MobSpawn::removeMe(Character* c){
 	}
 }
 
+int MobSpawn::getAgentNum(){
+	return NUM_OF_AGENTS;
+}
+
 GoblinSpawn::GoblinSpawn(Map* m){
 	currMap = m;
-	maxNumOfSpawns = 5 + (rand()%6);
+	maxNumOfSpawns = NUM_OF_AGENTS;
 	spawnToCapacity();
 }
 

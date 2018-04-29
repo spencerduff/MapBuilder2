@@ -682,13 +682,14 @@ Goblin::Goblin(Map* m, MobSpawn* ms) : NPC(m){
 	stats->setQuick(15);
 	stats->setIntel(10);
 	stats->setWis(10);
-	ai = new MeleeAI(m, this);
+	ai = new SmartAI(m, this, 10);
 	parentSpawn = ms;
 
 }
 
 Goblin::~Goblin(){
 	parentSpawn->removeMe(this);
+	parentSpawn->spawnToCapacity();
 }
 
 
@@ -711,7 +712,7 @@ OrkGuide::OrkGuide(Map* m) : TalkingNPC(m){
 	stats->setQuick(15);
 	stats->setIntel(10);
 	stats->setWis(10);
-	ai = new TalkingAI(m, this);
+	ai = new TalkingAI(m, this, 10);
 
 }
 
